@@ -16,7 +16,10 @@ class SplashScreen extends GetView<SplashScreenController> {
           // ignore: prefer_const_literals_to_create_immutables
           children: [
             const Center(
-              child: Text("İlk Sayfa"),
+              child: Text(
+                "İlk Sayfa",
+                style: TextStyle(fontFamily: "Rubik Regular"),
+              ),
             )
           ],
         ));
