@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "165191797199",
+    "firebase_url": "https://doxif-2a9f5-default-rtdb.firebaseio.com",
+    "project_id": "doxif-2a9f5",
+    "storage_bucket": "doxif-2a9f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:165191797199:android:124e4ee89b64ea5f08aaba",
+        "android_client_info": {
+          "package_name": "com.example.tutorai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "165191797199-8r05brr3e83ng9d1vo9lpr0oqfvv77sp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwJjnxbFQHXKaz_4QgnugGgvpxRnWxw_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "165191797199-8r05brr3e83ng9d1vo9lpr0oqfvv77sp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
