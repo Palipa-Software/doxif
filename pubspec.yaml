@@ -41,6 +41,12 @@ dependencies:
   google_fonts: ^3.0.1
   flutter_svg: ^1.1.6
   firebase_core: ^2.5.0
+  flutter_barcode_scanner: ^2.0.0
+  qr_code_scanner: ^1.0.1
+  dotted_border: ^2.0.0+3
+  syncfusion_flutter_datepicker: ^20.4.49
+  intl: ^0.18.0
+  image_picker: ^0.8.6+1
 
 dev_dependencies:
   flutter_test:
