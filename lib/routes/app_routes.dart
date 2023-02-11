@@ -9,4 +9,5 @@ abstract class Routes {
   static const HOME = '/home';
   static const COINS = '/coins';
   static const ANSWER = '/answer';
+  static const MENU = '/menuScreen';
 }
