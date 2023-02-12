@@ -31,9 +31,14 @@ class MyApp extends StatelessWidget {
                 elevation: 0,
               ),
               textTheme: TextTheme(
-                  bodySmall: TextStyle(fontFamily: "Rubik Regular", color: const Color(0xFF7A869A), fontSize: 12.sp),
-                  headlineLarge:
-                      TextStyle(fontFamily: "Rubik Regular", color: const Color(0xFF172B4D), fontSize: 22.sp))),
+                  bodySmall: TextStyle(
+                      fontFamily: "Rubik Regular",
+                      color: const Color(0xFF7A869A),
+                      fontSize: 12.sp),
+                  headlineLarge: TextStyle(
+                      fontFamily: "Rubik Regular",
+                      color: const Color(0xFF172B4D),
+                      fontSize: 22.sp))),
         );
       },
     );
