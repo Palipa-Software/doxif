@@ -56,50 +56,54 @@ class AddRegion extends GetView<AddRegionController> {
           children: [
             // ADD PHOTO
             Obx(
-              () => controller.image.value != null
-                  ? Container(
-                      width: 100.w,
-                      height: 20.h,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: FileImage(controller.image.value!),
-                        ),
-                      ),
-                    )
-                  : SizedBox(
-                      width: 100.w,
-                      height: 20.h,
-                      child: DottedBorder(
-                        color: AppColors.inActiveIcColor,
-                        dashPattern: [
-                          20,
-                        ],
-                        child: Bounceable(
-                          onTap: () {
-                            controller.pickImage();
-                          },
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset("assets/images/addPhoto.svg"),
-                                SizedBox(
-                                  height: .7.h,
-                                ),
-                                Text(
-                                  AppStrings.addPhoto,
-                                  style: TextStyle(
-                                    fontFamily: "Rubik Regular",
-                                    color: AppColors.addPhoto,
-                                  ),
-                                )
-                              ],
+              () {
+                return controller.plantImagePath.value != ""
+                    ? Container(
+                        width: 100.w,
+                        height: 30.h,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              "assets/images/${controller.plantImage}.png",
                             ),
                           ),
                         ),
-                      ),
-                    ),
+                      )
+                    : SizedBox(
+                        width: 100.w,
+                        height: 30.h,
+                        child: DottedBorder(
+                          borderType: BorderType.Circle,
+                          color: AppColors.inActiveIcColor,
+                          dashPattern: const [
+                            10,
+                          ],
+                          child: SizedBox(),
+                          // child: Bounceable(
+                          //   onTap: null,
+                          //   child: Center(
+                          //     child: Column(
+                          //       mainAxisAlignment: MainAxisAlignment.center,
+                          //       children: [
+                          //         SvgPicture.asset(
+                          //             "assets/images/addPhoto.svg"),
+                          //         SizedBox(
+                          //           height: .7.h,
+                          //         ),
+                          //         Text(
+                          //           AppStrings.addPhoto,
+                          //           style: TextStyle(
+                          //             fontFamily: "Rubik Regular",
+                          //             color: AppColors.addPhoto,
+                          //           ),
+                          //         )
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
+                        ),
+                      );
+              },
             ),
             // INPUTS
             SizedBox(
@@ -174,6 +178,8 @@ class AddRegion extends GetView<AddRegionController> {
                     onChanged: (value) {
                       controller.plantTypeFirst.value = value.toString();
                       controller.plantType.value = value.toString();
+                      controller.getImage();
+
                       print(value);
                     },
                   ),

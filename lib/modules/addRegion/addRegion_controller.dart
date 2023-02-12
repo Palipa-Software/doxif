@@ -1,9 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutorai/shared/constants/colors.dart';
 import 'package:tutorai/shared/constants/strings.dart';
@@ -18,25 +16,96 @@ class AddRegionController extends GetxController {
   RxString varietPepper = "Bitki Çeşidi".obs;
   RxString selectedDate = "".obs;
   Rx<File?> image = null.obs;
+  String plantImage = "";
+  RxString plantImagePath = "".obs;
 
-  Future<void> pickImage() async {
-    try {
-      final pickedFile =
-          await ImagePicker().pickImage(source: ImageSource.camera);
-      if (pickedFile != null) {
-        image.update(
-          (val) {
-            // val değeri bir önceki pathi tutuyor burada
-            image = File(pickedFile.path).obs;
-          },
-        );
-        print(image);
-      }
-      return;
-    } on PlatformException {
-      print("Error.");
+  void getImage() {
+    plantImage = plantType.value.toLowerCase();
+    switch (plantImage) {
+      case "":
+        {
+          // plantImage = "";
+          print("plantimage:$plantImage");
+          print("1");
+        }
+        break;
+
+      case "domates":
+        {
+          // plantImage = "domates";
+          plantImagePath.value = "domates";
+          print("plantimage:$plantImage");
+          print("2");
+        }
+        break;
+
+      case "biber":
+        {
+          // plantImage = "biber";
+          plantImagePath.value = "biber";
+          print("plantimage:$plantImage");
+          print("3");
+        }
+        break;
+      case "patlıcan":
+        {
+          // plantImage = "patlıcan";
+          plantImagePath.value = "patlıcan";
+          print("plantimage:$plantImage");
+          print("4");
+        }
+        break;
+      case "kabak":
+        {
+          // plantImage = "kabak";
+          plantImagePath.value = "kabak";
+          print("plantimage:$plantImage");
+          print("5");
+        }
+        break;
+      case "kavun":
+        {
+          // plantImage = "kavun";
+          plantImagePath.value = "kavun";
+          print("plantimage:$plantImage");
+          print("6");
+        }
+        break;
+      case "hıyar":
+        {
+          // plantImage = "hıyar";
+          plantImagePath.value = "hıyar";
+          print("plantimage:$plantImage");
+          print("7");
+        }
+        break;
+
+      default:
+        {
+          //statements;
+        }
+        break;
     }
   }
+
+  // Future<void> pickImage() async {
+  //   try {
+  //     final pickedFile =
+  //         await ImagePicker().pickImage(source: ImageSource.camera);
+  //     if (pickedFile != null) {
+  //       image.update(
+  //         (val) {
+  //           // val değeri bir önceki pathi tutuyor burada
+  //           image = File(pickedFile.path).obs;
+  //         },
+  //       );
+  //       print(image);
+  //     }
+  //     return;
+  //   } on PlatformException {
+  //     print("Error.");
+  //   }
+  // }
 
   void successDialog() {
     if (regionName.text.isNotEmpty &&
@@ -145,7 +214,8 @@ class AddRegionController extends GetxController {
     "Biber",
     "Patlıcan",
     "Hıyar",
-    "Kabak"
+    "Kabak",
+    "Kavun"
   ];
   List<String> tomatoVariet = [
     "Bitki Çeşidi",
