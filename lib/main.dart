@@ -5,6 +5,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:tutorai/routes/routes.dart';
+import 'package:tutorai/shared/constants/colors.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,20 +26,31 @@ class MyApp extends StatelessWidget {
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
           theme: ThemeData(
-              primarySwatch: Colors.green,
-              appBarTheme: const AppBarTheme(
-                backgroundColor: Colors.transparent,
-                elevation: 0,
+            primarySwatch: Colors.green,
+            appBarTheme: AppBarTheme(
+              iconTheme: IconThemeData(
+                color: AppColors.arrowBack,
               ),
-              textTheme: TextTheme(
-                  bodySmall: TextStyle(
-                      fontFamily: "Rubik Regular",
-                      color: const Color(0xFF7A869A),
-                      fontSize: 12.sp),
-                  headlineLarge: TextStyle(
-                      fontFamily: "Rubik Regular",
-                      color: const Color(0xFF172B4D),
-                      fontSize: 22.sp))),
+              centerTitle: true,
+              titleTextStyle: TextStyle(
+                color: AppColors.black,
+                fontFamily: "Rubik Bold",
+              ),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+            ),
+            textTheme: TextTheme(
+              bodySmall: TextStyle(
+                  fontFamily: "Rubik Regular",
+                  color: const Color(0xFF7A869A),
+                  fontSize: 12.sp),
+              headlineLarge: TextStyle(
+                fontFamily: "Rubik Regular",
+                color: const Color(0xFF172B4D),
+                fontSize: 22.sp,
+              ),
+            ),
+          ),
         );
       },
     );

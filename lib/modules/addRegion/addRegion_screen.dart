@@ -68,7 +68,10 @@ class AddRegion extends GetView<AddRegionController> {
                           ),
                         ),
                       )
-                    : const SizedBox();
+                    : SizedBox(
+                        width: 100.w,
+                        height: 30.h,
+                      );
               },
             ),
             // INPUTS
