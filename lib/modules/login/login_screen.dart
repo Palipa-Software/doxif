@@ -3,7 +3,12 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutorai/modules/login/login_controller.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:tutorai/routes/routes.dart';
 import 'package:tutorai/shared/constants/constants.dart';
+import 'package:tutorai/shared/constants/images.dart';
+
+import '../../shared/widgets/auth_custom_text_field.dart';
+import '../../shared/widgets/main_button.dart';
 
 class LoginScreen extends GetView<LoginController> {
   const LoginScreen({super.key});
@@ -15,83 +20,85 @@ class LoginScreen extends GetView<LoginController> {
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.w),
-        child: SizedBox(
-          width: 100.w,
-          height: 100.h,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Image.asset("assets/images/logo.png"),
-              Text(
-                "Tekrar Hoşgeldin",
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-              Text(
-                "Merhaba, devam etmek için oturum açınız",
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              TextField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    hintText: "E-Posta",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8.sp),
-                      ),
-                    ),
-                  )),
-              TextField(
-                controller: passwordController,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Şifremi Unuttum",
-                        style: TextStyle(color: AppColors.appColor, decoration: TextDecoration.underline),
-                      )),
-                ],
-              ),
-              SizedBox(
-                width: 100.w,
-                height: 6.h,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.sp)),
-                    backgroundColor: AppColors.appColor,
-                  ),
-                  onPressed: () {},
-                  child: const Text("Giriş Yap"),
+        padding: EdgeInsets.symmetric(horizontal: 4.w),
+        child: SingleChildScrollView(
+          child: SizedBox(
+            width: 100.w,
+            height: 90.h,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset(ImagesPath.logo),
+                Text(
+                  AppStrings.loginTitle,
+                  style: Theme.of(context).textTheme.headlineLarge,
                 ),
-              ),
-              const Text(
-                "Ya da",
-                style: TextStyle(color: Color(0xFFA8AABC)),
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                _SocialIconButton(imagePath: "ic_google", onPressed: () {}),
-                _SocialIconButton(imagePath: "ic_apple", onPressed: () {})
-              ]),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Hesabın Yok Mu ?",
-                    style: TextStyle(color: Color(0xFF7a869a)),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Kayıt Ol",
-                      style: TextStyle(color: AppColors.appColor),
+                Text(
+                  AppStrings.loginSubtitle,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                LoginTextField(
+                  controller: emailController,
+                  hintText: AppStrings.eposta,
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                  color: const Color(0xFF7A869A),
+                ),
+                LoginTextField(
+                  controller: passwordController,
+                  hintText: AppStrings.password,
+                  keyboardType: TextInputType.visiblePassword,
+                  textInputAction: TextInputAction.done,
+                  obscureText: true,
+                  color: const Color(0xFF7A869A),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          AppStrings.forgetPassword,
+                          style: TextStyle(color: AppColors.appColor, decoration: TextDecoration.underline),
+                        )),
+                  ],
+                ),
+                SizedBox(
+                  width: 100.w,
+                  height: 6.h,
+                  child: MainButton(onPressed: () {}, title: AppStrings.login),
+                ),
+                const Text(
+                  AppStrings.or,
+                  style: TextStyle(color: Color(0xFFA8AABC)),
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                  _SocialIconButton(imagePath: ImagesPath.icGoogle, onPressed: () {}),
+                  _SocialIconButton(imagePath: ImagesPath.icApple, onPressed: () {})
+                ]),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      AppStrings.notAccount,
+                      style: TextStyle(color: Color(0xFF7a869a)),
                     ),
-                  )
-                ],
-              )
-            ],
+                    TextButton(
+                      onPressed: () {
+                        Get.toNamed(Routes.REGISTER);
+                      },
+                      child: Text(
+                        AppStrings.createAccount,
+                        style: TextStyle(color: AppColors.appColor),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -111,7 +118,7 @@ class _SocialIconButton extends StatelessWidget {
         padding: EdgeInsets.all(16.sp),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.sp), border: Border.all(color: const Color(0xFFF1F1F1))),
-        child: Image.asset("assets/images/$imagePath.png"),
+        child: Image.asset(imagePath),
       ),
     );
   }
