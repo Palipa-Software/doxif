@@ -1,15 +1,20 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutorai/shared/constants/colors.dart';
+import 'package:tutorai/shared/constants/custom_firebase_manager.dart';
 import 'package:tutorai/shared/constants/strings.dart';
 import 'package:tutorai/shared/widgets/custom_add_region_button.dart';
 
 class AddRegionController extends GetxController {
+  final firestore = FirebaseFirestore.instance;
   final TextEditingController regionName = TextEditingController();
-  RxString plantTypeFirst = "Bitki Türü".obs;
+  RxString plantTypeFirst = "Biber".obs;
   RxString plantType = "".obs;
   RxString plantVariet = "".obs;
   RxString varietTomato = "Bitki Çeşidi".obs;
@@ -18,6 +23,33 @@ class AddRegionController extends GetxController {
   Rx<File?> image = null.obs;
   String plantImage = "";
   RxString plantImagePath = "".obs;
+  RxInt index = 0.obs;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  RxList<dynamic> deneme = [].obs;
+
+  Stream<QuerySnapshot> getPlants() {
+    var ref = firestore.collection("plantsType").snapshots();
+    return ref;
+  }
+
+  Future<dynamic> addRegion() async {
+    Map<String, dynamic> regions = {
+      "regionName": regionName.text,
+      "plantType": plantType.value,
+      "plantVariet": plantVariet.value,
+      "plantingDate": selectedDate.value,
+      "sensorId": "222222",
+    };
+    CollectionReference addRegion = firestore
+        .collection("users")
+        .doc(_auth.currentUser?.uid)
+        .collection("regions");
+
+    var response = await addRegion.doc(regionName.text).set(regions);
+    successDialog();
+    return response;
+  }
 
   void getImage() {
     plantImage = plantType.value.toLowerCase();
@@ -88,6 +120,12 @@ class AddRegionController extends GetxController {
     }
   }
 
+  @override
+  Future<void> onInit() async {
+    // TODO: implement onInit
+    super.onInit();
+    await getPlants();
+  }
   // Future<void> pickImage() async {
   //   try {
   //     final pickedFile =
@@ -309,7 +347,6 @@ class AddRegionController extends GetxController {
     "Balca",
     "Cömert",
     "Efes",
-    "Emre",
     "Erciyes",
     "Mert",
     "Mertcan",
@@ -373,7 +410,6 @@ class AddRegionController extends GetxController {
     "İlbay",
     "Kılçık Plus",
     "Kılıç",
-    "Mert",
     "Muluk",
     "Nare",
     "Nova",
@@ -403,7 +439,6 @@ class AddRegionController extends GetxController {
     "Simena",
     "Zaruri",
     "Kibar",
-    "Köylüm",
     "Turkuaz",
     "Üçağız",
     "ASG 407",

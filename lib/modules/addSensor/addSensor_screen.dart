@@ -71,75 +71,12 @@ class AddSensor extends GetView<AddSensorController> {
           ),
         ],
       ),
-      bottomNavigationBar: Obx(
-        () => BottomNavigationBar(
-          backgroundColor: AppColors.white,
-          currentIndex: controller.currentBottomTab.value,
-          onTap: (value) {
-            controller.scanBtn.value = false;
-            controller.currentBottomTab.value = value;
-            print(controller.currentBottomTab.value);
-          },
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/images/home.svg",
-                color: controller.scanBtn.value == true
-                    ? AppColors.inActiveIcColor
-                    : controller.currentBottomTab.value == 0
-                        ? AppColors.appColor
-                        : AppColors.inActiveIcColor,
-              ),
-              label: "",
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/images/menu.svg",
-                color: controller.scanBtn.value == true
-                    ? AppColors.inActiveIcColor
-                    : controller.currentBottomTab.value == 1
-                        ? AppColors.appColor
-                        : AppColors.inActiveIcColor,
-              ),
-              label: "",
-            ),
-          ],
-        ),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        controller: controller,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Obx(
-        () => Container(
-          padding: EdgeInsets.all(2.sp),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: AppColors.white,
-          ),
-          child: Container(
-            padding: EdgeInsets.all(
-              2.sp,
-            ),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.bgColor,
-            ),
-            child: FloatingActionButton(
-              elevation: 0,
-              onPressed: () {
-                controller.scanBtn.value == true
-                    ? controller.scanBtn.value = false
-                    : controller.scanBtn.value = true;
-                print(controller.scanBtn.value);
-              },
-              child: SvgPicture.asset(
-                "assets/images/scan.svg",
-                color: controller.scanBtn.value == true
-                    ? AppColors.appColor
-                    : AppColors.inActiveIcColor,
-              ),
-              backgroundColor: AppColors.white,
-            ),
-          ),
-        ),
+      floatingActionButton: CustomFloatingButton(
+        controller: controller,
       ),
     );
   }
