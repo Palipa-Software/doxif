@@ -4,12 +4,12 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutorai/modules/menuScreen/menu_screen_controller.dart';
+import 'package:tutorai/routes/routes.dart';
 import 'package:tutorai/shared/constants/colors.dart';
 import 'package:tutorai/shared/widgets/navigation_bar.dart';
 
 import '../../shared/widgets/custom_row_menu2.dart';
 import '../../shared/widgets/floating_button.dart';
-import '../../shared/widgets/menu_custom_row.dart';
 
 class MenuScreen extends GetView<MenuScreenController> {
   const MenuScreen({super.key});
@@ -44,19 +44,13 @@ class MenuScreen extends GetView<MenuScreenController> {
                   onTap: () {},
                   child: Container(
                     height: 10.h,
-
-                    decoration: BoxDecoration(
-                        color: AppColors.white,
-                        borderRadius: BorderRadius.circular(10.sp)),
-
+                    decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10.sp)),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: 4.5.w, top: 2.5.h),
-
                           child: Image.asset("assets/images/avatar.png"),
-
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 6.w, top: 2.5.h),
@@ -110,13 +104,9 @@ class MenuScreen extends GetView<MenuScreenController> {
                 Container(
                   height: 18.h,
                   width: 150.w,
-
                   padding: EdgeInsets.only(top: 2.h),
-                  decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(10.sp)),
+                  decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10.sp)),
                   child: ListView(
-
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,10 +156,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                 Container(
                   height: 30.h,
                   width: 150.w,
-
-                  decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(10.sp)),
+                  decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10.sp)),
                   child: ListView(
                     children: [
                       Column(
@@ -188,41 +175,36 @@ class MenuScreen extends GetView<MenuScreenController> {
                             height: 2.5.h,
                           ),
                           CustomRowMenu2(
-                              text: "Sıkça Sorulan Sorular",
-                              ontop: () {},
-                              pathImage: "assets/images/questionIco.png"),
+                              text: "Sıkça Sorulan Sorular", ontop: () {}, pathImage: "assets/images/questionIco.png"),
                           SizedBox(
                             height: 2.5.h,
                           ),
                           CustomRowMenu2(
-                              text: "Gizlilik Politikası",
-                              ontop: () {},
-                              pathImage: "assets/images/privateIco.png"),
+                              text: "Gizlilik Politikası", ontop: () {}, pathImage: "assets/images/privateIco.png"),
                           SizedBox(
                             height: 2.5.h,
                           ),
                           CustomRowMenu2(
-                              text: "Kullanıcı Sözleşmesi",
-                              ontop: () {},
-                              pathImage: "assets/images/politicaIco.png"),
+                              text: "Kullanıcı Sözleşmesi", ontop: () {}, pathImage: "assets/images/politicaIco.png"),
                           SizedBox(
                             height: 2.5.h,
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 3.w),
                             child: Bounceable(
-                              onTap: () {},
+                              onTap: () async {
+                                await FirebaseAuth.instance.signOut();
+                                Get.offAllNamed(Routes.MAINPAGE);
+                              },
                               child: Container(
                                 color: AppColors.white,
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Row(
                                       children: [
-                                        ImageIcon(
-                                          AssetImage(
-                                              "assets/images/nextIco.png"),
+                                        const ImageIcon(
+                                          AssetImage("assets/images/nextIco.png"),
                                           color: Colors.red,
                                         ),
                                         SizedBox(
@@ -238,20 +220,17 @@ class MenuScreen extends GetView<MenuScreenController> {
                                           ),
                                         ),
                                       ],
-
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(right: 2.5.w),
-                                      child: ImageIcon(
+                                      child: const ImageIcon(
                                         AssetImage("assets/images/shape.png"),
                                         color: Colors.red,
                                       ),
                                     ),
                                   ],
                                 ),
-
                               ),
-
                             ),
                           ),
                         ],
@@ -279,9 +258,7 @@ class MenuScreen extends GetView<MenuScreenController> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-        floatingActionButton: FloatingButton(),
+        floatingActionButton: const FloatingButton(),
         bottomNavigationBar: NaviBar());
-
   }
 }

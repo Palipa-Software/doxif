@@ -22,8 +22,6 @@ class AppPages {
 
   static const INITIAL = Routes.HOME;
 
-  static const INITIAL = Routes.MAINPAGE;
-
   static final routes = [
     GetPage(
       name: Routes.MAINPAGE,
@@ -46,12 +44,11 @@ class AppPages {
       binding: MenuScreenBinding(),
     ),
     GetPage(
-
       name: Routes.HOME,
       page: () => const HomeScreen(),
       binding: HomeScreenBinding(),
-          ),
-GetPage(
+    ),
+    GetPage(
       name: Routes.ADDSENSOR,
       page: () => const AddSensor(),
       binding: AddSensorBinding(),
@@ -60,7 +57,6 @@ GetPage(
       name: Routes.ADDREGION,
       page: () => AddRegion(),
       binding: AddRegionBinding(),
-
     ),
   ];
 }

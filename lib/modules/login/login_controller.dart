@@ -19,7 +19,7 @@ class LoginController extends GetxController {
     );
     try {
       await _auth.signInWithEmailAndPassword(email: email.trim(), password: password.trim());
-      Get.offAllNamed(Routes.MENU);
+      Get.offAllNamed(Routes.MAINPAGE);
     } on FirebaseAuthException catch (e) {
       if (e.code == "unknown") {
         Get.snackbar("Hata", "E-Posta ve şifre alanları boş geçilemez.",
