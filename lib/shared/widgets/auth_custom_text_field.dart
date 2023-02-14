@@ -26,10 +26,8 @@ class LoginTextField extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-        hintStyle: TextStyle(color: color ?? const Color(0xFF172B4D), fontFamily: "Rubik Regular"),
-        labelStyle: const TextStyle(
-          fontFamily: "Rubik Regular",
-        ),
+        label: Text(hintText),
+        labelStyle: TextStyle(color: color ?? const Color(0xFF172B4D), fontFamily: "Rubik Regular"),
         hintText: hintText,
         border: OutlineInputBorder(
           borderSide: const BorderSide(color: Color(0xFFE5E5E5)),

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,10 +44,7 @@ class MyApp extends StatelessWidget {
               elevation: 0,
             ),
             textTheme: TextTheme(
-              bodySmall: TextStyle(
-                  fontFamily: "Rubik Regular",
-                  color: const Color(0xFF7A869A),
-                  fontSize: 12.sp),
+              bodySmall: TextStyle(fontFamily: "Rubik Regular", color: const Color(0xFF7A869A), fontSize: 12.sp),
               headlineLarge: TextStyle(
                 fontFamily: "Rubik Regular",
                 color: const Color(0xFF172B4D),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
@@ -12,8 +13,9 @@ class MenuScreen extends GetView<MenuScreenController> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
-        backgroundColor: Color(0xffF8F8F8),
+        backgroundColor: const Color(0xffF8F8F8),
         appBar: AppBar(
           centerTitle: true,
           title: Padding(
@@ -39,9 +41,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                   onTap: () {},
                   child: Container(
                     height: 10.h,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10.sp)),
+                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.sp)),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -50,11 +50,9 @@ class MenuScreen extends GetView<MenuScreenController> {
                           child: Container(
                             width: 12.w,
                             height: 5.5.h,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage("assets/images/avatar.png"),
-                                    fit: BoxFit.cover)),
+                            decoration: const BoxDecoration(
+                                image:
+                                    DecorationImage(image: AssetImage("assets/images/avatar.png"), fit: BoxFit.cover)),
                           ),
                         ),
                         Padding(
@@ -63,7 +61,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Fatma Yıldırım",
+                                user.email!,
                                 style: TextStyle(
                                   fontSize: 13.5.sp,
                                   fontFamily: "Rubik Bold",
@@ -74,7 +72,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                               Text(
                                 "Profil Bilgileri",
                                 style: TextStyle(
-                                  color: Color(0xff6A6F7D),
+                                  color: const Color(0xff6A6F7D),
                                   fontSize: 10.sp,
                                   fontFamily: "Rubik Regular ",
                                   fontWeight: FontWeight.w400,
@@ -85,8 +83,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 3.5.h, left: 31.w),
-                          child: const ImageIcon(
-                              AssetImage("assets/images/down.png")),
+                          child: const ImageIcon(AssetImage("assets/images/down.png")),
                         )
                       ],
                     ),
@@ -99,7 +96,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                   "Hesap Bilgileri",
                   style: TextStyle(
                     fontSize: 10.sp,
-                    color: Color(0xff6A6F7D),
+                    color: const Color(0xff6A6F7D),
                     fontFamily: "Rubik Regular ",
                     fontWeight: FontWeight.w400,
                   ),
@@ -110,9 +107,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                 Container(
                   height: 18.h,
                   width: 150.w,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.sp)),
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.sp)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -146,7 +141,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                   "Genel Bilgiler",
                   style: TextStyle(
                     fontSize: 10.sp,
-                    color: Color(0xff6A6F7D),
+                    color: const Color(0xff6A6F7D),
                     fontFamily: "Rubik Regular ",
                     fontWeight: FontWeight.w400,
                   ),
@@ -157,9 +152,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                 Container(
                   height: 29.h,
                   width: 150.w,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.sp)),
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.sp)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -176,30 +169,26 @@ class MenuScreen extends GetView<MenuScreenController> {
                         height: 2.5.h,
                       ),
                       CustomRowMenu2(
-                          text: "Sıkça Sorulan Sorular",
-                          ontop: () {},
-                          pathImage: "assets/images/questionIco.png"),
+                          text: "Sıkça Sorulan Sorular", ontop: () {}, pathImage: "assets/images/questionIco.png"),
                       SizedBox(
                         height: 2.5.h,
                       ),
                       CustomRowMenu2(
-                          text: "Gizlilik Politikası",
-                          ontop: () {},
-                          pathImage: "assets/images/privateIco.png"),
+                          text: "Gizlilik Politikası", ontop: () {}, pathImage: "assets/images/privateIco.png"),
                       SizedBox(
                         height: 2.5.h,
                       ),
                       CustomRowMenu2(
-                          text: "Kullanıcı Sözleşmesi",
-                          ontop: () {},
-                          pathImage: "assets/images/politicaIco.png"),
+                          text: "Kullanıcı Sözleşmesi", ontop: () {}, pathImage: "assets/images/politicaIco.png"),
                       SizedBox(
                         height: 2.5.h,
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 3.w),
                         child: Bounceable(
-                          onTap: () {},
+                          onTap: () {
+                            FirebaseAuth.instance.signOut();
+                          },
                           child: Container(
                             color: Colors.white,
                             child: Row(
@@ -207,7 +196,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                               children: [
                                 Row(
                                   children: [
-                                    ImageIcon(
+                                    const ImageIcon(
                                       AssetImage("assets/images/nextIco.png"),
                                       color: Colors.red,
                                     ),
@@ -227,7 +216,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(right: 2.5.w),
-                                  child: ImageIcon(
+                                  child: const ImageIcon(
                                     AssetImage("assets/images/shape.png"),
                                     color: Colors.red,
                                   ),
@@ -251,7 +240,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                       fontSize: 10.sp,
                       fontFamily: "Rubik Regular",
                       fontWeight: FontWeight.w400,
-                      color: Color(0xff6A6F7D),
+                      color: const Color(0xff6A6F7D),
                     ),
                   ),
                 )
@@ -266,17 +255,14 @@ class MenuScreen extends GetView<MenuScreenController> {
           child: Container(
             height: 4.h,
             width: 10.w,
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0xffF8F8F8),
-                    blurRadius: 20.0.sp,
-                    spreadRadius: 2.0.sp,
-                  )
-                ],
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(20.sp))),
-            child: ImageIcon(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: const Color(0xffF8F8F8),
+                blurRadius: 20.0.sp,
+                spreadRadius: 2.0.sp,
+              )
+            ], color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20.sp))),
+            child: const ImageIcon(
               AssetImage("assets/images/floatIco.png"),
               color: Color(0xff6A6F7D),
             ),
@@ -297,11 +283,11 @@ class MenuScreen extends GetView<MenuScreenController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Bounceable(
-                    child: ImageIcon(AssetImage("assets/images/homeIco.png")),
+                    child: const ImageIcon(AssetImage("assets/images/homeIco.png")),
                     onTap: () {},
                   ),
                   Bounceable(
-                    child: ImageIcon(AssetImage("assets/images/qrIco.png")),
+                    child: const ImageIcon(AssetImage("assets/images/qrIco.png")),
                     onTap: () {},
                   ),
                 ],

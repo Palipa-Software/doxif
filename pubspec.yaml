@@ -49,6 +49,8 @@ dependencies:
   search_choices: ^2.2.2
   searchable_listview: ^2.2.1
   firebase_database: ^10.0.10
+  intl_phone_number_input: ^0.7.2
+
 
 dev_dependencies:
   flutter_test:
