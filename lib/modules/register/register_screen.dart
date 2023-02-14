@@ -44,12 +44,25 @@ class RegisterScreen extends GetView<RegisterController> {
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                 ),
-                LoginTextField(
-                  controller: controller.phoneController,
-                  hintText: "İsim",
-                  keyboardType: TextInputType.phone,
-                  textInputAction: TextInputAction.next,
-                ),
+                TextField(
+                    controller: controller.phoneController,
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.number,
+                    style: const TextStyle(fontFamily: "Rubik Regular"),
+                    decoration: InputDecoration(
+                        label: const Text("+90 555 555 5555"),
+                        labelStyle: const TextStyle(color: Color(0xFF172B4D), fontFamily: "Rubik Regular"),
+                        hintStyle: const TextStyle(color: Color(0xFF172B4D), fontFamily: "Rubik Regular"),
+                        prefixText: "+90 ",
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 3.w),
+                          child: Image.asset(
+                            "assets/images/ic_turkey.png",
+                            width: 8.w,
+                            height: 8.w,
+                          ),
+                        ),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8.sp))))),
                 LoginTextField(
                   controller: controller.emailController,
                   hintText: "E-Posta Adresi",
@@ -72,6 +85,7 @@ class RegisterScreen extends GetView<RegisterController> {
                 ),
                 Obx(
                   () => Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Checkbox(
                         activeColor: AppColors.appColor,
@@ -79,7 +93,29 @@ class RegisterScreen extends GetView<RegisterController> {
                         onChanged: (value) {
                           controller.checkBox.value = value!;
                         },
-                      )
+                      ),
+                      Bounceable(
+                        onTap: () {},
+                        child: Text(
+                          "Kullanıcı sözleşmesi ",
+                          style: TextStyle(fontSize: 9.sp, fontWeight: FontWeight.bold, color: AppColors.appColor),
+                        ),
+                      ),
+                      Text(
+                        "ve ",
+                        style: TextStyle(fontSize: 9.sp),
+                      ),
+                      Bounceable(
+                        onTap: () {},
+                        child: Text(
+                          "Gizlilik Politikasını ",
+                          style: TextStyle(fontSize: 9.sp, fontWeight: FontWeight.bold, color: AppColors.appColor),
+                        ),
+                      ),
+                      Text(
+                        "Kabul Ediyorum",
+                        style: TextStyle(fontSize: 9.sp),
+                      ),
                     ],
                   ),
                 ),

@@ -15,16 +15,15 @@ class LoginScreen extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
+    Get.put(LoginController());
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 4.w),
-        child: SingleChildScrollView(
-          child: SizedBox(
-            width: 100.w,
-            height: 90.h,
+        child: SizedBox(
+          width: 100.w,
+          height: 90.h,
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -41,14 +40,17 @@ class LoginScreen extends GetView<LoginController> {
                   height: 2.h,
                 ),
                 LoginTextField(
-                  controller: emailController,
+                  controller: controller.emailController,
                   hintText: AppStrings.eposta,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   color: const Color(0xFF7A869A),
                 ),
+                SizedBox(
+                  height: 1.h,
+                ),
                 LoginTextField(
-                  controller: passwordController,
+                  controller: controller.passwordController,
                   hintText: AppStrings.password,
                   keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.done,
@@ -69,7 +71,14 @@ class LoginScreen extends GetView<LoginController> {
                 SizedBox(
                   width: 100.w,
                   height: 6.h,
-                  child: MainButton(onPressed: () {}, title: AppStrings.login),
+                  child: MainButton(
+                      onPressed: () {
+                        controller.signIn(controller.emailController.text, controller.passwordController.text, context);
+                      },
+                      title: AppStrings.login),
+                ),
+                SizedBox(
+                  height: 1.h,
                 ),
                 const Text(
                   AppStrings.or,
