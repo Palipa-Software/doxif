@@ -169,6 +169,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  firebase_database:
+    dependency: "direct main"
+    description:
+      name: firebase_database
+      sha256: "5fa2c5128d0057b9af2fdc9124282ce8073f73adb8b0456d78120d1e578f5cda"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.0.10"
+  firebase_database_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_database_platform_interface
+      sha256: d7e03c4422a82b18624f13dc3c022d2dd98f8e28e71dd265d1ac341269d8a92a
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.2+18"
+  firebase_database_web:
+    dependency: transitive
+    description:
+      name: firebase_database_web
+      sha256: "383bf00aa419d283818b343845daef1b3e897fab48575ff8d93d89556ceda1cf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1+20"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -416,6 +440,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.2"
+  searchable_listview:
+    dependency: "direct main"
+    description:
+      name: searchable_listview
+      sha256: "024d99933df1a683056743df3c5d7a541c38c0cb7a3e978cb046718fb0858320"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.1"
   sizer:
     dependency: "direct main"
     description:
