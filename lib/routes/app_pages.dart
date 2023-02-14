@@ -43,7 +43,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.ADDREGION,
-      page: () => const AddRegion(),
+      page: () => AddRegion(),
       binding: AddRegionBinding(),
     ),
   ];

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -12,32 +13,30 @@ import 'package:tutorai/shared/constants/strings.dart';
 import 'package:tutorai/shared/widgets/custom_add_region_button.dart';
 
 class AddRegionController extends GetxController {
-  final firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final TextEditingController regionName = TextEditingController();
-  RxString plantTypeFirst = "Biber".obs;
-  RxString plantType = "".obs;
-  RxString plantVariet = "".obs;
-  RxString varietTomato = "Bitki Çeşidi".obs;
-  RxString varietPepper = "Bitki Çeşidi".obs;
   RxString selectedDate = "".obs;
-  Rx<File?> image = null.obs;
+  RxInt index = 0.obs;
+  RxInt index2 = 0.obs;
+  RxList variets = [].obs;
+  String variet = "";
+  String type = "";
   String plantImage = "";
   RxString plantImagePath = "".obs;
-  RxInt index = 0.obs;
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  RxList<dynamic> deneme = [].obs;
+  CollectionReference plantsVarients =
+      FirebaseFirestore.instance.collection("plantsType");
 
-  Stream<QuerySnapshot> getPlants() {
-    var ref = firestore.collection("plantsType").snapshots();
-    return ref;
-  }
+  final Stream<QuerySnapshot<Object?>>? stream =
+      CustomFirebaseManager.stream("plantsType");
 
   Future<dynamic> addRegion() async {
     Map<String, dynamic> regions = {
       "regionName": regionName.text,
-      "plantType": plantType.value,
-      "plantVariet": plantVariet.value,
+      "plantType": type,
+      "plantVariet": variet,
       "plantingDate": selectedDate.value,
       "sensorId": "222222",
     };
@@ -51,8 +50,15 @@ class AddRegionController extends GetxController {
     return response;
   }
 
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    getImage();
+  }
+
   void getImage() {
-    plantImage = plantType.value.toLowerCase();
+    plantImage = type.toLowerCase();
     switch (plantImage) {
       case "":
         {
@@ -120,39 +126,11 @@ class AddRegionController extends GetxController {
     }
   }
 
-  @override
-  Future<void> onInit() async {
-    // TODO: implement onInit
-    super.onInit();
-    await getPlants();
-  }
-  // Future<void> pickImage() async {
-  //   try {
-  //     final pickedFile =
-  //         await ImagePicker().pickImage(source: ImageSource.camera);
-  //     if (pickedFile != null) {
-  //       image.update(
-  //         (val) {
-  //           // val değeri bir önceki pathi tutuyor burada
-  //           image = File(pickedFile.path).obs;
-  //         },
-  //       );
-  //       print(image);
-  //     }
-  //     return;
-  //   } on PlatformException {
-  //     print("Error.");
-  //   }
-  // }
-
   void successDialog() {
     if (regionName.text.isNotEmpty &&
-        plantType.isNotEmpty &&
-        plantVariet.isNotEmpty &&
-        selectedDate.isNotEmpty) {
-      print(
-        "Bölge Başarıyla Eklendi\nBölge İsmi:${regionName.text}\nBitki Türü:${plantType.value}\nBitki Çeşidi:${plantVariet.value}\nDikim Tarihi:${selectedDate.value}",
-      );
+        selectedDate.isNotEmpty &&
+        variet.isNotEmpty &&
+        type.isNotEmpty) {
       Get.defaultDialog(
         barrierDismissible: false,
         titlePadding: EdgeInsets.zero,
@@ -206,11 +184,6 @@ class AddRegionController extends GetxController {
               child: CustomButton(
                 func: () {
                   regionName.clear();
-                  plantType.value = "";
-                  plantVariet.value = "";
-                  plantTypeFirst.value = "Bitki Türü";
-                  varietTomato.value = "Bitki Çeşidi";
-                  varietPepper.value = "Bitki Çeşidi";
                   selectedDate.value = "";
                   Get.back();
                 },
@@ -222,9 +195,6 @@ class AddRegionController extends GetxController {
         ),
       );
     } else {
-      print(
-        "Bölge Başarıyla Eklendi\nBölge İsmi:${regionName.text}\nBitki Türü:${plantType.value}\nBitki Çeşidi:${plantVariet.value}\nDikim Tarihi:${selectedDate.value}",
-      );
       Get.snackbar("Title", "Message",
           backgroundColor: AppColors.appColor.withOpacity(.8),
           titleText: Text(
@@ -245,220 +215,4 @@ class AddRegionController extends GetxController {
           ));
     }
   }
-
-  List<String> plants = [
-    "Bitki Türü",
-    "Domates",
-    "Biber",
-    "Patlıcan",
-    "Hıyar",
-    "Kabak",
-    "Kavun"
-  ];
-  List<String> tomatoVariet = [
-    "Bitki Çeşidi",
-    "E-Z Tohumculuk",
-    "Asgen Tohum",
-    "Syngenta",
-    "Nunhems",
-    "Petektar",
-    "Gento",
-    "Multi",
-    "Motto",
-    "Hazera",
-    "Seminis",
-    "Axia Tohum",
-    "Tofida",
-    "AG Tohum",
-    "Yüksel",
-    "Hasel",
-    "Genetika",
-    "Seraseed",
-    "Proto",
-    "Manier",
-    "Santagro",
-    "Troya",
-    "Beyaz Tohum",
-    "Amc Tr",
-    "Antema",
-    "İntfa",
-    "Agromar",
-    "South Fidagro",
-    "Tasaco",
-    "Genagri",
-    "Anamas",
-    "Sakata",
-    "Vilmorin Anadolu Tohum",
-    "Argeto",
-    "Sinerji Tohum",
-    "Titiz Agro",
-    "Çağdaş",
-    "2000 Tarım",
-    "Hmclause",
-    "İngsseeds",
-    "Aroma",
-    "Detay",
-    "Antalya Tarım Tohum",
-    "Ngsseeds",
-    "Dane Tohum",
-    "Hektaş",
-    "Rijkzwaan",
-    "SFT Tarım",
-    "Fito",
-  ];
-
-  List<String> pepperVariet = [
-    "Bitki Çeşidi",
-    "Kimera",
-    "Yalçın",
-    "30 - 55",
-    "Kanyon",
-    "Kumsal",
-    "Reis",
-    "Safran",
-    "Samuray",
-    "37 - 42",
-    "Habib",
-    "Kalouthca",
-    "Urartu",
-    "Uygar",
-    "Kapizera",
-    "Bellisa(35 508)",
-    "Serenad",
-    "Artis",
-    "Aydemir",
-    "Capitol",
-    "Diyar",
-    "Florita",
-    "Cakabey",
-    "Kasaba",
-    "Odin",
-    "Demirbilek",
-    "Yükselince",
-    "Özgülcan",
-    "Emre",
-    "Atlantis",
-    "Assia",
-    "Lotus Pailin",
-    "Uslu",
-    "Demrisa",
-    "Flinta",
-    "Leyla",
-    "Balca",
-    "Cömert",
-    "Efes",
-    "Erciyes",
-    "Mert",
-    "Mertcan",
-    "Mutlu",
-    "S2",
-    "Spice",
-    "Şölen",
-    "Zarif",
-    "Vural",
-    "Topkapı",
-    "Lodos",
-    "Efsun",
-    "A-Z 20",
-    "Bafra",
-    "Akra",
-    "Pars",
-    "Efests",
-    "Erciyes Rene",
-    "Neyzen",
-    "Balamir",
-    "Benino",
-    "Doğanay",
-    "Mızrak",
-    "Mostar",
-    "Desna",
-    "Ergenekon",
-    "Kundu",
-    "Ozan",
-    "Punto",
-    "Yurt",
-    "Tubby",
-    "Bade",
-    "Toprido",
-    "Efendi",
-    "Armada",
-    "Dilber",
-    "Doddo",
-    "Zafer",
-    "Tesla",
-    "Sumo",
-    "İstek",
-    "Nundol NUN 3171",
-    "Sobek",
-    "Köyüm",
-    "Buket",
-    "Üçburun",
-    "Dilek",
-    "Elmas",
-    "Muzzo",
-    "Efebey",
-    "Hyffae",
-    "Negro",
-    "Taco",
-    "Çoban",
-    "Erdem",
-    "Ertuğrul",
-    "Fortune",
-    "Harman",
-    "Hayat",
-    "HT 10",
-    "İlbay",
-    "Kılçık Plus",
-    "Kılıç",
-    "Muluk",
-    "Nare",
-    "Nova",
-    "Odin Plus",
-    "Olca",
-    "Özen",
-    "Pusula",
-    "Rüzgar",
-    "Takıl",
-    "Tanaz",
-    "Varol",
-    "Briot",
-    "Ersan",
-    "Hunty",
-    "Heves",
-    "Jalomex",
-    "Macarino",
-    "Saruhan",
-    "Yerebakan",
-    "Al-han",
-    "Alperen",
-    "İdolisa",
-    "Meydan",
-    "Redlion",
-    "Savarona",
-    "SF 549",
-    "Simena",
-    "Zaruri",
-    "Kibar",
-    "Turkuaz",
-    "Üçağız",
-    "ASG 407",
-    "Egeli",
-    "Kasırga",
-    "Kingbel",
-    "Kupa",
-    "Lotus LT34",
-    "A 3055",
-    "Bingo",
-    "Hotstar",
-    "Irmak",
-    "Klas",
-    "Lidya",
-    "Oyunbozan",
-    "Papel",
-    "Sharlo",
-    "Şahin",
-    "Yaman",
-    "Yelken",
-    "Zıpkın",
-  ];
 }
