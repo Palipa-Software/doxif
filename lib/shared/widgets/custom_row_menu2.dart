@@ -28,6 +28,7 @@ class CustomRowMenu2 extends StatelessWidget {
                 children: [
                   ImageIcon(
                     AssetImage(pathImage),
+                    color: Color(0xff6A6F7D),
                   ),
                   SizedBox(
                     width: 1.w,
