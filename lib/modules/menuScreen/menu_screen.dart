@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
@@ -15,8 +16,9 @@ class MenuScreen extends GetView<MenuScreenController> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
-        backgroundColor: Color(0xffF8F8F8),
+        backgroundColor: const Color(0xffF8F8F8),
         appBar: AppBar(
           centerTitle: true,
           title: Padding(
@@ -42,15 +44,19 @@ class MenuScreen extends GetView<MenuScreenController> {
                   onTap: () {},
                   child: Container(
                     height: 10.h,
+
                     decoration: BoxDecoration(
                         color: AppColors.white,
                         borderRadius: BorderRadius.circular(10.sp)),
+
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: 4.5.w, top: 2.5.h),
+
                           child: Image.asset("assets/images/avatar.png"),
+
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 6.w, top: 2.5.h),
@@ -58,7 +64,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Fatma Yıldırım",
+                                user.email!,
                                 style: TextStyle(
                                   fontSize: 13.5.sp,
                                   fontFamily: "Rubik Bold",
@@ -69,7 +75,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                               Text(
                                 "Profil Bilgileri",
                                 style: TextStyle(
-                                  color: Color(0xff6A6F7D),
+                                  color: const Color(0xff6A6F7D),
                                   fontSize: 10.sp,
                                   fontFamily: "Rubik Regular ",
                                   fontWeight: FontWeight.w400,
@@ -80,8 +86,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 3.5.h, left: 31.w),
-                          child: const ImageIcon(
-                              AssetImage("assets/images/down.png")),
+                          child: const ImageIcon(AssetImage("assets/images/down.png")),
                         )
                       ],
                     ),
@@ -94,7 +99,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                   "Hesap Bilgileri",
                   style: TextStyle(
                     fontSize: 10.sp,
-                    color: Color(0xff6A6F7D),
+                    color: const Color(0xff6A6F7D),
                     fontFamily: "Rubik Regular ",
                     fontWeight: FontWeight.w400,
                   ),
@@ -105,11 +110,13 @@ class MenuScreen extends GetView<MenuScreenController> {
                 Container(
                   height: 18.h,
                   width: 150.w,
+
                   padding: EdgeInsets.only(top: 2.h),
                   decoration: BoxDecoration(
                       color: AppColors.white,
                       borderRadius: BorderRadius.circular(10.sp)),
                   child: ListView(
+
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,7 +155,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                   "Genel Bilgiler",
                   style: TextStyle(
                     fontSize: 10.sp,
-                    color: Color(0xff6A6F7D),
+                    color: const Color(0xff6A6F7D),
                     fontFamily: "Rubik Regular ",
                     fontWeight: FontWeight.w400,
                   ),
@@ -159,6 +166,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                 Container(
                   height: 30.h,
                   width: 150.w,
+
                   decoration: BoxDecoration(
                       color: AppColors.white,
                       borderRadius: BorderRadius.circular(10.sp)),
@@ -230,6 +238,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                                           ),
                                         ),
                                       ],
+
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(right: 2.5.w),
@@ -240,7 +249,9 @@ class MenuScreen extends GetView<MenuScreenController> {
                                     ),
                                   ],
                                 ),
+
                               ),
+
                             ),
                           ),
                         ],
@@ -259,7 +270,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                       fontSize: 10.sp,
                       fontFamily: "Rubik Regular",
                       fontWeight: FontWeight.w400,
-                      color: Color(0xff6A6F7D),
+                      color: const Color(0xff6A6F7D),
                     ),
                   ),
                 )
@@ -268,7 +279,9 @@ class MenuScreen extends GetView<MenuScreenController> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
         floatingActionButton: FloatingButton(),
         bottomNavigationBar: NaviBar());
+
   }
 }
