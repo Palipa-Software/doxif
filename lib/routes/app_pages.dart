@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:tutorai/modules/login/login_binding.dart';
 import 'package:tutorai/modules/login/login_screen.dart';
+import '../modules/homeScreen/home_screen.dart';
+import '../modules/homeScreen/home_screen_binding.dart';
 import '../modules/menuScreen/menu_screen.dart';
 import '../modules/menuScreen/menu_screen_binding.dart';
 
@@ -8,7 +10,7 @@ part 'app_routes.dart';
 
 class AppPages {
   // ignore: constant_identifier_names
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.HOME;
   static final routes = [
     GetPage(
       name: Routes.LOGIN,
@@ -19,6 +21,11 @@ class AppPages {
       name: Routes.MENU,
       page: () => const MenuScreen(),
       binding: MenuScreenBinding(),
+    ),
+    GetPage(
+      name: Routes.HOME,
+      page: () => const HomeScreen(),
+      binding: HomeScreenBinding(),
     ),
   ];
 }

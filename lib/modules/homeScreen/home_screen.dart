@@ -1,0 +1,277 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:get/get.dart';
+import 'package:search_page/search_page.dart';
+import 'package:sizer/sizer.dart';
+import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
+import 'package:tutorai/modules/homeScreen/plant_card_list.dart';
+import 'package:tutorai/shared/constants/colors.dart';
+import 'package:tutorai/shared/widgets/navigation_bar.dart';
+
+import '../../shared/widgets/custom_choice_container.dart';
+import '../../shared/widgets/floating_button.dart';
+
+class HomeScreen extends GetView<HomeScreenController> {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final List<String> items = ['Aydın Dağ Çilek', 'Kumluca Cam Domates'];
+    final selected = Get.put(0);
+    return Scaffold(
+      backgroundColor: Color(0xffF8F8F8),
+      body: Stack(children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Image(
+                  image: AssetImage(
+                    "assets/images/greenBar.png",
+                  ),
+                  width: double.infinity,
+                  height: 21.h,
+                  fit: BoxFit.cover,
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    height: 12.h,
+                    width: 28.w,
+                    child: Image(
+                      image: AssetImage("assets/images/ellipse1.png"),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Image(
+                    image: AssetImage("assets/images/ellipse2.png"),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                Positioned(
+                  right: 6.w,
+                  top: 7.h,
+                  child: Bounceable(
+                    onTap: () {},
+                    child: Container(
+                      height: 4.h,
+                      width: 8.5.w,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/images/ellipse3.png"),
+                              fit: BoxFit.fill)),
+                      child: Center(
+                          child: ImageIcon(
+                        AssetImage("assets/images/notificationIco.png"),
+                        color: AppColors.white,
+                      )),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 19.w, top: 8.h),
+                  child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Hoşgeldin,",
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontFamily: "Rubik Regular",
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 3.sp,
+                            ),
+                            Text(
+                              "Fatma",
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontFamily: "Rubik Bold",
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 3.sp,
+                            ),
+                            Text(
+                              "👋",
+                              style: TextStyle(
+                                fontFamily: "Rubik Bold",
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 4.sp,
+                        ),
+                        Text(
+                          "Arazini Anlık Takip Et!",
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontFamily: "Rubik Italic",
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
+              child: Container(
+                height: 8.6.h,
+                color: Color(0xffF8F8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomChoiceContainer(
+                      backgroundColor: Color(0xff2DDA93),
+                      text: "Sensör Ekle",
+                      icoColor: AppColors.white,
+                      icoPath: "sensorIco.png",
+                      textColor: AppColors.white,
+                      onTop: () {},
+                    ),
+                    CustomChoiceContainer(
+                      backgroundColor: AppColors.white,
+                      text: "Bölge Ekle",
+                      icoColor: Color(0xff2DDA93),
+                      icoPath: "regionIco.png",
+                      textColor: Color(0xff6A6F7D),
+                      onTop: () {},
+                    ),
+                    CustomChoiceContainer(
+                      backgroundColor: AppColors.white,
+                      text: "Uyarılar",
+                      icoColor: Color(0xff2DDA93),
+                      icoPath: "dangerIco.png",
+                      textColor: Color(0xff6A6F7D),
+                      onTop: () {},
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 0),
+            Expanded(
+              child: Container(
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: plantCards.length,
+                  itemBuilder: (context, index) {
+                    return plantCards[index];
+                  },
+                ),
+              ),
+            )
+          ],
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 18.h, left: 6.w, right: 6.w),
+          child: Bounceable(
+            onTap: () => showSearch(
+              context: context,
+              delegate: SearchPage(
+                onQueryUpdate: print,
+                items: items,
+                searchLabel: 'Arazi ara',
+                searchStyle: TextStyle(
+                    fontSize: 17.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.black,
+                    fontFamily: "Rubik Italic"),
+                suggestion: Center(
+                  child: Text(
+                    'Arazileri bölge ismine veya şehir ismine göre filtreleyebilirsiniz',
+                    style: TextStyle(
+                        color: AppColors.black,
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Rubik Italic"),
+                    textAlign: TextAlign.justify,
+                  ),
+                ),
+                failure: Center(
+                  child: Text(
+                    'Arazi Bulunamadı...',
+                    style: TextStyle(
+                        color: AppColors.black,
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Rubik Italic"),
+                    textAlign: TextAlign.justify,
+                  ),
+                ),
+                filter: (person) => [
+                  items[0],
+                ],
+                sort: (a, b) => a.compareTo(b),
+                builder: (person) => ListTile(
+                  title: Text(items[1]),
+                  // subtitle: Text(person.surname),
+                  // trailing: Text('${person.age} yo'),
+                ),
+              ),
+            ),
+            child: Container(
+              height: 6.2.h,
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(25.sp),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 4.w),
+                    child: ImageIcon(
+                      AssetImage("assets/images/searchIco.png"),
+                      color: Color(0xffD2D2D2),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 3.w,
+                  ),
+                  Text(
+                    "Arazi ara...",
+                    style: TextStyle(
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xffD2D2D2),
+                        fontFamily: "Rubik Italic"),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ]),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingButton(),
+      bottomNavigationBar: NaviBar(),
+    );
+  }
+}

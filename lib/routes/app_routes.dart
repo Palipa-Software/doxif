@@ -2,5 +2,6 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   static const LOGIN = '/login';
-  static const MENU = '/home';
+  static const MENU = '/menuScreen';
+  static const HOME = '/homeScreen';
 }
