@@ -40,7 +40,8 @@ class AddSensor extends GetView<AddSensorController> {
                             this.controller.qrViewController = controller;
                             controller.scannedDataStream.listen((scanData) {
                               this.controller.result = scanData;
-                              print(scanData);
+                              this.controller.scannedId.value = scanData.code!;
+                              print(this.controller.result?.code);
                             });
                           }),
                     ),

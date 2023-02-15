@@ -7,6 +7,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 class AddSensorController extends GetxController {
   RxInt currentBottomTab = 0.obs;
   RxBool scanBtn = false.obs;
+  RxString scannedId = "".obs;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? qrViewController;
