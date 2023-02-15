@@ -7,12 +7,15 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tutorai/modules/addSensor/addSensor.dart';
+import 'package:tutorai/routes/app_pages.dart';
 import 'package:tutorai/shared/constants/colors.dart';
 import 'package:tutorai/shared/constants/custom_firebase_manager.dart';
 import 'package:tutorai/shared/constants/strings.dart';
 import 'package:tutorai/shared/widgets/custom_add_region_button.dart';
 
 class AddRegionController extends GetxController {
+  final AddSensorController addSensorController = AddSensorController();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final TextEditingController regionName = TextEditingController();
   RxString selectedDate = "".obs;
@@ -38,15 +41,15 @@ class AddRegionController extends GetxController {
       "plantType": type,
       "plantVariet": variet,
       "plantingDate": selectedDate.value,
-      "sensorId": "222222",
+      "sensorId": addSensorController.scannedId.value,
     };
     CollectionReference addRegion = firestore
         .collection("users")
         .doc(_auth.currentUser?.uid)
         .collection("regions");
 
-    var response = await addRegion.doc(regionName.text).set(regions);
-    successDialog();
+    var response =
+        await addRegion.doc("${regionName.text}-$variet-$type").set(regions);
     return response;
   }
 
@@ -126,11 +129,12 @@ class AddRegionController extends GetxController {
     }
   }
 
-  void successDialog() {
+  Future<void> handleAddRegion() async {
     if (regionName.text.isNotEmpty &&
         selectedDate.isNotEmpty &&
         variet.isNotEmpty &&
         type.isNotEmpty) {
+      await addRegion();
       Get.defaultDialog(
         barrierDismissible: false,
         titlePadding: EdgeInsets.zero,
@@ -185,7 +189,7 @@ class AddRegionController extends GetxController {
                 func: () {
                   regionName.clear();
                   selectedDate.value = "";
-                  Get.back();
+                  Get.offAllNamed(Routes.ADDSENSOR);
                 },
                 title: "Tamam",
                 controller: this,
@@ -195,24 +199,29 @@ class AddRegionController extends GetxController {
         ),
       );
     } else {
-      Get.snackbar("Title", "Message",
-          backgroundColor: AppColors.appColor.withOpacity(.8),
-          titleText: Text(
-            AppStrings.errorTitle,
-            style: TextStyle(
-              fontFamily: "Rubik Bold",
-              fontSize: 12.sp,
-              color: AppColors.white,
-            ),
+      Get.back();
+
+      Get.snackbar(
+        "Title",
+        "Message",
+        backgroundColor: AppColors.appColor.withOpacity(.8),
+        titleText: Text(
+          AppStrings.errorTitle,
+          style: TextStyle(
+            fontFamily: "Rubik Bold",
+            fontSize: 12.sp,
+            color: AppColors.white,
           ),
-          messageText: Text(
-            AppStrings.errorSubtitle,
-            style: TextStyle(
-              fontSize: 10.sp,
-              fontFamily: "Rubik Regular",
-              color: AppColors.white,
-            ),
-          ));
+        ),
+        messageText: Text(
+          AppStrings.errorSubtitle,
+          style: TextStyle(
+            fontSize: 10.sp,
+            fontFamily: "Rubik Regular",
+            color: AppColors.white,
+          ),
+        ),
+      );
     }
   }
 }

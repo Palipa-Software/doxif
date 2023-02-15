@@ -357,7 +357,20 @@ class AddRegion extends GetView<AddRegionController> {
                 CustomButton(
                   controller: controller,
                   func: () async {
-                    await controller.addRegion();
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Center(
+                            child: CircularProgressIndicator(
+                          color: AppColors.appColor,
+                        ));
+                      },
+                    );
+                    try {
+                      await controller.handleAddRegion();
+                    } catch (e) {
+                      print(e);
+                    }
                   },
                   title: AppStrings.addRegionTitle,
                 ),
