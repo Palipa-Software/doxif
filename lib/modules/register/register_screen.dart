@@ -119,10 +119,11 @@ class RegisterScreen extends GetView<RegisterController> {
                     ],
                   ),
                 ),
-                SizedBox(
-                    width: 100.w,
-                    height: 6.h,
-                    child: MainButton(
+                Obx(
+                  () => SizedBox(
+                      width: 100.w,
+                      height: 6.h,
+                      child: MainButton(
                         onPressed: () {
                           controller.createUser(
                               controller.nameController.text,
@@ -132,7 +133,16 @@ class RegisterScreen extends GetView<RegisterController> {
                               controller.passwordController.text,
                               controller.rePasswordController.text);
                         },
-                        title: "Kayıt Ol"))
+                        child: controller.createUserControl.value
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : Text(
+                                "Kayıt Ol",
+                                style: TextStyle(fontFamily: "Rubik Regular", fontSize: 14.sp),
+                              ),
+                      )),
+                )
               ],
             ),
           ),

@@ -72,10 +72,14 @@ class LoginScreen extends GetView<LoginController> {
                   width: 100.w,
                   height: 6.h,
                   child: MainButton(
-                      onPressed: () {
-                        controller.signIn(controller.emailController.text, controller.passwordController.text, context);
-                      },
-                      title: AppStrings.login),
+                    onPressed: () {
+                      controller.signIn(controller.emailController.text, controller.passwordController.text, context);
+                    },
+                    child: Text(
+                      "Giriş Yap",
+                      style: TextStyle(fontFamily: "Rubik Regular", fontSize: 14.sp),
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: 1.h,
