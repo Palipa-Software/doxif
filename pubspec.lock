@@ -89,14 +89,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
-  easy_search_bar:
-    dependency: "direct main"
-    description:
-      name: easy_search_bar
-      sha256: "08a549a53dddf1f03fa7dd58b4a2facf81b021b9ec3b914476ed6e177d1e0bc3"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.2"
   equatable:
     dependency: transitive
     description:
@@ -230,6 +222,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.6"
+  flutter_swipe_action_cell:
+    dependency: "direct main"
+    description:
+      name: flutter_swipe_action_cell
+      sha256: "083b6fba65dda2002f40000f8ab6122c988af8798b6be55ab07f4e1777eabf62"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -472,14 +472,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
-  search_choices:
-    dependency: "direct main"
-    description:
-      name: search_choices
-      sha256: d38e38beb237467e57ef3497c7cc04d1f4fb9fd7abc0eb2d8e5fab7e973ba29a
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.2"
   search_page:
     dependency: "direct main"
     description:
@@ -488,14 +480,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
-  searchable_listview:
-    dependency: "direct main"
-    description:
-      name: searchable_listview
-      sha256: "024d99933df1a683056743df3c5d7a541c38c0cb7a3e978cb046718fb0858320"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.1"
   sizer:
     dependency: "direct main"
     description:

@@ -10,5 +10,5 @@ abstract class Routes {
   static const REGISTER = '/register';
   static const ADDSENSOR = '/addSensor';
   static const ADDREGION = '/addRegion';
-
+  static const WARNING = '/warning';
 }

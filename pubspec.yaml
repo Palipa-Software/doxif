@@ -46,13 +46,9 @@ dependencies:
   cloud_firestore: ^4.3.2
   qr_code_scanner: ^1.0.1
   syncfusion_flutter_datepicker: ^20.4.49
-  easy_search_bar: ^2.4.2
-  search_choices: ^2.2.2
-  searchable_listview: ^2.2.1
   firebase_database: ^10.0.10
   intl_phone_number_input: ^0.7.2
-
-
+  flutter_swipe_action_cell: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -98,8 +94,8 @@ flutter:
     - family: Rubik Bold
       fonts:
         - asset: assets/fonts/Rubik-Bold.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+    #       - asset: fonts/Schyler-Italic.ttf
+    #         style: italic
     - family: Rubik Italic
       fonts:
         - asset: assets/fonts/Rubik-Italic.ttf
