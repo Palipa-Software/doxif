@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "165191797199-npu2dlcmhcapq1669fvg6tska371t6u1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tutorai",
+            "certificate_hash": "652a9ed332ab57540f0cf26dc91865744bc0199b"
+          }
+        },
+        {
           "client_id": "165191797199-8r05brr3e83ng9d1vo9lpr0oqfvv77sp.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -30,6 +38,13 @@
             {
               "client_id": "165191797199-8r05brr3e83ng9d1vo9lpr0oqfvv77sp.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "165191797199-uo3o60bmiv2snbk2lh0e5q1o9leqammr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tutorai"
+              }
             }
           ]
         }

@@ -89,7 +89,11 @@ class LoginScreen extends GetView<LoginController> {
                   style: TextStyle(color: Color(0xFFA8AABC)),
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                  _SocialIconButton(imagePath: ImagesPath.icGoogle, onPressed: () {}),
+                  _SocialIconButton(
+                      imagePath: ImagesPath.icGoogle,
+                      onPressed: () {
+                        controller.signInWithGoogle();
+                      }),
                   _SocialIconButton(imagePath: ImagesPath.icApple, onPressed: () {})
                 ]),
                 Row(
