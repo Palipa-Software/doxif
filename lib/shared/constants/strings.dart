@@ -23,4 +23,8 @@ class AppStrings {
   static const String or = "Ya da";
   static const String notAccount = "Hesabın Yok Mu ?";
   static const String createAccount = "Kayıt Ol";
+
+  // WARNING
+  static const warningTitle = "Uyarılar";
+  static const swipeActionTitle = "Sil";
 }
