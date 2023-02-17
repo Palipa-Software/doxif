@@ -15,9 +15,10 @@ class LoginController extends GetxController {
   Future<UserCredential?> signInWithGoogle() async {
     try {
       // Trigger the authentication flow
-      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -48,20 +49,25 @@ class LoginController extends GetxController {
       )),
     );
     try {
-      await _auth.signInWithEmailAndPassword(email: email.trim(), password: password.trim());
+      await _auth.signInWithEmailAndPassword(
+          email: email.trim(), password: password.trim());
       Get.offAllNamed(Routes.MAINPAGE);
     } on FirebaseAuthException catch (e) {
       if (e.code == "unknown") {
         Get.snackbar("Hata", "E-Posta ve şifre alanları boş geçilemez.",
             backgroundColor: AppColors.appColor.withOpacity(0.5));
       } else if (e.code == "invalid-email") {
-        Get.snackbar("Hata", "Geçersiz E-Posta", backgroundColor: AppColors.appColor.withOpacity(0.5));
+        Get.snackbar("Hata", "Geçersiz E-Posta",
+            backgroundColor: AppColors.appColor.withOpacity(0.5));
       } else if (e.code == "user-not-found") {
-        Get.snackbar("Hata", "Geçersiz e-posta veya şifre", backgroundColor: AppColors.appColor.withOpacity(0.5));
+        Get.snackbar("Hata", "Geçersiz e-posta veya şifre",
+            backgroundColor: AppColors.appColor.withOpacity(0.5));
       } else if (e.code == "wrong-password") {
-        Get.snackbar("Hata", "Hatalı e-posta veya şifre", backgroundColor: AppColors.appColor.withOpacity(0.5));
+        Get.snackbar("Hata", "Hatalı e-posta veya şifre",
+            backgroundColor: AppColors.appColor.withOpacity(0.5));
       } else {
-        Get.snackbar("Hata", e.message.toString(), backgroundColor: AppColors.appColor.withOpacity(0.5));
+        Get.snackbar("Hata", e.message.toString(),
+            backgroundColor: AppColors.appColor.withOpacity(0.5));
       }
     }
     // ignore: use_build_context_synchronously
