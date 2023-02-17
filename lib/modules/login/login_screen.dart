@@ -61,7 +61,64 @@ class LoginScreen extends GetView<LoginController> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showModalBottomSheet<void>(
+                            isScrollControlled: true,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(16.sp), topRight: Radius.circular(16.sp))),
+                            context: context,
+                            builder: (context) {
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                                ),
+                                child: SizedBox(
+                                  height: 58.h,
+                                  child: Center(
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 4.w),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          Padding(
+                                              padding: EdgeInsets.symmetric(horizontal: 4.w),
+                                              child: Image.asset("assets/images/img_forgetPassword.png")),
+                                          Text(
+                                            "Şifremi Unuttum",
+                                            style: Theme.of(context).textTheme.headlineLarge,
+                                          ),
+                                          Text(
+                                            "E-posta adresine bir link göndereceğiz.",
+                                            style: Theme.of(context).textTheme.bodySmall,
+                                          ),
+                                          LoginTextField(
+                                            controller: controller.forgetPasswordController,
+                                            hintText: "E-Posta Adresi",
+                                            keyboardType: TextInputType.emailAddress,
+                                            textInputAction: TextInputAction.next,
+                                          ),
+                                          SizedBox(
+                                            width: 100.w,
+                                            height: 6.h,
+                                            child: MainButton(
+                                              onPressed: () {
+                                                controller.reserPassword(
+                                                    controller.forgetPasswordController.text.toString().trim(),
+                                                    context);
+                                              },
+                                              child: const Text("Şifre Yenile"),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
                         child: Text(
                           AppStrings.forgetPassword,
                           style: TextStyle(color: AppColors.appColor, decoration: TextDecoration.underline),
@@ -92,7 +149,7 @@ class LoginScreen extends GetView<LoginController> {
                   _SocialIconButton(
                       imagePath: ImagesPath.icGoogle,
                       onPressed: () {
-                        controller.signInWithGoogle();
+                        controller.signInWithGoogle(context);
                       }),
                   _SocialIconButton(imagePath: ImagesPath.icApple, onPressed: () {})
                 ]),

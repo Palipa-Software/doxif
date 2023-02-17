@@ -9,10 +9,21 @@ import 'package:tutorai/shared/constants/constants.dart';
 class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController forgetPasswordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<UserCredential?> signInWithGoogle() async {
+  Future reserPassword(String email, BuildContext context) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email.trim());
+      Get.snackbar("Şifremi Unuttum", "E-posta adresine bir link gönderdik. Lütfen kontrol ediniz.");
+    } on FirebaseAuthException catch (e) {
+      Get.snackbar("Error", e.message.toString());
+    }
+  }
+
+  Future<UserCredential?> signInWithGoogle(BuildContext context) async {
     try {
       // Trigger the authentication flow
       final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
@@ -35,6 +46,7 @@ class LoginController extends GetxController {
     } on FirebaseAuthException catch (e) {
       Get.snackbar("Error", e.message.toString());
     }
+
     return null;
   }
 
