@@ -4,12 +4,14 @@ class AppColors {
   AppColors._();
   static Color black = const Color(0xFF000000);
   static Color white = const Color(0xFFFFFFFF);
+  static Color red = const Color(0xFFFF0000);
   static Color appColor = const Color(0xFF2DDA93);
   static Color bgColor = const Color(0xFFF8F8F8);
   static Color inActiveIcColor = const Color(0xFF6A6F7D);
   static Color addPhoto = const Color(0xFF172B4D);
   static Color arrowBack = const Color(0xFF292323);
   static Color coldMorning = const Color(0xFFE5E5E5);
+  static Color warningCardTitle = const Color(0xFF292323);
 }
 
 Color hexToColor(String hex) {

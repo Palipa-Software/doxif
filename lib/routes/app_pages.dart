@@ -3,6 +3,7 @@ import 'package:tutorai/modules/addRegion/addRegion.dart';
 import 'package:tutorai/modules/addSensor/addSensor.dart';
 import 'package:tutorai/modules/login/login_binding.dart';
 import 'package:tutorai/modules/login/login_screen.dart';
+import 'package:tutorai/modules/warning/warning.dart';
 
 import '../modules/homeScreen/home_screen.dart';
 import '../modules/homeScreen/home_screen_binding.dart';
@@ -57,6 +58,11 @@ class AppPages {
       name: Routes.ADDREGION,
       page: () => AddRegion(),
       binding: AddRegionBinding(),
+    ),
+    GetPage(
+      name: Routes.WARNING,
+      page: () => const WarningScreen(),
+      binding: WarningBinding(),
     ),
   ];
 }
