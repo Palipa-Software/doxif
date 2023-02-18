@@ -21,7 +21,7 @@ part 'app_routes.dart';
 class AppPages {
   // ignore: constant_identifier_names
 
-  static const INITIAL = Routes.MAINPAGE;
+  static const INITIAL = Routes.ADDSENSOR;
 
   static final routes = [
     GetPage(

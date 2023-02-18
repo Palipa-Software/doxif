@@ -12,6 +12,8 @@ class AppStrings {
       "Sensör ve bölge başarıyla eklendi.\nBitkinizi anlık olarak takip edebilirsiniz.";
   static const errorTitle = "Uyarı !";
   static const errorSubtitle = "Boş Bırakılan Yerleri Doldurunuz.";
+  static const searchList = "Listeden Arat";
+  static const plantsVariet = "Bitki Çeşidi";
 
 //Login
   static const String loginTitle = "Tekrar Hoşgeldin";
