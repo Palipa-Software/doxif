@@ -1,9 +1,5 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -18,11 +14,12 @@ class AddRegionController extends GetxController {
   final AddSensorController addSensorController = AddSensorController();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final TextEditingController regionName = TextEditingController();
+  final TextEditingController variet = TextEditingController();
   RxString selectedDate = "".obs;
   RxInt index = 0.obs;
   RxInt index2 = 0.obs;
   RxList variets = [].obs;
-  String variet = "";
+  List<dynamic> searchVariets = [];
   String type = "";
   String plantImage = "";
   RxString plantImagePath = "".obs;
@@ -39,17 +36,18 @@ class AddRegionController extends GetxController {
     Map<String, dynamic> regions = {
       "regionName": regionName.text,
       "plantType": type,
-      "plantVariet": variet,
+      "plantVariet": variet.text,
       "plantingDate": selectedDate.value,
       "sensorId": addSensorController.scannedId.value,
     };
     CollectionReference addRegion = firestore
-        .collection("users")
+        .collection("allRegions")
         .doc(_auth.currentUser?.uid)
         .collection("regions");
 
-    var response =
-        await addRegion.doc("${regionName.text}-$variet-$type").set(regions);
+    var response = await addRegion
+        .doc("${regionName.text}-${variet.text}-$type")
+        .set(regions);
     return response;
   }
 
@@ -132,7 +130,7 @@ class AddRegionController extends GetxController {
   Future<void> handleAddRegion() async {
     if (regionName.text.isNotEmpty &&
         selectedDate.isNotEmpty &&
-        variet.isNotEmpty &&
+        variet.text.isNotEmpty &&
         type.isNotEmpty) {
       await addRegion();
       Get.defaultDialog(
