@@ -14,13 +14,12 @@ class AddRegionController extends GetxController {
   final AddSensorController addSensorController = AddSensorController();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final TextEditingController regionName = TextEditingController();
-  final TextEditingController variet = TextEditingController();
+  RxString variet = "".obs;
   RxString selectedDate = "".obs;
   RxInt index = 0.obs;
-  RxInt index2 = 0.obs;
   RxList variets = [].obs;
   List<dynamic> searchVariets = [];
-  String type = "";
+  String type = "Biber";
   String plantImage = "";
   RxString plantImagePath = "".obs;
 
@@ -36,9 +35,9 @@ class AddRegionController extends GetxController {
     Map<String, dynamic> regions = {
       "regionName": regionName.text,
       "plantType": type,
-      "plantVariet": variet.text,
+      "plantVariet": variet.value,
       "plantingDate": selectedDate.value,
-      "sensorId": addSensorController.scannedId.value,
+      "sensorId": "",
     };
     CollectionReference addRegion = firestore
         .collection("allRegions")
@@ -46,7 +45,7 @@ class AddRegionController extends GetxController {
         .collection("regions");
 
     var response = await addRegion
-        .doc("${regionName.text}-${variet.text}-$type")
+        .doc("${regionName.text}-${variet.value}-$type")
         .set(regions);
     return response;
   }
@@ -130,7 +129,7 @@ class AddRegionController extends GetxController {
   Future<void> handleAddRegion() async {
     if (regionName.text.isNotEmpty &&
         selectedDate.isNotEmpty &&
-        variet.text.isNotEmpty &&
+        variet.value.isNotEmpty &&
         type.isNotEmpty) {
       await addRegion();
       Get.defaultDialog(

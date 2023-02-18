@@ -51,7 +51,7 @@ class AppPages {
     ),
     GetPage(
       name: Routes.ADDSENSOR,
-      page: () => const AddSensor(),
+      page: () => AddSensor(),
       binding: AddSensorBinding(),
     ),
     GetPage(

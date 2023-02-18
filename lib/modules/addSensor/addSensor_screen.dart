@@ -1,16 +1,16 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutorai/modules/addSensor/addSensor_controller.dart';
-import 'package:tutorai/shared/constants/colors.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tutorai/shared/constants/strings.dart';
 
+import '../../routes/routes.dart';
 import '../../shared/widgets/widgets.dart';
 
 class AddSensor extends GetView<AddSensorController> {
-  const AddSensor({super.key});
+  AddSensor({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +38,20 @@ class AddSensor extends GetView<AddSensorController> {
                           key: controller.qrKey,
                           onQRViewCreated: (controller) {
                             this.controller.qrViewController = controller;
-                            controller.scannedDataStream.listen((scanData) {
-                              this.controller.result = scanData;
-                              this.controller.scannedId.value = scanData.code!;
-                              print(this.controller.result?.code);
-                            });
+                            controller.scannedDataStream.listen(
+                              (scanData) {
+                                Timer.periodic(
+                                    const Duration(
+                                      seconds: 1,
+                                    ), (timer) {
+                                  this.controller.result = scanData;
+                                  this.controller.scannedId.value =
+                                      this.controller.result!.code!;
+                                  print(this.controller.result?.code);
+                                  timer.cancel();
+                                });
+                              },
+                            );
                           }),
                     ),
                   ),
@@ -56,10 +65,17 @@ class AddSensor extends GetView<AddSensorController> {
                       scrollDirection: Axis.horizontal,
                       itemCount: 1,
                       itemBuilder: (context, index) {
-                        return CustomSensorCard(
-                          sensorName: "Sıcaklık Sensörü",
-                          sensorType: "LM35 Sensör",
-                        );
+                        return Obx(() {
+                          return controller.sensorIdFirst.value != ""
+                              ? CustomSensorCard(
+                                  func: () async {
+                                    Get.toNamed(Routes.ADDREGION);
+                                  },
+                                  sensorName: controller.sensorName.value,
+                                  sensorType: controller.sensorType.value,
+                                )
+                              : SizedBox();
+                        });
                       },
                     ),
                   ),
