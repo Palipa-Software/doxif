@@ -56,7 +56,7 @@ class AddRegion extends GetView<AddRegionController> {
                       : Container(
                           width: 100.w,
                           height: 30.h,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             image: DecorationImage(
                               image: AssetImage("assets/images/biber.png"),
                             ),
@@ -79,7 +79,6 @@ class AddRegion extends GetView<AddRegionController> {
                     if (snapshot.hasData) {
                       controller.searchVariets =
                           snapshot.data?.docs[0]["plantsVariet"];
-                      controller.type = snapshot.data?.docs[0]["name"];
                       return Container(
                         width: 100.w,
                         height: 6.h,
@@ -90,7 +89,7 @@ class AddRegion extends GetView<AddRegionController> {
                             return Obx(
                               () => Bounceable(
                                 onTap: () {
-                                  controller.index2.value = 0;
+                                  controller.variet.value = "Bitki Çeşidi";
                                   controller.type =
                                       snapshot.data?.docs[index]["name"];
                                   print("Type:${controller.type}");
@@ -162,179 +161,94 @@ class AddRegion extends GetView<AddRegionController> {
                 SizedBox(
                   height: 1.5.h,
                 ),
-                TextFormField(
-                  controller: controller.variet,
-                  decoration: InputDecoration(
-                    hintText: AppStrings.plantsVariet,
-                    prefixIcon: Bounceable(
-                      onTap: () {
-                        showSearch(
-                          context: context,
-                          delegate: SearchPage(
-                            onQueryUpdate: print,
-                            searchLabel: "Çeşitleri Ara",
-                            items: controller.searchVariets,
-                            suggestion: ListView.builder(
-                              itemCount: controller.searchVariets.length,
-                              itemBuilder: (context, index) {
-                                return ListTile(
-                                  onTap: () {
-                                    controller.variet.text =
-                                        controller.searchVariets[index];
-                                    Get.back();
-                                  },
-                                  title: Text(controller.searchVariets[index]),
-                                );
+                Bounceable(
+                  onTap: () {
+                    showSearch(
+                      context: context,
+                      delegate: SearchPage(
+                        onQueryUpdate: print,
+                        searchLabel: AppStrings.searchVarietText,
+                        items: controller.searchVariets,
+                        suggestion: ListView.builder(
+                          itemCount: controller.searchVariets.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              onTap: () {
+                                controller.variet.value =
+                                    controller.searchVariets[index];
+                                Get.back();
                               },
-                            ),
-                            failure: Center(
-                              child: Bounceable(
-                                onTap: () {},
-                                child: Text(
-                                  'Aradığınız Çeşit Listede Bulunamadı',
-                                  style: TextStyle(
-                                    color: AppColors.black,
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "Rubik Italic",
-                                  ),
-                                  textAlign: TextAlign.justify,
-                                ),
-                              ),
-                            ),
-                            filter: (val) => [
-                              val.toString(),
-                            ],
-                            sort: (a, b) => a.compareTo(b),
-                            builder: (val) {
-                              return ListTile(
-                                onTap: () {
-                                  print("ddd:$val");
-                                  controller.variet.text = val;
-                                  Get.back();
-                                },
-                                title: Text(val),
-                              );
-                            },
-                          ),
-                        );
-                      },
-                      child: Container(
-                        width: 15.w,
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          AppStrings.searchList,
-                          style: TextStyle(
-                            color: AppColors.appColor,
-                            fontFamily: "Rubik Bold",
-                            fontSize: 7.sp,
-                          ),
-                          textAlign: TextAlign.center,
+                              title: Text(controller.searchVariets[index]),
+                            );
+                          },
                         ),
+                        failure: Center(
+                          child: Text(
+                            AppStrings.noElementSearchList,
+                            style: TextStyle(
+                              color: AppColors.black,
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "Rubik Italic",
+                            ),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                        filter: (val) => [
+                          val.toString(),
+                        ],
+                        sort: (a, b) => a.compareTo(b),
+                        builder: (val) {
+                          return ListTile(
+                            onTap: () {
+                              print("ddd:$val");
+                              controller.variet.value = val;
+                              Get.back();
+                            },
+                            title: Text(val),
+                          );
+                        },
                       ),
+                    );
+                  },
+                  child: Container(
+                    width: 100.w,
+                    height: 6.5.h,
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 3.w,
+                      vertical: .5.h,
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.coldMorning),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(12.sp),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      border: Border.all(
+                        color: AppColors.coldMorning,
                       ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
                         12.sp,
                       ),
-                      borderSide: BorderSide(
-                        color: AppColors.appColor,
-                      ),
                     ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        12.sp,
-                      ),
-                    ),
-                    focusColor: AppColors.appColor,
-                  ),
-                  style: TextStyle(
-                    color: AppColors.addPhoto,
-                    fontFamily: "Rubik Regular",
-                    fontSize: 12.sp,
+                    child: Obx(() {
+                      return controller.variet.value != ""
+                          ? Text(
+                              controller.variet.value,
+                              style: TextStyle(
+                                color: AppColors.addPhoto,
+                                fontFamily: "Rubik Regular",
+                                fontSize: 12.sp,
+                              ),
+                            )
+                          : Text(
+                              "Bitki Çeşidi",
+                              style: TextStyle(
+                                color: AppColors.addPhoto,
+                                fontFamily: "Rubik Regular",
+                                fontSize: 12.sp,
+                              ),
+                            );
+                    }),
                   ),
                 ),
-
-                // StreamBuilder<QuerySnapshot>(
-                //   stream: controller.stream,
-                //   builder: (BuildContext context,
-                //       AsyncSnapshot<QuerySnapshot> snapshot) {
-                //     if (snapshot.hasError) {
-                //       print("Error");
-                //     }
-
-                //     if (snapshot.hasData) {
-                //       return Obx(
-                //         () => Container(
-                //           width: 100.w,
-                //           height: 6.h,
-                //           child: ListView.builder(
-                //             scrollDirection: Axis.horizontal,
-                //             itemCount: snapshot
-                //                 .data
-                //                 ?.docs[controller.index.value]["plantsVariet"]
-                //                 .length,
-                //             itemBuilder: (context, index) {
-                //               return Obx(
-                //                 () => Bounceable(
-                //                   onTap: () {
-                //                     controller.variet.text = snapshot
-                //                             .data?.docs[controller.index.value]
-                //                         ["plantsVariet"][index];
-                //                     print(index);
-                //                     print(controller.variet);
-                //                     controller.index2.value = index;
-                //                   },
-                //                   child: Container(
-                //                     decoration: BoxDecoration(
-                //                         color: index == controller.index2.value
-                //                             ? AppColors.appColor
-                //                             : AppColors.white,
-                //                         borderRadius: BorderRadius.circular(
-                //                           12.sp,
-                //                         ),
-                //                         border: Border.all(
-                //                           color: AppColors.coldMorning,
-                //                         )),
-                //                     padding: EdgeInsets.symmetric(
-                //                       horizontal: 3.w,
-                //                       vertical: 2.h,
-                //                     ),
-                //                     margin: EdgeInsets.only(
-                //                       right: 2.w,
-                //                     ),
-                //                     child: Text(
-                //                       (snapshot.data
-                //                                   ?.docs[controller.index.value]
-                //                               ["plantsVariet"][index])
-                //                           .toString(),
-                //                       style: TextStyle(
-                //                         color: index == controller.index2.value
-                //                             ? AppColors.white
-                //                             : AppColors.black,
-                //                       ),
-                //                     ),
-                //                   ),
-                //                 ),
-                //               );
-                //             },
-                //           ),
-                //         ),
-                //       );
-                //     }
-                //     return Center(
-                //       child: CircularProgressIndicator(
-                //         color: AppColors.appColor,
-                //       ),
-                //     );
-                //   },
-                // ),
                 SizedBox(
                   height: 1.5.h,
                 ),
@@ -345,6 +259,8 @@ class AddRegion extends GetView<AddRegionController> {
                     hintText: AppStrings.regionName,
                     hintStyle: TextStyle(
                       color: AppColors.addPhoto,
+                      fontFamily: "Rubik Regular",
+                      fontSize: 12.sp,
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: AppColors.appColor),
@@ -363,6 +279,8 @@ class AddRegion extends GetView<AddRegionController> {
                   keyboardType: TextInputType.name,
                   style: TextStyle(
                     color: AppColors.addPhoto,
+                    fontFamily: "Rubik Regular",
+                    fontSize: 12.sp,
                   ),
                   controller: controller.regionName,
                 ),

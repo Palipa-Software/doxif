@@ -9,10 +9,12 @@ import '../constants/constants.dart';
 class CustomSensorCard extends StatelessWidget {
   String sensorType;
   String sensorName;
+  void Function() func;
   CustomSensorCard({
     super.key,
     required this.sensorName,
     required this.sensorType,
+    required this.func,
   });
 
   @override
@@ -51,7 +53,7 @@ class CustomSensorCard extends StatelessWidget {
             height: 100.h,
             child: Bounceable(
               onTap: () {
-                Get.toNamed(Routes.ADDREGION);
+                func();
               },
               child: Container(
                 width: 9.5.w,
