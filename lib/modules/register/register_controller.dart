@@ -11,6 +11,17 @@ class RegisterController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController rePasswordController = TextEditingController();
+  RxBool validateName = false.obs;
+  RxBool validateSurname = false.obs;
+  RxBool validatePhone = false.obs;
+  RxBool validateEmail = false.obs;
+  RxBool validatePassword = false.obs;
+  RxBool validateRePassword = false.obs;
+
+  void textFieldValidate(TextEditingController controller, RxBool validate) {
+    controller.text.isEmpty ? validate.value = true : validate.value = false;
+  }
+
   RxBool createUserControl = false.obs;
   RxBool checkBox = false.obs;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -30,35 +41,35 @@ class RegisterController extends GetxController {
               "email": email,
             });
             Get.snackbar("Kayıt Başarılı", "Başarılı bir biçimde kayıt oldunuz. Giriş .Yapınız",
-                backgroundColor: AppColors.appColor.withOpacity(0.5));
+                backgroundColor: AppColors.appColor.withOpacity(0.8));
             createUserControl.value = false;
             return user.user;
           } on FirebaseAuthException catch (e) {
             if (e.code.toString() == "invalid-email") {
-              Get.snackbar("Hata", "Geçersiz E-Posta", backgroundColor: AppColors.appColor.withOpacity(0.5));
+              Get.snackbar("Hata", "Geçersiz E-Posta", backgroundColor: AppColors.appColor.withOpacity(0.8));
               createUserControl.value = false;
             } else if (e.code.toString() == "weak-password") {
-              Get.snackbar("Hata", "Güçsüz Parola", backgroundColor: AppColors.appColor.withOpacity(0.5));
+              Get.snackbar("Hata", "Güçsüz Parola", backgroundColor: AppColors.appColor.withOpacity(0.8));
               createUserControl.value = false;
             } else if (e.code.toString() == "email-already-in-use") {
-              Get.snackbar("Hata", "E-Mail Kullanılıyor", backgroundColor: AppColors.appColor.withOpacity(0.5));
+              Get.snackbar("Hata", "E-Mail Kullanılıyor", backgroundColor: AppColors.appColor.withOpacity(0.8));
               createUserControl.value = false;
             } else {
-              Get.snackbar("Error", e.message.toString(), backgroundColor: AppColors.appColor.withOpacity(0.5));
+              Get.snackbar("Error", e.message.toString(), backgroundColor: AppColors.appColor.withOpacity(0.8));
               createUserControl.value = false;
             }
           }
         } else {
-          Get.snackbar("Hata", "Şifre uyuşmuyor", backgroundColor: AppColors.appColor.withOpacity(0.5));
+          Get.snackbar("Hata", "Şifre uyuşmuyor", backgroundColor: AppColors.appColor.withOpacity(0.8));
           createUserControl.value = false;
         }
       } else {
-        Get.snackbar("Hata", "Hiçbir alan boş bırakılamaz.", backgroundColor: AppColors.appColor.withOpacity(0.5));
+        Get.snackbar("Hata", "Hiçbir alan boş bırakılamaz.", backgroundColor: AppColors.appColor.withOpacity(0.8));
         createUserControl.value = false;
       }
     } else {
       Get.snackbar("Hata", "Lütfen kullanıcı sözleşmesi ve Gizlilik Politikasını Kabul Edin",
-          backgroundColor: AppColors.appColor.withOpacity(0.5));
+          backgroundColor: AppColors.appColor.withOpacity(0.8));
       createUserControl.value = false;
     }
     createUserControl.value = false;

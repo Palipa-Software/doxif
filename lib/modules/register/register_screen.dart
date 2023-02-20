@@ -32,56 +32,79 @@ class RegisterScreen extends GetView<RegisterController> {
                   "Hesap oluştur ve devam et!",
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
-                LoginTextField(
-                  controller: controller.nameController,
-                  hintText: "İsim",
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.next,
-                ),
-                LoginTextField(
-                  controller: controller.surnameController,
-                  hintText: "Soyisim",
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.next,
-                ),
-                TextField(
-                    controller: controller.phoneController,
+                Obx(
+                  () => LoginTextField(
+                    controller: controller.nameController,
+                    hintText: "İsim",
+                    keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.number,
-                    style: const TextStyle(fontFamily: "Rubik Regular"),
-                    decoration: InputDecoration(
-                        label: const Text("+90 555 555 5555"),
-                        labelStyle: const TextStyle(color: Color(0xFF172B4D), fontFamily: "Rubik Regular"),
-                        hintStyle: const TextStyle(color: Color(0xFF172B4D), fontFamily: "Rubik Regular"),
-                        prefixText: "+90 ",
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 3.w),
-                          child: Image.asset(
-                            "assets/images/ic_turkey.png",
-                            width: 8.w,
-                            height: 8.w,
+                    validate: controller.validateName.value,
+                    validateString: "İsim boş bırakılamaz",
+                  ),
+                ),
+                Obx(
+                  () => LoginTextField(
+                    controller: controller.surnameController,
+                    hintText: "Soyisim",
+                    keyboardType: TextInputType.text,
+                    textInputAction: TextInputAction.next,
+                    validate: controller.validateSurname.value,
+                    validateString: "Soyisim boş bırakılamaz",
+                  ),
+                ),
+                Obx(
+                  () => TextField(
+                      controller: controller.phoneController,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      style: const TextStyle(fontFamily: "Rubik Regular"),
+                      decoration: InputDecoration(
+                          errorText: controller.validatePhone.value ? "Telefon boş bırakılamaz" : null,
+                          label: const Text("+90 555 555 5555"),
+                          labelStyle: const TextStyle(color: Color(0xFF172B4D), fontFamily: "Rubik Regular"),
+                          hintStyle: const TextStyle(color: Color(0xFF172B4D), fontFamily: "Rubik Regular"),
+                          prefixText: "+90 ",
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 3.w),
+                            child: Image.asset(
+                              "assets/images/ic_turkey.png",
+                              width: 8.w,
+                              height: 8.w,
+                            ),
                           ),
-                        ),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8.sp))))),
-                LoginTextField(
-                  controller: controller.emailController,
-                  hintText: "E-Posta Adresi",
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
+                          border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8.sp))))),
                 ),
-                LoginTextField(
-                  controller: controller.passwordController,
-                  hintText: "Şifre *",
-                  keyboardType: TextInputType.visiblePassword,
-                  textInputAction: TextInputAction.next,
-                  obscureText: true,
+                Obx(
+                  () => LoginTextField(
+                    controller: controller.emailController,
+                    hintText: "E-Posta Adresi",
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    validate: controller.validateEmail.value,
+                    validateString: "E-Posta boş bırakılamaz",
+                  ),
                 ),
-                LoginTextField(
-                  controller: controller.rePasswordController,
-                  hintText: "Şifre Tekrar *",
-                  keyboardType: TextInputType.visiblePassword,
-                  textInputAction: TextInputAction.done,
-                  obscureText: true,
+                Obx(
+                  () => LoginTextField(
+                    controller: controller.passwordController,
+                    hintText: "Şifre *",
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.next,
+                    obscureText: true,
+                    validate: controller.validatePassword.value,
+                    validateString: "Şifre boş bırakılamaz",
+                  ),
+                ),
+                Obx(
+                  () => LoginTextField(
+                    controller: controller.rePasswordController,
+                    hintText: "Şifre Tekrar *",
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    obscureText: true,
+                    validate: controller.validateRePassword.value,
+                    validateString: "Şifre tekrar boş bırakılamaz",
+                  ),
                 ),
                 Obx(
                   () => Row(
@@ -125,6 +148,12 @@ class RegisterScreen extends GetView<RegisterController> {
                       height: 6.h,
                       child: MainButton(
                         onPressed: () {
+                          controller.textFieldValidate(controller.nameController, controller.validateName);
+                          controller.textFieldValidate(controller.surnameController, controller.validateSurname);
+                          controller.textFieldValidate(controller.phoneController, controller.validatePhone);
+                          controller.textFieldValidate(controller.emailController, controller.validateEmail);
+                          controller.textFieldValidate(controller.passwordController, controller.validatePassword);
+                          controller.textFieldValidate(controller.rePasswordController, controller.validateRePassword);
                           controller.createUser(
                               controller.nameController.text,
                               controller.surnameController.text,

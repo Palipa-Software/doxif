@@ -17,6 +17,7 @@ class MenuScreen extends GetView<MenuScreenController> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
+    Get.put(MenuScreenController());
     return Scaffold(
         backgroundColor: const Color(0xffF8F8F8),
         appBar: AppBar(
@@ -242,7 +243,9 @@ class MenuScreen extends GetView<MenuScreenController> {
                   height: 2.h,
                 ),
                 Bounceable(
-                  onTap: () {},
+                  onTap: () {
+                    controller.deleteUser();
+                  },
                   child: Text(
                     "Hesabı Sil",
                     style: TextStyle(

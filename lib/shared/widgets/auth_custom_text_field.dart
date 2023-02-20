@@ -9,7 +9,9 @@ class LoginTextField extends StatelessWidget {
       required this.keyboardType,
       required this.textInputAction,
       this.obscureText,
-      this.color});
+      this.color,
+      required this.validate,
+      required this.validateString});
 
   final TextEditingController controller;
   final String hintText;
@@ -17,6 +19,8 @@ class LoginTextField extends StatelessWidget {
   final TextInputAction textInputAction;
   final bool? obscureText;
   final Color? color;
+  final bool validate;
+  final String validateString;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +30,7 @@ class LoginTextField extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       decoration: InputDecoration(
+        errorText: validate ? validateString : null,
         label: Text(hintText),
         labelStyle: TextStyle(color: color ?? const Color(0xFF172B4D), fontFamily: "Rubik Regular"),
         hintText: hintText,

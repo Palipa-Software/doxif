@@ -39,23 +39,31 @@ class LoginScreen extends GetView<LoginController> {
                 SizedBox(
                   height: 2.h,
                 ),
-                LoginTextField(
-                  controller: controller.emailController,
-                  hintText: AppStrings.eposta,
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  color: const Color(0xFF7A869A),
+                Obx(
+                  () => LoginTextField(
+                    controller: controller.emailController,
+                    hintText: AppStrings.eposta,
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    color: const Color(0xFF7A869A),
+                    validate: controller.validateEmail.value,
+                    validateString: "E-Posta boş bırakılamaz.",
+                  ),
                 ),
                 SizedBox(
                   height: 1.h,
                 ),
-                LoginTextField(
-                  controller: controller.passwordController,
-                  hintText: AppStrings.password,
-                  keyboardType: TextInputType.visiblePassword,
-                  textInputAction: TextInputAction.done,
-                  obscureText: true,
-                  color: const Color(0xFF7A869A),
+                Obx(
+                  () => LoginTextField(
+                    controller: controller.passwordController,
+                    hintText: AppStrings.password,
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    obscureText: true,
+                    color: const Color(0xFF7A869A),
+                    validate: controller.validatePassword.value,
+                    validateString: "Parola boş bırakılamaz.",
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -92,18 +100,24 @@ class LoginScreen extends GetView<LoginController> {
                                             "E-posta adresine bir link göndereceğiz.",
                                             style: Theme.of(context).textTheme.bodySmall,
                                           ),
-                                          LoginTextField(
-                                            controller: controller.forgetPasswordController,
-                                            hintText: "E-Posta Adresi",
-                                            keyboardType: TextInputType.emailAddress,
-                                            textInputAction: TextInputAction.next,
+                                          Obx(
+                                            () => LoginTextField(
+                                              controller: controller.forgetPasswordController,
+                                              hintText: "E-Posta Adresi",
+                                              keyboardType: TextInputType.emailAddress,
+                                              textInputAction: TextInputAction.next,
+                                              validate: controller.validateForgetPassword.value,
+                                              validateString: "E-Posta boş bırakılamaz.",
+                                            ),
                                           ),
                                           SizedBox(
                                             width: 100.w,
                                             height: 6.h,
                                             child: MainButton(
                                               onPressed: () {
-                                                controller.reserPassword(
+                                                controller.textFieldValidate(controller.forgetPasswordController,
+                                                    controller.validateForgetPassword);
+                                                controller.resetPassword(
                                                     controller.forgetPasswordController.text.toString().trim(),
                                                     context);
                                               },
@@ -130,6 +144,8 @@ class LoginScreen extends GetView<LoginController> {
                   height: 6.h,
                   child: MainButton(
                     onPressed: () {
+                      controller.textFieldValidate(controller.emailController, controller.validateEmail);
+                      controller.textFieldValidate(controller.passwordController, controller.validatePassword);
                       controller.signIn(controller.emailController.text, controller.passwordController.text, context);
                     },
                     child: Text(
