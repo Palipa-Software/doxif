@@ -49,6 +49,7 @@ dependencies:
   intl_phone_number_input: ^0.7.2
   flutter_swipe_action_cell: ^3.1.0
   flutter_localization: ^0.1.10
+  shared_preferences: ^2.0.17
   #auth processes
   google_sign_in: ^5.4.4
   firebase_auth: ^4.2.8

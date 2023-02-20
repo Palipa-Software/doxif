@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutorai/modules/addSensor/addSensor_controller.dart';
+import 'package:tutorai/shared/constants/colors.dart';
 import 'package:tutorai/shared/constants/strings.dart';
 
 import '../../routes/routes.dart';
@@ -40,16 +41,12 @@ class AddSensor extends GetView<AddSensorController> {
                             this.controller.qrViewController = controller;
                             controller.scannedDataStream.listen(
                               (scanData) {
-                                Timer.periodic(
-                                    const Duration(
-                                      seconds: 1,
-                                    ), (timer) {
-                                  this.controller.result = scanData;
-                                  this.controller.scannedId.value =
-                                      this.controller.result!.code!;
-                                  print(this.controller.result?.code);
-                                  timer.cancel();
-                                });
+                                this.controller.result = scanData;
+                                this.controller.scannedId.value =
+                                    this.controller.result!.code!;
+                                this.controller.getSensor();
+                                print(this.controller.result?.code);
+                                print(this.controller.scannedId.value);
                               },
                             );
                           }),
@@ -66,15 +63,28 @@ class AddSensor extends GetView<AddSensorController> {
                       itemCount: 1,
                       itemBuilder: (context, index) {
                         return Obx(() {
-                          return controller.sensorIdFirst.value != ""
+                          return controller.scannedId.value != ""
                               ? CustomSensorCard(
                                   func: () async {
-                                    Get.toNamed(Routes.ADDREGION);
+                                    controller.addSensor();
+                                    Get.toNamed(
+                                      Routes.ADDREGION,
+                                    );
                                   },
                                   sensorName: controller.sensorName.value,
                                   sensorType: controller.sensorType.value,
                                 )
-                              : SizedBox();
+                              : SizedBox(
+                                  width: 95.w,
+                                  child: Center(
+                                      child: Text(
+                                    controller.notFound.value,
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontFamily: "Rubik Bold",
+                                    ),
+                                  )),
+                                );
                         });
                       },
                     ),

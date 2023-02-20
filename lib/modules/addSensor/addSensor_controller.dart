@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddSensorController extends GetxController {
   RxInt currentBottomTab = 0.obs;
   RxBool scanBtn = false.obs;
   RxString scannedId = "".obs;
+  RxString notFound = "Sensörünüzdeki QR kodu okutunuz.".obs;
   RxString sensorIdFirst = "".obs;
   String sensorIdFirst2 = "";
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -37,14 +39,24 @@ class AddSensorController extends GetxController {
     super.dispose();
   }
 
+  Future<String?> getSensorID() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var id = prefs.getString("sensorID");
+    print("id:${id}");
+    return id;
+  }
+
+  void addSensor() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('sensorID', result!.code.toString());
+  }
+
   void getSensor() {
-    // sensorIdFirst = result!.code!.substring(0, 1); SENSÖR TESTİ İÇİN ASIL OLCAK OLAN YER
-    sensorIdFirst2 = "1";
-    sensorIdFirst.value = "1";
-    switch (sensorIdFirst2) {
+    switch (scannedId.value.split("")[0]) {
       case "":
         {
           print("Boş sensör");
+          scannedId.value == "";
           print("1");
         }
         break;
@@ -66,21 +78,21 @@ class AddSensorController extends GetxController {
           print("3");
         }
         break;
+      case "3":
+        {
+          sensorName.value = "Toprak Sensörü";
+          sensorType.value = "LM37 Sensör";
+          print("3 numaralı sensör");
+          print("4");
+        }
+        break;
       default:
         {
-          //statements;
+          scannedId.value = "";
+          notFound.value = "Uygun olmayan sensör";
+          print("Buramı acaba");
         }
         break;
     }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    print("Şuanda QR okutuluyor Varsayıyoruz...");
-    Timer(Duration(seconds: 5), () {
-      getSensor();
-      print("QR OKUNDU");
-    });
   }
 }
