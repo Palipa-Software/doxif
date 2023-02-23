@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:tutorai/modules/addRegion/addRegion.dart';
 import 'package:tutorai/modules/addSensor/addSensor.dart';
+import 'package:tutorai/modules/homeDetailScreen/home_detail_binding.dart';
+import 'package:tutorai/modules/homeDetailScreen/home_detail_screen.dart';
 import 'package:tutorai/modules/login/login_binding.dart';
 import 'package:tutorai/modules/login/login_screen.dart';
 import 'package:tutorai/modules/warning/warning.dart';
@@ -21,7 +23,7 @@ part 'app_routes.dart';
 class AppPages {
   // ignore: constant_identifier_names
 
-  static const INITIAL = Routes.ADDSENSOR;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -63,6 +65,11 @@ class AppPages {
       name: Routes.WARNING,
       page: () => const WarningScreen(),
       binding: WarningBinding(),
+    ),
+    GetPage(
+      name: Routes.HOMEDETAIL,
+      page: () => const HomeDetailScreen(),
+      binding: HomeDetailBinding(),
     ),
   ];
 }

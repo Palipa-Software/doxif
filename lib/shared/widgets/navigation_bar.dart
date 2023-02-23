@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tutorai/modules/homeScreen/home_screen.dart';
 
-class NaviBar extends StatelessWidget {
+import '../../modules/menuScreen/menu_screen_controller.dart';
+
+class NaviBar extends GetView<MenuScreenController> {
   NaviBar({
     super.key,
   });
@@ -27,7 +31,9 @@ class NaviBar extends StatelessWidget {
                   AssetImage("assets/images/homeIco.png"),
                   color: Color(0xff6A6F7D),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Get.to(HomeScreen(), arguments: [controller.userName.value]);
+                },
               ),
               Bounceable(
                 child: ImageIcon(

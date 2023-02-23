@@ -1,12 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
 import 'package:search_page/search_page.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tutorai/modules/addRegion/addRegion.dart';
+import 'package:tutorai/modules/addRegion/addRegion_screen.dart';
 import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
 import 'package:tutorai/modules/homeScreen/plant_card_list.dart';
+import 'package:tutorai/modules/menuScreen/menu_screen_controller.dart';
 import 'package:tutorai/shared/constants/colors.dart';
 import 'package:tutorai/shared/widgets/navigation_bar.dart';
+import 'package:tutorai/shared/widgets/plant_card.dart';
 
 import '../../shared/widgets/custom_choice_container.dart';
 import '../../shared/widgets/floating_button.dart';
@@ -16,6 +23,11 @@ class HomeScreen extends GetView<HomeScreenController> {
 
   @override
   Widget build(BuildContext context) {
+    AddRegionController addRegionController = AddRegionController();
+    final user = FirebaseAuth.instance.currentUser!;
+
+    Get.put(HomeScreenController());
+    MenuScreenController menuScreenController = MenuScreenController();
     final List<String> items = ['Aydın Dağ Çilek', 'Kumluca Cam Domates'];
     final selected = Get.put(0);
     return Scaffold(
@@ -95,15 +107,30 @@ class HomeScreen extends GetView<HomeScreenController> {
                             SizedBox(
                               width: 3.sp,
                             ),
-                            Text(
-                              "Fatma",
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontFamily: "Rubik Bold",
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                            FutureBuilder<DocumentSnapshot>(
+                                future: menuScreenController.users
+                                    .doc(user.uid)
+                                    .get(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                  if (snapshot.hasError) {
+                                    return Text("Somethink went wrong");
+                                  }
+                                  if (snapshot.hasData) {
+                                    Map<String, dynamic> data = snapshot.data!
+                                        .data() as Map<String, dynamic>;
+                                    return Text(
+                                      data["name"],
+                                      style: TextStyle(
+                                        color: AppColors.white,
+                                        fontFamily: "Rubik Bold",
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    );
+                                  }
+                                  return SizedBox();
+                                }),
                             SizedBox(
                               width: 3.sp,
                             ),
@@ -160,7 +187,9 @@ class HomeScreen extends GetView<HomeScreenController> {
                       icoColor: Color(0xff2DDA93),
                       icoPath: "regionIco.png",
                       textColor: Color(0xff6A6F7D),
-                      onTop: () {},
+                      onTop: () {
+                        Get.to(AddRegion());
+                      },
                     ),
                     CustomChoiceContainer(
                       backgroundColor: AppColors.white,
@@ -175,18 +204,52 @@ class HomeScreen extends GetView<HomeScreenController> {
               ),
             ),
             SizedBox(height: 0),
-            Expanded(
-              child: Container(
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: plantCards.length,
-                  itemBuilder: (context, index) {
-                    return plantCards[index];
-                  },
-                ),
-              ),
-            )
+            StreamBuilder(
+              stream: controller.stream,
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Text("Somethink went wrong");
+                }
+                if (snapshot.hasData) {
+                  return Expanded(
+                    child: Container(
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: snapshot.data?.docs.length,
+                        itemBuilder: (context, index) {
+                          return Obx(() {
+                            return PlantCard(
+                              imagePath:
+                                  "${snapshot.data?.docs[index]["plantType"].toString().toLowerCase()}.png",
+                              temperatureValue: controller.temperature.value,
+                              highTemperatureValue: "",
+                              highTemperatureValueClock: "",
+                              lowTemperatureValue: "",
+                              lowTemperatureValueClock: "",
+                              humidityValue: controller.nem.value,
+                              highHumidityValue: "",
+                              highHumidityValueClock: "",
+                              lowHumidityValue: "",
+                              lowHumidityValueClock: "",
+                              regionName: snapshot.data?.docs[index]
+                                  ["regionName"],
+                              plantName: snapshot.data?.docs[index]
+                                  ["plantType"],
+                            );
+                          });
+                        },
+                      ),
+                    ),
+                  );
+                }
+                return Center(
+                    child: CircularProgressIndicator(
+                  color: AppColors.white,
+                ));
+              },
+            ),
           ],
         ),
         Padding(
