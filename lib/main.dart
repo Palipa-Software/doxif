@@ -5,7 +5,6 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutorai/firebase_options.dart';
-
 import 'package:tutorai/routes/routes.dart';
 import 'package:tutorai/shared/constants/colors.dart';
 
@@ -23,11 +22,11 @@ Future<void> main() async {
     initLanguageCode: 'tr',
   );
   // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return Sizer(
@@ -55,10 +54,7 @@ class MyApp extends StatelessWidget {
               elevation: 0,
             ),
             textTheme: TextTheme(
-              bodySmall: TextStyle(
-                  fontFamily: "Rubik Regular",
-                  color: const Color(0xFF7A869A),
-                  fontSize: 12.sp),
+              bodySmall: TextStyle(fontFamily: "Rubik Regular", color: const Color(0xFF7A869A), fontSize: 12.sp),
               headlineLarge: TextStyle(
                 fontFamily: "Rubik Regular",
                 color: const Color(0xFF172B4D),

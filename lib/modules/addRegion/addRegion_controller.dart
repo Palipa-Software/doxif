@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutorai/modules/addSensor/addSensor.dart';
 import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
@@ -35,13 +36,21 @@ class AddRegionController extends GetxController {
   final Stream<QuerySnapshot<Object?>>? stream =
       CustomFirebaseManager.stream("plantsType");
 
+  Future<String?> getSensorID() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var id = prefs.getString("sensorID");
+    print("id:${id}");
+    return id;
+  }
+
   Future<dynamic> addRegion() async {
+    var id = await getSensorID();
     Map<String, dynamic> regions = {
       "regionName": regionName.text,
       "plantType": type,
       "plantVariet": variet.value,
       "plantingDate": selectedDate.value,
-      "sensorId": "",
+      "sensorId": id,
     };
     CollectionReference addRegion = firestore
         .collection("allRegions")
@@ -187,7 +196,10 @@ class AddRegionController extends GetxController {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 2.w),
               child: CustomButton(
-                func: () {
+                func: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.remove("sensorID");
                   regionName.clear();
                   selectedDate.value = "";
                   Get.offAllNamed(Routes.ADDSENSOR);
