@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tutorai/modules/homeDetailScreen/home_detail_screen.dart';
+import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
 
 import '../constants/colors.dart';
 
@@ -46,7 +49,14 @@ class PlantCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(bottom: 18.56),
         child: Bounceable(
-          onTap: () {},
+          onTap: () {
+            Get.to(HomeDetailScreen(), arguments: [
+              regionName,
+              plantName,
+              temperatureValue,
+              humidityValue
+            ]);
+          },
           child: Stack(
             children: [
               Container(

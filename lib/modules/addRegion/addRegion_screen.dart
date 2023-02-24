@@ -8,6 +8,7 @@ import 'package:search_page/search_page.dart';
 import 'package:sizer/sizer.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:tutorai/main.dart';
+import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
 import 'package:tutorai/shared/constants/colors.dart';
 import 'package:tutorai/shared/constants/strings.dart';
 
@@ -20,6 +21,7 @@ class AddRegion extends GetView<AddRegionController> {
 
   @override
   Widget build(BuildContext context) {
+    HomeScreenController homeScreenController = HomeScreenController();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
