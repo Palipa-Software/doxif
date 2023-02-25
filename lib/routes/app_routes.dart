@@ -11,4 +11,5 @@ abstract class Routes {
   static const ADDSENSOR = '/addSensor';
   static const ADDREGION = '/addRegion';
   static const WARNING = '/warning';
+  static const HOMEDETAIL = '/homeDetailScreen';
 }

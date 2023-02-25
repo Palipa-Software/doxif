@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutorai/modules/addSensor/addSensor.dart';
+import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
 import 'package:tutorai/routes/app_pages.dart';
 import 'package:tutorai/shared/constants/colors.dart';
 import 'package:tutorai/shared/constants/custom_firebase_manager.dart';
@@ -16,6 +18,7 @@ class AddRegionController extends GetxController {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final TextEditingController regionName = TextEditingController();
   RxString variet = "".obs;
+
   RxString selectedDate = "".obs;
   RxInt index = 0.obs;
   RxList variets = [].obs;
@@ -23,6 +26,7 @@ class AddRegionController extends GetxController {
   String type = "Biber";
   String plantImage = "";
   RxString plantImagePath = "".obs;
+  HomeScreenController homeScreenController = HomeScreenController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -232,5 +236,10 @@ class AddRegionController extends GetxController {
         ),
       );
     }
+  }
+
+  Future getRealtimeData() async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref("SNB/1222104");
+    DatabaseEvent event = await ref.once();
   }
 }
