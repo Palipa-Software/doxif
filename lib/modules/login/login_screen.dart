@@ -167,7 +167,8 @@ class LoginScreen extends GetView<LoginController> {
                       onPressed: () {
                         controller.signInWithGoogle(context);
                       }),
-                  _SocialIconButton(imagePath: ImagesPath.icApple, onPressed: () {})
+                  /*
+                  _SocialIconButton(imagePath: ImagesPath.icApple, onPressed: () {})*/
                 ]),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

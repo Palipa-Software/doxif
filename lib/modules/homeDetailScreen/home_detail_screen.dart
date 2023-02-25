@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
@@ -32,7 +31,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
     HomeScreenController homeScreenController = HomeScreenController();
 
     return Scaffold(
-      backgroundColor: Color(0xffF8F8F8),
+      backgroundColor: const Color(0xffF8F8F8),
       body: Column(
         children: [
           Stack(
@@ -41,16 +40,14 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                 height: 35.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: Color(0xff49BC78),
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(47.sp),
-                        bottomRight: Radius.circular(47.sp))),
+                    color: const Color(0xff49BC78),
+                    borderRadius:
+                        BorderRadius.only(bottomLeft: Radius.circular(47.sp), bottomRight: Radius.circular(47.sp))),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsets.only(top: 6.5.h, left: 4.w, right: 4.w),
+                      padding: EdgeInsets.only(top: 6.5.h, left: 4.w, right: 4.w),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -62,11 +59,10 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                               height: 5.h,
                               width: 11.w,
                               decoration: BoxDecoration(
-                                  color: Color(0xff6cc691),
-                                  borderRadius: BorderRadius.circular(17.sp)),
+                                  color: const Color(0xff6cc691), borderRadius: BorderRadius.circular(17.sp)),
                               child: Center(
                                 child: ImageIcon(
-                                  AssetImage("assets/images/shapeback.png"),
+                                  const AssetImage("assets/images/shapeback.png"),
                                   color: AppColors.white,
                                 ),
                               ),
@@ -78,12 +74,10 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                               height: 5.h,
                               width: 11.w,
                               decoration: BoxDecoration(
-                                  color: Color(0xff6cc691),
-                                  borderRadius: BorderRadius.circular(17.sp)),
+                                  color: const Color(0xff6cc691), borderRadius: BorderRadius.circular(17.sp)),
                               child: Center(
                                 child: ImageIcon(
-                                  AssetImage(
-                                      "assets/images/morehorizontal.png"),
+                                  const AssetImage("assets/images/morehorizontal.png"),
                                   color: AppColors.white,
                                 ),
                               ),
@@ -93,23 +87,25 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                       ),
                     ),
                     SizedBox(
-                      height: 7.h,
+                      height: 4.h,
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 12.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          AutoSizeText(
                             args[0].toString(),
+                            maxLines: 2,
                             style: TextStyle(
                                 fontSize: 30.sp,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "Rubik Bold",
                                 color: AppColors.white),
                           ),
-                          Text(
+                          AutoSizeText(
                             "${args[1]} Serası",
+                            maxLines: 1,
                             style: TextStyle(
                                 fontSize: 30.sp,
                                 fontWeight: FontWeight.w500,
@@ -125,21 +121,21 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
               Positioned(
                   right: 0,
                   child: ImageIcon(
-                    AssetImage("assets/images/ellipse4.png"),
+                    const AssetImage("assets/images/ellipse4.png"),
                     size: 200.sp,
                   )),
               Positioned(
                   right: 0,
                   top: 0.5.h,
                   child: ImageIcon(
-                    AssetImage("assets/images/ellipse5.png"),
+                    const AssetImage("assets/images/ellipse5.png"),
                     size: 175.sp,
                   )),
               Positioned(
                 right: 6.w,
                 top: 4.h,
                 child: ImageIcon(
-                  AssetImage(
+                  const AssetImage(
                     "assets/images/ellipse6.png",
                   ),
                   size: 123.sp,
@@ -161,7 +157,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                       fontSize: 13.5.sp,
                       fontWeight: FontWeight.w700,
                       fontFamily: "Rubik Bold",
-                      color: Color(0xff41443C)),
+                      color: const Color(0xff41443C)),
                 ),
                 Obx(() {
                   return Bounceable(
@@ -178,8 +174,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                       decoration: BoxDecoration(
                           color: AppColors.white,
                           borderRadius: BorderRadius.circular(5.sp),
-                          border: Border.all(
-                              color: Color(0xffD1D4D6), width: 0.5.w)),
+                          border: Border.all(color: const Color(0xffD1D4D6), width: 0.5.w)),
                       child: Padding(
                         padding: EdgeInsets.only(left: 3.w),
                         child: Row(
@@ -187,22 +182,20 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                           children: [
                             ImageIcon(
                               controller.isList.value == true
-                                  ? AssetImage("assets/images/list.png")
-                                  : AssetImage("assets/images/grill.png"),
-                              color: Color(0xff49BC78),
+                                  ? const AssetImage("assets/images/list.png")
+                                  : const AssetImage("assets/images/grill.png"),
+                              color: const Color(0xff49BC78),
                             ),
                             SizedBox(
                               width: 2.w,
                             ),
                             Text(
-                              controller.isList.value == true
-                                  ? "Liste"
-                                  : "Izgara",
+                              controller.isList.value == true ? "Liste" : "Izgara",
                               style: TextStyle(
                                   fontSize: 12.33.sp,
                                   fontWeight: FontWeight.w400,
                                   fontFamily: "Rubik Regular",
-                                  color: Color(0xff3C3C47)),
+                                  color: const Color(0xff3C3C47)),
                             )
                           ],
                         ),
@@ -237,7 +230,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                             fontSize: 13.sp,
                             fontWeight: FontWeight.w700,
                             fontFamily: "Rubik Bold",
-                            color: Color(0xff41443C)),
+                            color: const Color(0xff41443C)),
                       ),
                       SizedBox(
                         width: 10.w,
@@ -249,13 +242,11 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                           height: 4.h,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.sp),
-                              border: Border.all(
-                                  color: Color(0xffD1D4D6), width: 0.5.w)),
+                              border: Border.all(color: const Color(0xffD1D4D6), width: 0.5.w)),
                           child: DropdownButton(
                             isExpanded: true,
                             value: controller.selectedItem.value,
-                            items: controller.items
-                                .map<DropdownMenuItem<String>>((String value) {
+                            items: controller.items.map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(
@@ -264,7 +255,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w400,
                                       fontFamily: "Rubik Regular",
-                                      color: Color(0xff3C3C47)),
+                                      color: const Color(0xff3C3C47)),
                                 ),
                               );
                             }).toList(),
@@ -284,13 +275,11 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                           height: 4.h,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.sp),
-                              border: Border.all(
-                                  color: Color(0xffD1D4D6), width: 0.5.w)),
+                              border: Border.all(color: const Color(0xffD1D4D6), width: 0.5.w)),
                           child: DropdownButton(
                             isExpanded: true,
                             value: controller.selectedItem2.value,
-                            items: controller.items2
-                                .map<DropdownMenuItem<String>>((String value) {
+                            items: controller.items2.map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(
@@ -299,7 +288,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w400,
                                       fontFamily: "Rubik Regular",
-                                      color: Color(0xff3C3C47)),
+                                      color: const Color(0xff3C3C47)),
                                 ),
                               );
                             }).toList(),
@@ -324,23 +313,20 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                             decoration: BoxDecoration(
                                 color: AppColors.white,
                                 borderRadius: BorderRadius.circular(5.sp),
-                                border: Border.all(
-                                    color: Color(0xffD1D4D6), width: 0.5.w)),
+                                border: Border.all(color: const Color(0xffD1D4D6), width: 0.5.w)),
                             child: Column(
                               children: [
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding:
-                                          EdgeInsets.only(top: 3.h, left: 8.w),
+                                      padding: EdgeInsets.only(top: 3.h, left: 8.w),
                                       child: Container(
                                         height: 11.h,
                                         width: 24.w,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                             image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/sun2.png"),
+                                          image: AssetImage("assets/images/sun2.png"),
                                         )),
                                       ),
                                     ),
@@ -350,14 +336,13 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                     Padding(
                                       padding: EdgeInsets.only(top: 4.h),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             "Sera Sıcaklığı",
                                             style: TextStyle(
                                                 fontSize: 14.sp,
-                                                color: Color(0xff41443C),
+                                                color: const Color(0xff41443C),
                                                 fontWeight: FontWeight.w500,
                                                 fontFamily: "Rubik Regular"),
                                           ),
@@ -370,7 +355,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                                 fontSize: 10.sp,
                                                 fontWeight: FontWeight.w300,
                                                 fontFamily: "Rubik Regular",
-                                                color: Color(0xff9E9E9D)),
+                                                color: const Color(0xff9E9E9D)),
                                           ),
                                           SizedBox(
                                             height: 1.h,
@@ -381,7 +366,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                                 fontSize: 16.sp,
                                                 fontWeight: FontWeight.w500,
                                                 fontFamily: "Rubik Regular",
-                                                color: Color(0xffFFB838)),
+                                                color: const Color(0xffFFB838)),
                                           )
                                         ],
                                       ),
@@ -395,9 +380,8 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                         onTap: () {
                                           controller.isOpen.value = false;
                                         },
-                                        child: ImageIcon(
-                                          AssetImage(
-                                              "assets/images/Vector.png"),
+                                        child: const ImageIcon(
+                                          AssetImage("assets/images/Vector.png"),
                                           color: Color(0xff49BC78),
                                         ),
                                       ),
@@ -407,32 +391,32 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                 SizedBox(
                                   height: 3.h,
                                 ),
-                                PlantGraficRow(
+                                const PlantGraficRow(
                                   imagePath: "tomato.png",
                                   plantName: "Domates",
                                   ideality: IdealTempreture(),
                                 ),
-                                PlantGraficRow(
+                                const PlantGraficRow(
                                   imagePath: "biber6.png",
                                   plantName: "Biber",
                                   ideality: SoHot(),
                                 ),
-                                PlantGraficRow(
+                                const PlantGraficRow(
                                   imagePath: "patlıcan.png",
                                   plantName: "Patlıcan",
                                   ideality: VeryCold(),
                                 ),
-                                PlantGraficRow(
+                                const PlantGraficRow(
                                   imagePath: "hıyar.png",
                                   plantName: "Hıyar",
                                   ideality: IdealTempreture(),
                                 ),
-                                PlantGraficRow(
+                                const PlantGraficRow(
                                   imagePath: "kabak.png",
                                   plantName: "Kabak",
                                   ideality: IdealTempreture(),
                                 ),
-                                PlantGraficRow(
+                                const PlantGraficRow(
                                   imagePath: "kavun.png",
                                   plantName: "Kavun",
                                   ideality: VeryCold(),
@@ -449,7 +433,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                               onTap: () {
                                 controller.isOpen.value = true;
                               },
-                              child: ImageIcon(
+                              child: const ImageIcon(
                                 AssetImage("assets/images/lowerIco.png"),
                                 color: Color(0xff49BC78),
                               ),
@@ -468,7 +452,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                         fontSize: 13.sp,
                         fontWeight: FontWeight.w700,
                         fontFamily: "Rubik Bold",
-                        color: Color(0xff41443C)),
+                        color: const Color(0xff41443C)),
                   ),
                 ),
                 SizedBox(
@@ -481,12 +465,10 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                     decoration: BoxDecoration(
                       color: AppColors.white,
                       borderRadius: BorderRadius.circular(6.sp),
-                      border:
-                          Border.all(color: Color(0xffD1D4D6), width: 0.5.w),
+                      border: Border.all(color: const Color(0xffD1D4D6), width: 0.5.w),
                     ),
                     child: Padding(
-                      padding:
-                          EdgeInsets.only(left: 7.w, top: 3.5.h, right: 7.w),
+                      padding: EdgeInsets.only(left: 7.w, top: 3.5.h, right: 7.w),
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -504,7 +486,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                             fontSize: 15.sp,
                                             fontWeight: FontWeight.w400,
                                             fontFamily: "Rubik Regular",
-                                            color: Color(0xff41443C)),
+                                            color: const Color(0xff41443C)),
                                       );
                                     }),
                                     SizedBox(
@@ -516,7 +498,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                           fontSize: 40.sp,
                                           fontWeight: FontWeight.w500,
                                           fontFamily: "Rubik Bold",
-                                          color: Color(0xffFFB838)),
+                                          color: const Color(0xffFFB838)),
                                     ),
                                     SizedBox(
                                       height: 0.5.h,
@@ -525,9 +507,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                       height: 4.h,
                                       width: 27.w,
                                       decoration: BoxDecoration(
-                                          color: Color(0xfffff1d7),
-                                          borderRadius:
-                                              BorderRadius.circular(17.sp)),
+                                          color: const Color(0xfffff1d7), borderRadius: BorderRadius.circular(17.sp)),
                                       child: Center(
                                         child: Text(
                                           "Güneşli",
@@ -535,7 +515,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                               fontSize: 12.sp,
                                               fontWeight: FontWeight.w500,
                                               fontFamily: "Rubik Bold",
-                                              color: Color(0xffFFB838)),
+                                              color: const Color(0xffFFB838)),
                                         ),
                                       ),
                                     ),
@@ -544,10 +524,8 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                 Container(
                                   height: 14.h,
                                   width: 32.w,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/Ellipse2933.png"))),
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(image: AssetImage("assets/images/Ellipse2933.png"))),
                                 ),
                               ],
                             ),
@@ -560,60 +538,60 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.w300,
                                   fontFamily: "Rubik Regular",
-                                  color: Color(0xff9E9E9D)),
+                                  color: const Color(0xff9E9E9D)),
                             ),
                             SizedBox(
                               height: 2.h,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
+                              children: const [
                                 Weather(
-                                  child: SunnyRight(),
                                   clock: "12:00",
                                   value: "19",
+                                  child: SunnyRight(),
                                 ),
                                 Weather(
-                                  child: Sunny(),
                                   clock: "13:00",
                                   value: "20",
+                                  child: Sunny(),
                                 ),
                                 Weather(
-                                  child: Cloudy(),
                                   clock: "14:00",
                                   value: "21",
+                                  child: Cloudy(),
                                 ),
                                 Weather(
-                                  child: Cloudy(),
                                   clock: "15:00",
                                   value: "24",
+                                  child: Cloudy(),
                                 ),
                                 Weather(
-                                  child: SunnyCenter(),
                                   clock: "16:00",
                                   value: "19",
+                                  child: SunnyCenter(),
                                 ),
                                 Weather(
-                                  child: Sunny(),
                                   clock: "17:00",
                                   value: "17",
+                                  child: Sunny(),
                                 ),
                               ],
                             ),
                             SizedBox(
                               height: 3.h,
                             ),
-                            DayInfo(
+                            const DayInfo(
                               icoPath: "sunrise.png",
                               title: "Gün Doğumu",
                               value: "07:23",
                             ),
-                            DayInfo(
+                            const DayInfo(
                               icoPath: "sunset.png",
                               title: "Gün Batımı",
                               value: "19:52",
                             ),
-                            DayInfo(
+                            const DayInfo(
                               icoPath: "sun2.png",
                               title: "Gün Uzunluğu",
                               value: "9 saat 13 dk",
@@ -635,7 +613,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                         fontSize: 13.sp,
                         fontWeight: FontWeight.w700,
                         fontFamily: "Rubik Bold",
-                        color: Color(0xff41443C)),
+                        color: const Color(0xff41443C)),
                   ),
                 ),
                 SizedBox(
@@ -646,7 +624,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                   child: Container(
                     child: Row(
                       children: [
-                        GreenhouseInfo(
+                        const GreenhouseInfo(
                           color: Color(0xffeff0e3),
                           icoPath: "scissors.png",
                           title: "Budama",
@@ -655,7 +633,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                         SizedBox(
                           width: 2.5.w,
                         ),
-                        GreenhouseInfo(
+                        const GreenhouseInfo(
                           color: Color(0xffe1d9d2),
                           icoPath: "OBJECTS.png",
                           title: "İlaçlama",
@@ -664,7 +642,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                         SizedBox(
                           width: 2.5.w,
                         ),
-                        GreenhouseInfo(
+                        const GreenhouseInfo(
                           color: Color(0xffdaecf7),
                           icoPath: "fertilization.png",
                           title: "Gübreleme",

@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../shared/constants/custom_firebase_manager.dart';
 
 class HomeScreenController extends GetxController {
-  final Stream<QuerySnapshot<Object?>>? stream =
-      CustomFirebaseManager.stream3("allRegions", "regions");
+  final Stream<QuerySnapshot<Object?>>? stream = CustomFirebaseManager.stream3("allRegions", "regions");
+
   // DatabaseReference realtimeDatabaseReference =
   //     FirebaseDatabase.instance.ref("SNB/1222104");
 

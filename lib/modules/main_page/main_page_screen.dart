@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tutorai/modules/login/login_screen.dart';
-import 'package:tutorai/modules/menuScreen/menu_screen.dart';
 
+import '../homeScreen/home_screen.dart';
 import 'main_page_controller.dart';
 
 class MainPageScreen extends GetView<MainPageController> {
@@ -22,7 +22,7 @@ class MainPageScreen extends GetView<MainPageController> {
           } else if (snapshot.hasError) {
             return const Center(child: Text("Something went wron connection"));
           } else if (snapshot.hasData) {
-            return const MenuScreen();
+            return const HomeScreen();
           } else {
             return const LoginScreen();
           }

@@ -1,22 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
 import 'package:search_page/search_page.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutorai/modules/addRegion/addRegion.dart';
-import 'package:tutorai/modules/addRegion/addRegion_screen.dart';
+import 'package:tutorai/modules/addSensor/addSensor.dart';
 import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
-import 'package:tutorai/modules/homeScreen/plant_card_list.dart';
 import 'package:tutorai/modules/menuScreen/menu_screen_controller.dart';
 import 'package:tutorai/shared/constants/colors.dart';
-import 'package:tutorai/shared/widgets/navigation_bar.dart';
+import 'package:tutorai/shared/widgets/custom_floating_button.dart';
 import 'package:tutorai/shared/widgets/plant_card.dart';
 
+import '../../shared/widgets/custom_bottom_nav_bar.dart';
 import '../../shared/widgets/custom_choice_container.dart';
-import '../../shared/widgets/floating_button.dart';
 
 class HomeScreen extends GetView<HomeScreenController> {
   const HomeScreen({super.key});
@@ -31,7 +29,7 @@ class HomeScreen extends GetView<HomeScreenController> {
     final List<String> items = ['Aydın Dağ Çilek', 'Kumluca Cam Domates'];
     final selected = Get.put(0);
     return Scaffold(
-      backgroundColor: Color(0xffF8F8F8),
+      backgroundColor: const Color(0xffF8F8F8),
       body: Stack(children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +38,7 @@ class HomeScreen extends GetView<HomeScreenController> {
             Stack(
               children: [
                 Image(
-                  image: AssetImage(
+                  image: const AssetImage(
                     "assets/images/greenBar.png",
                   ),
                   width: double.infinity,
@@ -50,16 +48,16 @@ class HomeScreen extends GetView<HomeScreenController> {
                 Positioned(
                   top: 0,
                   right: 0,
-                  child: Container(
+                  child: SizedBox(
                     height: 12.h,
                     width: 28.w,
-                    child: Image(
+                    child: const Image(
                       image: AssetImage("assets/images/ellipse1.png"),
                       fit: BoxFit.fill,
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   bottom: 0,
                   right: 0,
                   child: Image(
@@ -75,13 +73,11 @@ class HomeScreen extends GetView<HomeScreenController> {
                     child: Container(
                       height: 4.h,
                       width: 8.5.w,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/images/ellipse3.png"),
-                              fit: BoxFit.fill)),
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(image: AssetImage("assets/images/ellipse3.png"), fit: BoxFit.fill)),
                       child: Center(
                           child: ImageIcon(
-                        AssetImage("assets/images/notificationIco.png"),
+                        const AssetImage("assets/images/notificationIco.png"),
                         color: AppColors.white,
                       )),
                     ),
@@ -108,17 +104,13 @@ class HomeScreen extends GetView<HomeScreenController> {
                               width: 3.sp,
                             ),
                             FutureBuilder<DocumentSnapshot>(
-                                future: menuScreenController.users
-                                    .doc(user.uid)
-                                    .get(),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                future: menuScreenController.users.doc(user.uid).get(),
+                                builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                                   if (snapshot.hasError) {
-                                    return Text("Somethink went wrong");
+                                    return const Text("Somethink went wrong");
                                   }
                                   if (snapshot.hasData) {
-                                    Map<String, dynamic> data = snapshot.data!
-                                        .data() as Map<String, dynamic>;
+                                    Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
                                     return Text(
                                       data["name"],
                                       style: TextStyle(
@@ -129,7 +121,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                                       ),
                                     );
                                   }
-                                  return SizedBox();
+                                  return const SizedBox();
                                 }),
                             SizedBox(
                               width: 3.sp,
@@ -169,12 +161,12 @@ class HomeScreen extends GetView<HomeScreenController> {
               padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: Container(
                 height: 8.6.h,
-                color: Color(0xffF8F8),
+                color: const Color(0x00fff8f8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomChoiceContainer(
-                      backgroundColor: Color(0xff2DDA93),
+                      backgroundColor: const Color(0xff2DDA93),
                       text: "Sensör Ekle",
                       icoColor: AppColors.white,
                       icoPath: "sensorIco.png",
@@ -184,9 +176,9 @@ class HomeScreen extends GetView<HomeScreenController> {
                     CustomChoiceContainer(
                       backgroundColor: AppColors.white,
                       text: "Bölge Ekle",
-                      icoColor: Color(0xff2DDA93),
+                      icoColor: const Color(0xff2DDA93),
                       icoPath: "regionIco.png",
-                      textColor: Color(0xff6A6F7D),
+                      textColor: const Color(0xff6A6F7D),
                       onTop: () {
                         Get.to(AddRegion());
                       },
@@ -194,22 +186,21 @@ class HomeScreen extends GetView<HomeScreenController> {
                     CustomChoiceContainer(
                       backgroundColor: AppColors.white,
                       text: "Uyarılar",
-                      icoColor: Color(0xff2DDA93),
+                      icoColor: const Color(0xff2DDA93),
                       icoPath: "dangerIco.png",
-                      textColor: Color(0xff6A6F7D),
+                      textColor: const Color(0xff6A6F7D),
                       onTop: () {},
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 0),
+            const SizedBox(height: 0),
             StreamBuilder(
               stream: controller.stream,
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
-                  return Text("Somethink went wrong");
+                  return const Text("Somethink went wrong");
                 }
                 if (snapshot.hasData) {
                   return Expanded(
@@ -221,8 +212,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                         itemBuilder: (context, index) {
                           return Obx(() {
                             return PlantCard(
-                              imagePath:
-                                  "${snapshot.data?.docs[index]["plantType"].toString().toLowerCase()}.png",
+                              imagePath: "${snapshot.data?.docs[index]["plantType"].toString().toLowerCase()}.png",
                               temperatureValue: controller.temperature.value,
                               highTemperatureValue: "",
                               highTemperatureValueClock: "",
@@ -233,10 +223,8 @@ class HomeScreen extends GetView<HomeScreenController> {
                               highHumidityValueClock: "",
                               lowHumidityValue: "",
                               lowHumidityValueClock: "",
-                              regionName: snapshot.data?.docs[index]
-                                  ["regionName"],
-                              plantName: snapshot.data?.docs[index]
-                                  ["plantType"],
+                              regionName: snapshot.data?.docs[index]["regionName"],
+                              plantName: snapshot.data?.docs[index]["plantType"],
                             );
                           });
                         },
@@ -262,10 +250,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                 items: items,
                 searchLabel: 'Arazi ara',
                 searchStyle: TextStyle(
-                    fontSize: 17.sp,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.black,
-                    fontFamily: "Rubik Italic"),
+                    fontSize: 17.sp, fontWeight: FontWeight.w400, color: AppColors.black, fontFamily: "Rubik Italic"),
                 suggestion: Center(
                   child: Text(
                     'Arazileri bölge ismine veya şehir ismine göre filtreleyebilirsiniz',
@@ -310,7 +295,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 4.w),
-                    child: ImageIcon(
+                    child: const ImageIcon(
                       AssetImage("assets/images/searchIco.png"),
                       color: Color(0xffD2D2D2),
                     ),
@@ -323,7 +308,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                     style: TextStyle(
                         fontSize: 10.sp,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xffD2D2D2),
+                        color: const Color(0xffD2D2D2),
                         fontFamily: "Rubik Italic"),
                   )
                 ],
@@ -333,8 +318,8 @@ class HomeScreen extends GetView<HomeScreenController> {
         ),
       ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingButton(),
-      bottomNavigationBar: NaviBar(),
+      floatingActionButton: CustomFloatingButton(controller: AddSensorController()),
+      bottomNavigationBar: CustomBottomNavigationBar(controller: AddSensorController()),
     );
   }
 }
