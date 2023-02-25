@@ -9,7 +9,7 @@ class AddSensorController extends GetxController {
   RxInt currentBottomTab = 0.obs;
   RxBool scanBtn = false.obs;
   RxString scannedId = "".obs;
-  RxString notFound = "Sensörünüzdeki QR kodu okutunuz.".obs;
+  RxString notFound = "Sensörünüzdeki QR kodu okutunuz".obs;
   RxString sensorIdFirst = "".obs;
   String sensorIdFirst2 = "";
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -42,7 +42,7 @@ class AddSensorController extends GetxController {
   Future<String?> getSensorID() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var id = prefs.getString("sensorID");
-    print("id:${id}");
+    print("id:$id");
     return id;
   }
 
@@ -63,33 +63,17 @@ class AddSensorController extends GetxController {
 
       case "1":
         {
-          sensorName.value = "Sıcaklık Sensörü";
-          sensorType.value = "LM35 Sensör";
+          sensorName.value = "Sera Ortam Sensörü";
+          sensorType.value = "SNB";
           print("1 numaralı sensör");
           print("2");
         }
         break;
 
-      case "2":
-        {
-          sensorName.value = "Nem Sensörü";
-          sensorType.value = "LM36 Sensör";
-          print("2 numaralı sensör");
-          print("3");
-        }
-        break;
-      case "3":
-        {
-          sensorName.value = "Toprak Sensörü";
-          sensorType.value = "LM37 Sensör";
-          print("3 numaralı sensör");
-          print("4");
-        }
-        break;
       default:
         {
           scannedId.value = "";
-          notFound.value = "Uygun olmayan sensör";
+          notFound.value = "Lütfen geçerli bir kod okutunuz";
           print("Buramı acaba");
         }
         break;
