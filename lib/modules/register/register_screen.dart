@@ -61,7 +61,7 @@ class RegisterScreen extends GetView<RegisterController> {
                       decoration: InputDecoration(
                           errorText: controller.validatePhone.value ? "Telefon boş bırakılamaz" : null,
                           label: const Text("+90 555 555 5555"),
-                          labelStyle: const TextStyle(color: Color(0xFF172B4D), fontFamily: "Rubik Regular"),
+                          labelStyle: const TextStyle(fontFamily: "Rubik Regular"),
                           hintStyle: const TextStyle(color: Color(0xFF172B4D), fontFamily: "Rubik Regular"),
                           prefixText: "+90 ",
                           prefixIcon: Padding(
@@ -118,7 +118,9 @@ class RegisterScreen extends GetView<RegisterController> {
                         },
                       ),
                       Bounceable(
-                        onTap: () {},
+                        onTap: () {
+                          customAgreementPage(context, "Kullanıcı Sözleşmesi", controller.userAgreement);
+                        },
                         child: Text(
                           "Kullanıcı sözleşmesi ",
                           style: TextStyle(fontSize: 9.sp, fontWeight: FontWeight.bold, color: AppColors.appColor),
@@ -129,7 +131,9 @@ class RegisterScreen extends GetView<RegisterController> {
                         style: TextStyle(fontSize: 9.sp),
                       ),
                       Bounceable(
-                        onTap: () {},
+                        onTap: () {
+                          customAgreementPage(context, "Gizlilik Politikası", controller.privacyPolicy);
+                        },
                         child: Text(
                           "Gizlilik Politikasını ",
                           style: TextStyle(fontSize: 9.sp, fontWeight: FontWeight.bold, color: AppColors.appColor),
@@ -177,6 +181,38 @@ class RegisterScreen extends GetView<RegisterController> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<dynamic> customAgreementPage(BuildContext context, String title, String text) {
+    return showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(16.sp), topRight: Radius.circular(16.sp))),
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 4.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 4.h,
+                ),
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                SizedBox(height: 2.h),
+                Text(
+                  text,
+                  style: Theme.of(context).textTheme.bodySmall,
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
