@@ -47,21 +47,18 @@ dependencies:
   syncfusion_flutter_datepicker: ^20.4.49
   firebase_database: ^10.0.10
   intl_phone_number_input: ^0.7.2
-  flutter_swipe_action_cell: ^3.1.0
   flutter_localization: ^0.1.10
   shared_preferences: ^2.0.17
   auto_size_text: ^3.0.0
   #auth processes
   google_sign_in: ^5.4.4
   firebase_auth: ^4.2.8
-  
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_native_splash: ^2.2.18
   flutter_test:
     sdk: flutter
-  
 
 flutter_native_splash:
   background_image: assets/images/img_splash_background.png
