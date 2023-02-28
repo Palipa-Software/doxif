@@ -140,7 +140,32 @@ class AddRegionController extends GetxController {
   }
 
   Future<void> handleAddRegion() async {
-    if (regionName.text.isNotEmpty &&
+    var id = await getSensorID();
+    if (id == null) {
+      Get.offAllNamed(Routes.ADDSENSOR);
+
+      Get.snackbar(
+        "Title",
+        "Message",
+        backgroundColor: AppColors.appColor.withOpacity(.8),
+        titleText: Text(
+          AppStrings.errorTitle,
+          style: TextStyle(
+            fontFamily: "Rubik Bold",
+            fontSize: 12.sp,
+            color: AppColors.white,
+          ),
+        ),
+        messageText: Text(
+          AppStrings.notFoundSensor,
+          style: TextStyle(
+            fontSize: 10.sp,
+            fontFamily: "Rubik Regular",
+            color: AppColors.white,
+          ),
+        ),
+      );
+    } else if (regionName.text.isNotEmpty &&
         selectedDate.isNotEmpty &&
         variet.value.isNotEmpty &&
         type.isNotEmpty) {
@@ -197,12 +222,12 @@ class AddRegionController extends GetxController {
               padding: EdgeInsets.symmetric(horizontal: 2.w),
               child: CustomButton(
                 func: () async {
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  prefs.remove("sensorID");
+                  // SharedPreferences prefs =
+                  //     await SharedPreferences.getInstance();
+                  // prefs.remove("sensorID");
                   regionName.clear();
                   selectedDate.value = "";
-                  Get.offAllNamed(Routes.ADDSENSOR);
+                  Get.offAllNamed(Routes.HOME);
                 },
                 title: "Tamam",
                 controller: this,

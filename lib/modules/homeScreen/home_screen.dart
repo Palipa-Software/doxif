@@ -9,6 +9,7 @@ import 'package:tutorai/modules/addRegion/addRegion.dart';
 import 'package:tutorai/modules/addSensor/addSensor.dart';
 import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
 import 'package:tutorai/modules/menuScreen/menu_screen_controller.dart';
+import 'package:tutorai/routes/routes.dart';
 import 'package:tutorai/shared/constants/colors.dart';
 import 'package:tutorai/shared/widgets/custom_floating_button.dart';
 import 'package:tutorai/shared/widgets/plant_card.dart';
@@ -74,7 +75,9 @@ class HomeScreen extends GetView<HomeScreenController> {
                       height: 4.h,
                       width: 8.5.w,
                       decoration: const BoxDecoration(
-                          image: DecorationImage(image: AssetImage("assets/images/ellipse3.png"), fit: BoxFit.fill)),
+                          image: DecorationImage(
+                              image: AssetImage("assets/images/ellipse3.png"),
+                              fit: BoxFit.fill)),
                       child: Center(
                           child: ImageIcon(
                         const AssetImage("assets/images/notificationIco.png"),
@@ -104,13 +107,17 @@ class HomeScreen extends GetView<HomeScreenController> {
                               width: 3.sp,
                             ),
                             FutureBuilder<DocumentSnapshot>(
-                                future: menuScreenController.users.doc(user.uid).get(),
-                                builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                future: menuScreenController.users
+                                    .doc(user.uid)
+                                    .get(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<DocumentSnapshot> snapshot) {
                                   if (snapshot.hasError) {
                                     return const Text("Somethink went wrong");
                                   }
                                   if (snapshot.hasData) {
-                                    Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+                                    Map<String, dynamic> data = snapshot.data!
+                                        .data() as Map<String, dynamic>;
                                     return Text(
                                       data["name"],
                                       style: TextStyle(
@@ -189,7 +196,11 @@ class HomeScreen extends GetView<HomeScreenController> {
                       icoColor: const Color(0xff2DDA93),
                       icoPath: "dangerIco.png",
                       textColor: const Color(0xff6A6F7D),
-                      onTop: () {},
+                      onTop: () {
+                        Get.toNamed(
+                          Routes.WARNING,
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -198,7 +209,8 @@ class HomeScreen extends GetView<HomeScreenController> {
             const SizedBox(height: 0),
             StreamBuilder(
               stream: controller.stream,
-              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
                   return const Text("Somethink went wrong");
                 }
@@ -212,7 +224,8 @@ class HomeScreen extends GetView<HomeScreenController> {
                         itemBuilder: (context, index) {
                           return Obx(() {
                             return PlantCard(
-                              imagePath: "${snapshot.data?.docs[index]["plantType"].toString().toLowerCase()}.png",
+                              imagePath:
+                                  "${snapshot.data?.docs[index]["plantType"].toString().toLowerCase()}.png",
                               temperatureValue: controller.temperature.value,
                               highTemperatureValue: "",
                               highTemperatureValueClock: "",
@@ -223,8 +236,10 @@ class HomeScreen extends GetView<HomeScreenController> {
                               highHumidityValueClock: "",
                               lowHumidityValue: "",
                               lowHumidityValueClock: "",
-                              regionName: snapshot.data?.docs[index]["regionName"],
-                              plantName: snapshot.data?.docs[index]["plantType"],
+                              regionName: snapshot.data?.docs[index]
+                                  ["regionName"],
+                              plantName: snapshot.data?.docs[index]
+                                  ["plantType"],
                             );
                           });
                         },
@@ -250,7 +265,10 @@ class HomeScreen extends GetView<HomeScreenController> {
                 items: items,
                 searchLabel: 'Arazi ara',
                 searchStyle: TextStyle(
-                    fontSize: 17.sp, fontWeight: FontWeight.w400, color: AppColors.black, fontFamily: "Rubik Italic"),
+                    fontSize: 17.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.black,
+                    fontFamily: "Rubik Italic"),
                 suggestion: Center(
                   child: Text(
                     'Arazileri bölge ismine veya şehir ismine göre filtreleyebilirsiniz',
@@ -318,8 +336,10 @@ class HomeScreen extends GetView<HomeScreenController> {
         ),
       ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CustomFloatingButton(controller: AddSensorController()),
-      bottomNavigationBar: CustomBottomNavigationBar(controller: AddSensorController()),
+      floatingActionButton:
+          CustomFloatingButton(controller: AddSensorController()),
+      bottomNavigationBar:
+          CustomBottomNavigationBar(controller: AddSensorController()),
     );
   }
 }
