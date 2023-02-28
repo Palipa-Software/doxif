@@ -1,5 +1,4 @@
-import 'package:tutorai/shared/widgets/plant_card.dart';
-
+/*
 List plantCards = [
   PlantCard(
     imagePath: "tomato.png",
@@ -91,4 +90,6 @@ List plantCards = [
     highHumidityValueClock: "12:25",
     lowHumidityValueClock: "03:51",
   ),
+  
 ];
+*/

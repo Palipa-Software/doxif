@@ -224,8 +224,10 @@ class HomeScreen extends GetView<HomeScreenController> {
                         itemBuilder: (context, index) {
                           return Obx(() {
                             return PlantCard(
-                              imagePath:
-                                  "${snapshot.data?.docs[index]["plantType"].toString().toLowerCase()}.png",
+
+                              sensorId: controller.temperatures[index],
+                              imagePath: "${snapshot.data?.docs[index]["plantType"].toString().toLowerCase()}.png",
+
                               temperatureValue: controller.temperature.value,
                               highTemperatureValue: "",
                               highTemperatureValueClock: "",
