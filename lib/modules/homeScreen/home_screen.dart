@@ -7,11 +7,12 @@ import 'package:search_page/search_page.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutorai/modules/addRegion/addRegion.dart';
 import 'package:tutorai/modules/addSensor/addSensor.dart';
+import 'package:tutorai/modules/homeDetailScreen/home_detail_screen.dart';
 import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
 import 'package:tutorai/modules/menuScreen/menu_screen_controller.dart';
 import 'package:tutorai/shared/constants/colors.dart';
 import 'package:tutorai/shared/widgets/custom_floating_button.dart';
-import 'package:tutorai/shared/widgets/plant_card.dart';
+import 'package:tutorai/modules/homeScreen/plant_card.dart';
 
 import '../../shared/widgets/custom_bottom_nav_bar.dart';
 import '../../shared/widgets/custom_choice_container.dart';
@@ -29,6 +30,7 @@ class HomeScreen extends GetView<HomeScreenController> {
     final List<String> items = ['Aydın Dağ Çilek', 'Kumluca Cam Domates'];
     final selected = Get.put(0);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xffF8F8F8),
       body: Stack(children: [
         Column(
@@ -74,7 +76,9 @@ class HomeScreen extends GetView<HomeScreenController> {
                       height: 4.h,
                       width: 8.5.w,
                       decoration: const BoxDecoration(
-                          image: DecorationImage(image: AssetImage("assets/images/ellipse3.png"), fit: BoxFit.fill)),
+                          image: DecorationImage(
+                              image: AssetImage("assets/images/ellipse3.png"),
+                              fit: BoxFit.fill)),
                       child: Center(
                           child: ImageIcon(
                         const AssetImage("assets/images/notificationIco.png"),
@@ -104,13 +108,17 @@ class HomeScreen extends GetView<HomeScreenController> {
                               width: 3.sp,
                             ),
                             FutureBuilder<DocumentSnapshot>(
-                                future: menuScreenController.users.doc(user.uid).get(),
-                                builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                future: menuScreenController.users
+                                    .doc(user.uid)
+                                    .get(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<DocumentSnapshot> snapshot) {
                                   if (snapshot.hasError) {
                                     return const Text("Somethink went wrong");
                                   }
                                   if (snapshot.hasData) {
-                                    Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+                                    Map<String, dynamic> data = snapshot.data!
+                                        .data() as Map<String, dynamic>;
                                     return Text(
                                       data["name"],
                                       style: TextStyle(
@@ -198,44 +206,54 @@ class HomeScreen extends GetView<HomeScreenController> {
             const SizedBox(height: 0),
             StreamBuilder(
               stream: controller.stream,
-              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
                   return const Text("Somethink went wrong");
                 }
                 if (snapshot.hasData) {
-                  return Expanded(
-                    child: Container(
-                      child: ListView.builder(
+                  return Expanded(child: Container(
+                    child: Obx(() {
+                      return ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
-                        itemCount: snapshot.data?.docs.length,
+                        itemCount: controller.results.isEmpty ||
+                                controller.searchText.value == ''
+                            ? snapshot.data?.docs.length
+                            : controller.results.length,
                         itemBuilder: (context, index) {
-                          return Obx(() {
-                            return PlantCard(
-                              sensorId: controller.temperatures[index],
-                              imagePath: "${snapshot.data?.docs[index]["plantType"].toString().toLowerCase()}.png",
-                              temperatureValue: controller.temperature.value,
-                              highTemperatureValue: "",
-                              highTemperatureValueClock: "",
-                              lowTemperatureValue: "",
-                              lowTemperatureValueClock: "",
-                              humidityValue: controller.nem.value,
-                              highHumidityValue: "",
-                              highHumidityValueClock: "",
-                              lowHumidityValue: "",
-                              lowHumidityValueClock: "",
-                              regionName: snapshot.data?.docs[index]["regionName"],
-                              plantName: snapshot.data?.docs[index]["plantType"],
-                            );
-                          });
+                          return controller.results.isEmpty ||
+                                  controller.searchText.value == ''
+                              ? PlantCard(
+                                  sensorId: controller.temperatures[index],
+                                  imagePath:
+                                      "${snapshot.data?.docs[index]["plantType"].toString().toLowerCase()}.png",
+                                  regionName: snapshot.data?.docs[index]
+                                      ["regionName"],
+                                  plantName: snapshot.data?.docs[index]
+                                      ["plantType"],
+                                )
+                              : Padding(
+                                  padding: EdgeInsets.only(top: 4.h),
+                                  child: PlantCard(
+                                    sensorId:
+                                        controller.results.first["sensorId"],
+                                    imagePath:
+                                        "${controller.results.first["plantType"].toString().toLowerCase()}.png",
+                                    regionName:
+                                        controller.results.first["regionName"],
+                                    plantName:
+                                        controller.results.first["plantType"],
+                                  ),
+                                );
                         },
-                      ),
-                    ),
-                  );
+                      );
+                    }),
+                  ));
                 }
                 return Center(
                     child: CircularProgressIndicator(
-                  color: AppColors.white,
+                  color: Color(0xff2DDA93),
                 ));
               },
             ),
@@ -243,84 +261,38 @@ class HomeScreen extends GetView<HomeScreenController> {
         ),
         Padding(
           padding: EdgeInsets.only(top: 18.h, left: 6.w, right: 6.w),
-          child: Bounceable(
-            onTap: () => showSearch(
-              context: context,
-              delegate: SearchPage(
-                onQueryUpdate: print,
-                items: items,
-                searchLabel: 'Arazi ara',
-                searchStyle: TextStyle(
-                    fontSize: 17.sp, fontWeight: FontWeight.w400, color: AppColors.black, fontFamily: "Rubik Italic"),
-                suggestion: Center(
-                  child: Text(
-                    'Arazileri bölge ismine veya şehir ismine göre filtreleyebilirsiniz',
-                    style: TextStyle(
-                        color: AppColors.black,
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Rubik Italic"),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                failure: Center(
-                  child: Text(
-                    'Arazi Bulunamadı...',
-                    style: TextStyle(
-                        color: AppColors.black,
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Rubik Italic"),
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-                filter: (person) => [
-                  items[0],
-                ],
-                sort: (a, b) => a.compareTo(b),
-                builder: (person) => ListTile(
-                  title: Text(items[1]),
-                  // subtitle: Text(person.surname),
-                  // trailing: Text('${person.age} yo'),
-                ),
-              ),
+          child: Container(
+            height: 6.2.h,
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(25.sp),
             ),
-            child: Container(
-              height: 6.2.h,
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(25.sp),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 4.w),
-                    child: const ImageIcon(
-                      AssetImage("assets/images/searchIco.png"),
-                      color: Color(0xffD2D2D2),
-                    ),
+            child: Center(
+              child: TextField(
+                onChanged: controller.search,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Arazi ara...',
+                  hintStyle: TextStyle(
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xffD2D2D2),
+                      fontFamily: "Rubik Italic"),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: const Color(0xffD2D2D2),
                   ),
-                  SizedBox(
-                    width: 3.w,
-                  ),
-                  Text(
-                    "Arazi ara...",
-                    style: TextStyle(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xffD2D2D2),
-                        fontFamily: "Rubik Italic"),
-                  )
-                ],
+                ),
               ),
             ),
           ),
         ),
       ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CustomFloatingButton(controller: AddSensorController()),
-      bottomNavigationBar: CustomBottomNavigationBar(controller: AddSensorController()),
+      floatingActionButton:
+          CustomFloatingButton(controller: AddSensorController()),
+      bottomNavigationBar:
+          CustomBottomNavigationBar(controller: AddSensorController()),
     );
   }
 }

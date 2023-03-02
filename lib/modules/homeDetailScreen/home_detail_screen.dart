@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
@@ -27,6 +28,46 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
   Widget build(BuildContext context) {
     Get.put(HomeDetailController());
     var args = Get.arguments;
+    // Sıcaklık verileri
+    final List<double> temperatures = [
+      15.0,
+      16.0,
+      17.0,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      100,
+      -10
+    ];
+
+    // Saat verileri
+    final List<String> hours = [
+      "00",
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23"
+    ];
 
     HomeScreenController homeScreenController = HomeScreenController();
 
@@ -41,13 +82,15 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: const Color(0xff49BC78),
-                    borderRadius:
-                        BorderRadius.only(bottomLeft: Radius.circular(47.sp), bottomRight: Radius.circular(47.sp))),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(47.sp),
+                        bottomRight: Radius.circular(47.sp))),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 6.5.h, left: 4.w, right: 4.w),
+                      padding:
+                          EdgeInsets.only(top: 6.5.h, left: 4.w, right: 4.w),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -59,10 +102,12 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                               height: 5.h,
                               width: 11.w,
                               decoration: BoxDecoration(
-                                  color: const Color(0xff6cc691), borderRadius: BorderRadius.circular(17.sp)),
+                                  color: const Color(0xff6cc691),
+                                  borderRadius: BorderRadius.circular(17.sp)),
                               child: Center(
                                 child: ImageIcon(
-                                  const AssetImage("assets/images/shapeback.png"),
+                                  const AssetImage(
+                                      "assets/images/shapeback.png"),
                                   color: AppColors.white,
                                 ),
                               ),
@@ -74,10 +119,12 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                               height: 5.h,
                               width: 11.w,
                               decoration: BoxDecoration(
-                                  color: const Color(0xff6cc691), borderRadius: BorderRadius.circular(17.sp)),
+                                  color: const Color(0xff6cc691),
+                                  borderRadius: BorderRadius.circular(17.sp)),
                               child: Center(
                                 child: ImageIcon(
-                                  const AssetImage("assets/images/morehorizontal.png"),
+                                  const AssetImage(
+                                      "assets/images/morehorizontal.png"),
                                   color: AppColors.white,
                                 ),
                               ),
@@ -174,7 +221,8 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                       decoration: BoxDecoration(
                           color: AppColors.white,
                           borderRadius: BorderRadius.circular(5.sp),
-                          border: Border.all(color: const Color(0xffD1D4D6), width: 0.5.w)),
+                          border: Border.all(
+                              color: const Color(0xffD1D4D6), width: 0.5.w)),
                       child: Padding(
                         padding: EdgeInsets.only(left: 3.w),
                         child: Row(
@@ -190,7 +238,9 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                               width: 2.w,
                             ),
                             Text(
-                              controller.isList.value == true ? "Liste" : "Izgara",
+                              controller.isList.value == true
+                                  ? "Liste"
+                                  : "Izgara",
                               style: TextStyle(
                                   fontSize: 12.33.sp,
                                   fontWeight: FontWeight.w400,
@@ -242,11 +292,14 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                           height: 4.h,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.sp),
-                              border: Border.all(color: const Color(0xffD1D4D6), width: 0.5.w)),
+                              border: Border.all(
+                                  color: const Color(0xffD1D4D6),
+                                  width: 0.5.w)),
                           child: DropdownButton(
                             isExpanded: true,
                             value: controller.selectedItem.value,
-                            items: controller.items.map<DropdownMenuItem<String>>((String value) {
+                            items: controller.items
+                                .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(
@@ -275,11 +328,14 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                           height: 4.h,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.sp),
-                              border: Border.all(color: const Color(0xffD1D4D6), width: 0.5.w)),
+                              border: Border.all(
+                                  color: const Color(0xffD1D4D6),
+                                  width: 0.5.w)),
                           child: DropdownButton(
                             isExpanded: true,
                             value: controller.selectedItem2.value,
-                            items: controller.items2.map<DropdownMenuItem<String>>((String value) {
+                            items: controller.items2
+                                .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(
@@ -304,6 +360,115 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                 SizedBox(
                   height: 3.h,
                 ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    child: Center(
+                      child: Container(
+                        width: 200.w,
+                        height: 30.h,
+                        child: LineChart(
+                          LineChartData(
+                            minY: temperatures.reduce((value, element) =>
+                                    value < element ? value : element) -
+                                0.0,
+                            maxY: temperatures.reduce((value, element) =>
+                                    value > element ? value : element) +
+                                2.0,
+                            lineBarsData: [
+                              LineChartBarData(
+                                spots: [
+                                  FlSpot(0, temperatures[8]),
+                                  FlSpot(1, temperatures[8]),
+                                  FlSpot(2, temperatures[3]),
+                                  FlSpot(3, temperatures[4]),
+                                  FlSpot(4, temperatures[7]),
+                                  FlSpot(5, temperatures[5]),
+                                  FlSpot(6, temperatures[6]),
+                                  FlSpot(7, temperatures[7]),
+                                  FlSpot(8, temperatures[1]),
+                                  FlSpot(9, temperatures[7]),
+                                  FlSpot(10, temperatures[7]),
+                                  FlSpot(11, temperatures[4]),
+                                  FlSpot(12, temperatures[7]),
+                                  FlSpot(13, temperatures[7]),
+                                  FlSpot(14, temperatures[5]),
+                                  FlSpot(15, temperatures[7]),
+                                  FlSpot(16, temperatures[8]),
+                                  FlSpot(17, temperatures[7]),
+                                  FlSpot(18, temperatures[3]),
+                                  FlSpot(19, temperatures[7]),
+                                  FlSpot(20, temperatures[7]),
+                                  FlSpot(21, temperatures[7]),
+                                  FlSpot(22, temperatures[7]),
+                                  FlSpot(23, temperatures[7]),
+                                ],
+                                isCurved: true,
+                                color: Colors.yellow,
+                                barWidth: 1.w,
+                                isStrokeCapRound: true,
+                                dotData: FlDotData(
+                                  show: true,
+                                ),
+                                belowBarData: BarAreaData(
+                                  show: true,
+                                  color: Colors.orange,
+                                ),
+                              )
+                            ],
+                            titlesData: FlTitlesData(
+                                bottomTitles: AxisTitles(
+                                  sideTitles: SideTitles(
+                                    showTitles: true,
+                                    getTitlesWidget: (value, meta) {
+                                      return SideTitleWidget(
+                                        axisSide: meta.axisSide,
+                                        space: 6.sp,
+                                        angle: 0.0,
+                                        child: Text(
+                                          "${hours[value.toInt()]}:00",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 10.sp,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                leftTitles: AxisTitles(
+                                  sideTitles: SideTitles(
+                                    showTitles: false,
+                                    getTitlesWidget: (value, meta) {
+                                      return SideTitleWidget(
+                                        axisSide: meta.axisSide,
+                                        space: 5.sp,
+                                        angle: 0.0,
+                                        child: Text(
+                                          "${value.toInt()}°C",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 10.sp,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                rightTitles: AxisTitles(
+                                    sideTitles: SideTitles(showTitles: false)),
+                                topTitles: AxisTitles(
+                                    sideTitles: SideTitles(showTitles: false))),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 3.h,
+                ),
                 Obx(() {
                   return controller.isOpen.value == true
                       ? Padding(
@@ -313,20 +478,24 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                             decoration: BoxDecoration(
                                 color: AppColors.white,
                                 borderRadius: BorderRadius.circular(5.sp),
-                                border: Border.all(color: const Color(0xffD1D4D6), width: 0.5.w)),
+                                border: Border.all(
+                                    color: const Color(0xffD1D4D6),
+                                    width: 0.5.w)),
                             child: Column(
                               children: [
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.only(top: 3.h, left: 8.w),
+                                      padding:
+                                          EdgeInsets.only(top: 3.h, left: 8.w),
                                       child: Container(
                                         height: 11.h,
                                         width: 24.w,
                                         decoration: const BoxDecoration(
                                             image: DecorationImage(
-                                          image: AssetImage("assets/images/sun2.png"),
+                                          image: AssetImage(
+                                              "assets/images/sun2.png"),
                                         )),
                                       ),
                                     ),
@@ -336,7 +505,8 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                     Padding(
                                       padding: EdgeInsets.only(top: 4.h),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             "Sera Sıcaklığı",
@@ -361,7 +531,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                             height: 1.h,
                                           ),
                                           Text(
-                                            "${args[2]} °C",
+                                            "${controller.getTemp(args[2])} °C",
                                             style: TextStyle(
                                                 fontSize: 16.sp,
                                                 fontWeight: FontWeight.w500,
@@ -381,7 +551,8 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                           controller.isOpen.value = false;
                                         },
                                         child: const ImageIcon(
-                                          AssetImage("assets/images/Vector.png"),
+                                          AssetImage(
+                                              "assets/images/Vector.png"),
                                           color: Color(0xff49BC78),
                                         ),
                                       ),
@@ -465,10 +636,12 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                     decoration: BoxDecoration(
                       color: AppColors.white,
                       borderRadius: BorderRadius.circular(6.sp),
-                      border: Border.all(color: const Color(0xffD1D4D6), width: 0.5.w),
+                      border: Border.all(
+                          color: const Color(0xffD1D4D6), width: 0.5.w),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.only(left: 7.w, top: 3.5.h, right: 7.w),
+                      padding:
+                          EdgeInsets.only(left: 7.w, top: 3.5.h, right: 7.w),
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -481,7 +654,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                   children: [
                                     Obx(() {
                                       return Text(
-                                        "${controller.day.value} Şubat ${controller.year.value}",
+                                        "${controller.getDay(args[2])} Şubat ${controller.getYear(args[2])}",
                                         style: TextStyle(
                                             fontSize: 15.sp,
                                             fontWeight: FontWeight.w400,
@@ -493,9 +666,9 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                       height: 0.3.h,
                                     ),
                                     Text(
-                                      "24 °C",
+                                      "${controller.getTemp(args[2])} °C",
                                       style: TextStyle(
-                                          fontSize: 40.sp,
+                                          fontSize: 30.sp,
                                           fontWeight: FontWeight.w500,
                                           fontFamily: "Rubik Bold",
                                           color: const Color(0xffFFB838)),
@@ -507,7 +680,9 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                       height: 4.h,
                                       width: 27.w,
                                       decoration: BoxDecoration(
-                                          color: const Color(0xfffff1d7), borderRadius: BorderRadius.circular(17.sp)),
+                                          color: const Color(0xfffff1d7),
+                                          borderRadius:
+                                              BorderRadius.circular(17.sp)),
                                       child: Center(
                                         child: Text(
                                           "Güneşli",
@@ -525,7 +700,9 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                   height: 14.h,
                                   width: 32.w,
                                   decoration: const BoxDecoration(
-                                      image: DecorationImage(image: AssetImage("assets/images/Ellipse2933.png"))),
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/images/Ellipse2933.png"))),
                                 ),
                               ],
                             ),
@@ -621,35 +798,48 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 4.w),
-                  child: Container(
-                    child: Row(
-                      children: [
-                        const GreenhouseInfo(
-                          color: Color(0xffeff0e3),
-                          icoPath: "scissors.png",
-                          title: "Budama",
-                          isIdeal: Ideal(),
-                        ),
-                        SizedBox(
-                          width: 2.5.w,
-                        ),
-                        const GreenhouseInfo(
-                          color: Color(0xffe1d9d2),
-                          icoPath: "OBJECTS.png",
-                          title: "İlaçlama",
-                          isIdeal: NotIdeal(),
-                        ),
-                        SizedBox(
-                          width: 2.5.w,
-                        ),
-                        const GreenhouseInfo(
-                          color: Color(0xffdaecf7),
-                          icoPath: "fertilization.png",
-                          title: "Gübreleme",
-                          isIdeal: Ideal(),
-                        ),
-                      ],
-                    ),
+                  child: Row(
+                    children: [
+                      GreenhouseInfo(
+                        color: Color(0xffeff0e3),
+                        icoPath: "scissors.png",
+                        title: "Budama",
+                        humidity: controller.getHumidity(args[2]),
+                        light: controller.getLight(args[2]),
+                        temparature: controller.getTemp(args[2]),
+                        soilMoisture: controller.getSoilMoisture(args[2]),
+                        vpd: controller.getTemp(args[2]),
+                        deltaT: controller.getDeltaT(args[2]),
+                      ),
+                      SizedBox(
+                        width: 2.5.w,
+                      ),
+                      GreenhouseInfo(
+                        color: Color(0xffe1d9d2),
+                        icoPath: "OBJECTS.png",
+                        title: "İlaçlama",
+                        humidity: controller.getHumidity(args[2]),
+                        light: controller.getLight(args[2]),
+                        temparature: controller.getTemp(args[2]),
+                        soilMoisture: controller.getSoilMoisture(args[2]),
+                        vpd: controller.getTemp(args[2]),
+                        deltaT: controller.getDeltaT(args[2]),
+                      ),
+                      SizedBox(
+                        width: 2.5.w,
+                      ),
+                      GreenhouseInfo(
+                        color: Color(0xffdaecf7),
+                        icoPath: "fertilization.png",
+                        title: "Gübreleme",
+                        humidity: controller.getHumidity(args[2]),
+                        light: controller.getLight(args[2]),
+                        temparature: controller.getTemp(args[2]),
+                        soilMoisture: controller.getSoilMoisture(args[2]),
+                        vpd: controller.getTemp(args[2]),
+                        deltaT: controller.getDeltaT(args[2]),
+                      ),
+                    ],
                   ),
                 ),
               ],
