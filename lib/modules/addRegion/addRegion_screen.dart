@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
@@ -138,7 +139,7 @@ class AddRegion extends GetView<AddRegionController> {
                                       12.sp,
                                     ),
                                   ),
-                                  child: Text(
+                                  child: AutoSizeText(
                                     snapshot.data?.docs[index]["name"],
                                     style: TextStyle(
                                       color: index == controller.index.value
