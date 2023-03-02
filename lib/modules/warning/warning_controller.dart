@@ -35,7 +35,26 @@ class WarningController extends GetxController {
       var temp = await databaseRef.child("sicaklik").get();
       var humidity = await databaseRef.child("nem").get();
       // realTimeDatas(databaseRef);
-      if (temp.value.toString() == "nan") {
+      if (temp.value == null || humidity.value == null) {
+        Get.snackbar("Title", "Message",
+            backgroundColor: AppColors.appColor.withOpacity(.8),
+            titleText: AutoSizeText(
+              regions[i]["regionName"] + " " + "serası",
+              style: TextStyle(
+                fontFamily: "Rubik Bold",
+                color: AppColors.white,
+                fontSize: 13.sp,
+              ),
+            ),
+            messageText: Text(
+              AppStrings.defectiveSensor,
+              style: TextStyle(
+                fontFamily: "Rubik Regular",
+                color: AppColors.white,
+                fontSize: 10.sp,
+              ),
+            ));
+      } else if (temp.value.toString() == "nan") {
         Get.snackbar("Title", "Message",
             backgroundColor: AppColors.appColor.withOpacity(.8),
             titleText: AutoSizeText(
