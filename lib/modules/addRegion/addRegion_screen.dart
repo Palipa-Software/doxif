@@ -408,6 +408,7 @@ class AddRegion extends GetView<AddRegionController> {
                     );
                     try {
                       await controller.handleAddRegion();
+                      await controller.getSensorID();
                     } catch (e) {
                       print(e);
                     }

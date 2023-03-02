@@ -4,7 +4,9 @@ import 'package:sizer/sizer.dart';
 class NotIdeal extends StatelessWidget {
   const NotIdeal({
     super.key,
+    required this.text,
   });
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,8 @@ class NotIdeal extends StatelessWidget {
           color: Color(0xfffbd9d7), borderRadius: BorderRadius.circular(17.sp)),
       child: Center(
         child: Text(
-          "İdeal Değil",
+          textAlign: TextAlign.center,
+          text,
           style: TextStyle(
               fontSize: 9.sp,
               fontWeight: FontWeight.w500,

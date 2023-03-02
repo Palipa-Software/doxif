@@ -26,6 +26,7 @@ class AddRegionController extends GetxController {
   String type = "Biber";
   String plantImage = "";
   RxString plantImagePath = "".obs;
+
   HomeScreenController homeScreenController = HomeScreenController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -61,6 +62,20 @@ class AddRegionController extends GetxController {
         .doc("${regionName.text}-${variet.value}-$type")
         .set(regions);
     return response;
+  }
+
+  Future<void> getSensorIds() async {
+    var sensor = FirebaseFirestore.instance
+        .collection("allRegions")
+        .doc(_auth.currentUser!.uid)
+        .collection("regions");
+    var sensorId = await sensor.get();
+    var regions = sensorId.docs;
+    for (var element in regions) {
+      Map<String, dynamic>? sensorsId = element.data();
+      homeScreenController.temperatures.add(sensorsId["sensorId"]);
+      homeScreenController.items.add(sensorsId["regionName"]);
+    }
   }
 
   @override
@@ -170,6 +185,7 @@ class AddRegionController extends GetxController {
         variet.value.isNotEmpty &&
         type.isNotEmpty) {
       await addRegion();
+      await getSensorID();
       Get.defaultDialog(
         barrierDismissible: false,
         titlePadding: EdgeInsets.zero,

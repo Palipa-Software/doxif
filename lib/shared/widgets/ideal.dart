@@ -4,7 +4,9 @@ import 'package:sizer/sizer.dart';
 class Ideal extends StatelessWidget {
   const Ideal({
     super.key,
+    required this.text,
   });
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class Ideal extends StatelessWidget {
           color: Color(0xffedf3ea), borderRadius: BorderRadius.circular(20)),
       child: Center(
         child: Text(
-          "İdeal",
+          text,
           style: TextStyle(
               fontSize: 12.sp,
               fontWeight: FontWeight.w500,
