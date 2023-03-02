@@ -15,6 +15,7 @@ class AppStrings {
   static const searchVarietText = "Çeşitleri Ara";
   static const noElementSearchList = "Aradığınız Çeşit Bulunamadı";
   static const plantsVariet = "Bitki Çeşidi";
+  static const notFoundSensor = "Sensör olmadan bölge eklenemez.";
 
 //Login
   static const String loginTitle = "Tekrar Hoşgeldin";
@@ -30,4 +31,5 @@ class AppStrings {
   // WARNING
   static const warningTitle = "Uyarılar";
   static const swipeActionTitle = "Sil";
+  static const defectiveSensor = "Seradaki sensör arızalı.";
 }

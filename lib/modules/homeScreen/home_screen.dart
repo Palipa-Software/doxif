@@ -10,6 +10,7 @@ import 'package:tutorai/modules/addSensor/addSensor.dart';
 import 'package:tutorai/modules/homeDetailScreen/home_detail_screen.dart';
 import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
 import 'package:tutorai/modules/menuScreen/menu_screen_controller.dart';
+import 'package:tutorai/routes/routes.dart';
 import 'package:tutorai/shared/constants/colors.dart';
 import 'package:tutorai/shared/widgets/custom_floating_button.dart';
 import 'package:tutorai/modules/homeScreen/plant_card.dart';
@@ -197,7 +198,11 @@ class HomeScreen extends GetView<HomeScreenController> {
                       icoColor: const Color(0xff2DDA93),
                       icoPath: "dangerIco.png",
                       textColor: const Color(0xff6A6F7D),
-                      onTop: () {},
+                      onTop: () {
+                        Get.toNamed(
+                          Routes.WARNING,
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -222,6 +227,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                             ? snapshot.data?.docs.length
                             : controller.results.length,
                         itemBuilder: (context, index) {
+
                           return controller.results.isEmpty ||
                                   controller.searchText.value == ''
                               ? PlantCard(
@@ -246,6 +252,8 @@ class HomeScreen extends GetView<HomeScreenController> {
                                         controller.results.first["plantType"],
                                   ),
                                 );
+
+                         
                         },
                       );
                     }),
@@ -261,11 +269,14 @@ class HomeScreen extends GetView<HomeScreenController> {
         ),
         Padding(
           padding: EdgeInsets.only(top: 18.h, left: 6.w, right: 6.w),
+
           child: Container(
             height: 6.2.h,
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(25.sp),
+
+         
             ),
             child: Center(
               child: TextField(
