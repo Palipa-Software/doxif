@@ -25,12 +25,12 @@ class CustomFirebaseManager {
   }
 
   static Stream<QuerySnapshot<Object?>>? stream3(
-      String collectionName, String collectionName2) {
+      String collectionName, String collectionName2, userId) {
     final FirebaseAuth auth = FirebaseAuth.instance;
 
     return FirebaseFirestore.instance
         .collection(collectionName)
-        .doc(auth.currentUser!.uid.toString())
+        .doc(userId)
         .collection(collectionName2)
         .snapshots()
         .map((snapshot) {

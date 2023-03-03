@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tutorai/modules/addSensor/addSensor.dart';
+import 'package:tutorai/modules/homeScreen/home_screen.dart';
 import 'package:tutorai/routes/routes.dart';
 
 import '../constants/constants.dart';
@@ -21,9 +22,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         backgroundColor: AppColors.white,
         currentIndex: controller.currentBottomTab.value,
         onTap: (value) {
-          value == 0
-              ? Get.offAllNamed(Routes.HOME)
-              : Get.offAllNamed(Routes.MENU);
+          value == 0 ? Get.to(HomeScreen()) : Get.offAllNamed(Routes.MENU);
           controller.scanBtn.value = false;
           controller.currentBottomTab.value = value;
           print(controller.currentBottomTab.value);
