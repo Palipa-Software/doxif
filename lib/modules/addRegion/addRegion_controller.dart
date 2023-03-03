@@ -74,7 +74,6 @@ class AddRegionController extends GetxController {
     for (var element in regions) {
       Map<String, dynamic>? sensorsId = element.data();
       homeScreenController.temperatures.add(sensorsId["sensorId"]);
-      homeScreenController.items.add(sensorsId["regionName"]);
     }
   }
 

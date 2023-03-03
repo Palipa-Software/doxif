@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:sizer/sizer.dart';
@@ -33,7 +34,7 @@ class CustomRowMenu2 extends StatelessWidget {
                   SizedBox(
                     width: 1.w,
                   ),
-                  Text(
+                  AutoSizeText(
                     text,
                     style: TextStyle(
                       fontSize: 12.sp,

@@ -74,40 +74,55 @@ class LoginScreen extends GetView<LoginController> {
                             isScrollControlled: true,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(16.sp), topRight: Radius.circular(16.sp))),
+                                    topLeft: Radius.circular(16.sp),
+                                    topRight: Radius.circular(16.sp))),
                             context: context,
                             builder: (context) {
                               return Padding(
                                 padding: EdgeInsets.only(
-                                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                                  bottom:
+                                      MediaQuery.of(context).viewInsets.bottom,
                                 ),
                                 child: SizedBox(
                                   height: 58.h,
                                   child: Center(
                                     child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 4.w),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 4.w),
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
                                         children: <Widget>[
                                           Padding(
-                                              padding: EdgeInsets.symmetric(horizontal: 4.w),
-                                              child: Image.asset("assets/images/img_forgetPassword.png")),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 4.w),
+                                              child: Image.asset(
+                                                  "assets/images/img_forgetPassword.png")),
                                           Text(
                                             "Şifremi Unuttum",
-                                            style: Theme.of(context).textTheme.headlineLarge,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineLarge,
                                           ),
                                           Text(
                                             "E-posta adresine bir link göndereceğiz.",
-                                            style: Theme.of(context).textTheme.bodySmall,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall,
                                           ),
                                           Obx(
                                             () => LoginTextField(
-                                              controller: controller.forgetPasswordController,
+                                              controller: controller
+                                                  .forgetPasswordController,
                                               hintText: "E-Posta Adresi",
-                                              keyboardType: TextInputType.emailAddress,
-                                              textInputAction: TextInputAction.next,
-                                              validate: controller.validateForgetPassword.value,
-                                              validateString: "E-Posta boş bırakılamaz.",
+                                              keyboardType:
+                                                  TextInputType.emailAddress,
+                                              textInputAction:
+                                                  TextInputAction.next,
+                                              validate: controller
+                                                  .validateForgetPassword.value,
+                                              validateString:
+                                                  "E-Posta boş bırakılamaz.",
                                             ),
                                           ),
                                           SizedBox(
@@ -115,10 +130,17 @@ class LoginScreen extends GetView<LoginController> {
                                             height: 6.h,
                                             child: MainButton(
                                               onPressed: () {
-                                                controller.textFieldValidate(controller.forgetPasswordController,
-                                                    controller.validateForgetPassword);
+                                                controller.textFieldValidate(
+                                                    controller
+                                                        .forgetPasswordController,
+                                                    controller
+                                                        .validateForgetPassword);
                                                 controller.resetPassword(
-                                                    controller.forgetPasswordController.text.toString().trim(),
+                                                    controller
+                                                        .forgetPasswordController
+                                                        .text
+                                                        .toString()
+                                                        .trim(),
                                                     context);
                                               },
                                               child: const Text("Şifre Yenile"),
@@ -135,7 +157,9 @@ class LoginScreen extends GetView<LoginController> {
                         },
                         child: Text(
                           AppStrings.forgetPassword,
-                          style: TextStyle(color: AppColors.appColor, decoration: TextDecoration.underline),
+                          style: TextStyle(
+                              color: AppColors.appColor,
+                              decoration: TextDecoration.underline),
                         )),
                   ],
                 ),
@@ -144,13 +168,18 @@ class LoginScreen extends GetView<LoginController> {
                   height: 6.h,
                   child: MainButton(
                     onPressed: () {
-                      controller.textFieldValidate(controller.emailController, controller.validateEmail);
-                      controller.textFieldValidate(controller.passwordController, controller.validatePassword);
-                      controller.signIn(controller.emailController.text, controller.passwordController.text, context);
+                      controller.textFieldValidate(
+                          controller.emailController, controller.validateEmail);
+                      controller.textFieldValidate(
+                          controller.passwordController,
+                          controller.validatePassword);
+                      controller.signIn(controller.emailController.text,
+                          controller.passwordController.text, context);
                     },
                     child: Text(
                       "Giriş Yap",
-                      style: TextStyle(fontFamily: "Rubik Regular", fontSize: 14.sp),
+                      style: TextStyle(
+                          fontFamily: "Rubik Regular", fontSize: 14.sp),
                     ),
                   ),
                 ),
@@ -161,15 +190,17 @@ class LoginScreen extends GetView<LoginController> {
                   AppStrings.or,
                   style: TextStyle(color: Color(0xFFA8AABC)),
                 ),
-                Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                  _SocialIconButton(
-                      imagePath: ImagesPath.icGoogle,
-                      onPressed: () {
-                        controller.signInWithGoogle(context);
-                      }),
-                  /*
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _SocialIconButton(
+                          imagePath: ImagesPath.icGoogle,
+                          onPressed: () {
+                            controller.signInWithGoogle(context);
+                          }),
+                      /*
                   _SocialIconButton(imagePath: ImagesPath.icApple, onPressed: () {})*/
-                ]),
+                    ]),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -208,7 +239,8 @@ class _SocialIconButton extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(16.sp),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16.sp), border: Border.all(color: const Color(0xFFF1F1F1))),
+            borderRadius: BorderRadius.circular(16.sp),
+            border: Border.all(color: const Color(0xFFF1F1F1))),
         child: Image.asset(imagePath),
       ),
     );

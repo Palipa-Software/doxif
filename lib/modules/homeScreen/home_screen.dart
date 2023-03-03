@@ -27,6 +27,7 @@ class HomeScreen extends GetView<HomeScreenController> {
     final user = FirebaseAuth.instance.currentUser!;
 
     Get.put(HomeScreenController());
+    HomeScreenController controller = Get.put(HomeScreenController());
     MenuScreenController menuScreenController = MenuScreenController();
     final List<String> items = ['Aydın Dağ Çilek', 'Kumluca Cam Domates'];
     final selected = Get.put(0);
@@ -210,54 +211,70 @@ class HomeScreen extends GetView<HomeScreenController> {
             ),
             const SizedBox(height: 0),
             StreamBuilder(
-              stream: controller.stream,
+              stream: controller.stream3(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
                   return const Text("Somethink went wrong");
                 }
                 if (snapshot.hasData) {
-                  return Expanded(child: Container(
-                    child: Obx(() {
-                      return ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: controller.results.isEmpty ||
+                  if (controller.temperatures.isEmpty &&
+                      snapshot.data?.docs.length != 0) {
+                    Padding(
+                      padding: EdgeInsets.only(top: 5.h),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Color(0xff2DDA93),
+                        ),
+                      ),
+                    );
+
+                    controller.getSensorIds();
+                    ;
+                  } else {
+                    return Expanded(child: Container(
+                      child: Obx(() {
+                        return controller.results.isEmpty ||
                                 controller.searchText.value == ''
-                            ? snapshot.data?.docs.length
-                            : controller.results.length,
-                        itemBuilder: (context, index) {
-
-                          return controller.results.isEmpty ||
-                                  controller.searchText.value == ''
-                              ? PlantCard(
-                                  sensorId: controller.temperatures[index],
-                                  imagePath:
-                                      "${snapshot.data?.docs[index]["plantType"].toString().toLowerCase()}.png",
-                                  regionName: snapshot.data?.docs[index]
-                                      ["regionName"],
-                                  plantName: snapshot.data?.docs[index]
-                                      ["plantType"],
-                                )
-                              : Padding(
-                                  padding: EdgeInsets.only(top: 4.h),
-                                  child: PlantCard(
-                                    sensorId:
-                                        controller.results.first["sensorId"],
+                            ? ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: snapshot.data?.docs.length,
+                                itemBuilder: (context, index) {
+                                  return PlantCard(
+                                    sensorId: controller.temperatures[index],
                                     imagePath:
-                                        "${controller.results.first["plantType"].toString().toLowerCase()}.png",
-                                    regionName:
-                                        controller.results.first["regionName"],
-                                    plantName:
-                                        controller.results.first["plantType"],
-                                  ),
-                                );
-
-                         
-                        },
-                      );
-                    }),
-                  ));
+                                        "${snapshot.data?.docs[index]["plantType"].toString().toLowerCase()}.png",
+                                    regionName: snapshot.data?.docs[index]
+                                        ["regionName"],
+                                    plantName: snapshot.data?.docs[index]
+                                        ["plantType"],
+                                  );
+                                },
+                              )
+                            : ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: controller.results.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(top: 4.h),
+                                    child: PlantCard(
+                                      sensorId: controller.results[index]
+                                          ["sensorId"],
+                                      imagePath:
+                                          "${controller.results[index]["plantType"].toString().toLowerCase()}.png",
+                                      regionName: controller.results[index]
+                                          ["regionName"],
+                                      plantName: controller.results[index]
+                                          ["plantType"],
+                                    ),
+                                  );
+                                },
+                              );
+                      }),
+                    ));
+                  }
                 }
                 return Center(
                     child: CircularProgressIndicator(
@@ -269,14 +286,11 @@ class HomeScreen extends GetView<HomeScreenController> {
         ),
         Padding(
           padding: EdgeInsets.only(top: 18.h, left: 6.w, right: 6.w),
-
           child: Container(
             height: 6.2.h,
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(25.sp),
-
-         
             ),
             child: Center(
               child: TextField(
