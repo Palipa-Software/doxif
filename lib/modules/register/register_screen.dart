@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutorai/modules/register/register_controller.dart';
 import 'package:tutorai/shared/constants/constants.dart';
+import 'package:tutorai/shared/constants/fonsts.dart';
 import 'package:tutorai/shared/constants/images.dart';
 import 'package:tutorai/shared/widgets/main_button.dart';
 
@@ -15,9 +16,9 @@ class RegisterScreen extends GetView<RegisterController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(leading: Bounceable(onTap: () => Get.back(), child: Image.asset(ImagesPath.icBack))),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4.w),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 4.w),
           child: SizedBox(
             width: 100.w,
             height: 85.h,
@@ -25,11 +26,11 @@ class RegisterScreen extends GetView<RegisterController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Yeni Hesap Oluştur",
+                  AppStrings.registerTitle,
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
                 Text(
-                  "Hesap oluştur ve devam et!",
+                  AppStrings.registerSubTitle,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 Obx(
@@ -61,8 +62,8 @@ class RegisterScreen extends GetView<RegisterController> {
                       decoration: InputDecoration(
                           errorText: controller.validatePhone.value ? "Telefon boş bırakılamaz" : null,
                           label: const Text("+90 555 555 5555"),
-                          labelStyle: const TextStyle(fontFamily: "Rubik Regular"),
-                          hintStyle: const TextStyle(color: Color(0xFF172B4D), fontFamily: "Rubik Regular"),
+                          labelStyle: const TextStyle(fontFamily: AppFonts.regular),
+                          hintStyle: const TextStyle(color: Color(0xFF172B4D), fontFamily: AppFonts.regular),
                           prefixText: "+90 ",
                           prefixIcon: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 3.w),
@@ -172,7 +173,7 @@ class RegisterScreen extends GetView<RegisterController> {
                               )
                             : Text(
                                 "Kayıt Ol",
-                                style: TextStyle(fontFamily: "Rubik Regular", fontSize: 14.sp),
+                                style: TextStyle(fontFamily: AppFonts.regular, fontSize: 14.sp),
                               ),
                       )),
                 )

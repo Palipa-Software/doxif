@@ -17,7 +17,7 @@ class AppStrings {
   static const plantsVariet = "Bitki Çeşidi";
   static const notFoundSensor = "Sensör olmadan bölge eklenemez.";
 
-//Login
+//Login/Register
   static const String loginTitle = "Tekrar Hoşgeldin";
   static const String loginSubtitle = "Merhaba, devam etmek için oturum açınız";
   static const String eposta = "E-Posta";
@@ -27,6 +27,30 @@ class AppStrings {
   static const String or = "Ya da";
   static const String notAccount = "Hesabın Yok Mu ?";
   static const String createAccount = "Kayıt Ol";
+  static const String postingEmailForgetPass = "E-posta adresine bir link göndereceğiz.";
+  static const String newPass = "Şifre Yenile";
+  static const String registerTitle = "Yeni Hesap Oluştur";
+  static const String registerSubTitle = "Hesap oluştur ve devam et!";
+  static const String name = "İsim";
+  static const String surName = "Soyisim";
+  static const String crypte = "Şifre";
+  static const String reCrypte = "Şifre Tekrar *";
+  static const String and = "ve";
+  static const String userAgreement = "Kullanıcı Sözleşmesi";
+  static const String kvkk = "KVKK";
+  static const String confirm = "Kabul Ediyorum";
+
+  //Login/Register Error/İnfo
+  static const String postForgetPassMail = "E-posta adresine bir link gönderdik. Lütfen kontrol ediniz.";
+  static const String error = "Hata";
+  static const String errorEmptyMail = "E-posta boş bırakılmaz";
+  static const String errorEmptyPass = "Parola boş bırakılamaz.";
+  static const String errorBadlyFormat = "Yanlış e-posta formatı";
+  static const String errorEmptyUser = "Böyle bir kullanıcı yok lütfen e-posta adresini kontrol ediniz.";
+  static const String errorConnetion = "İnternet bağlantınızı kontrol ediniz. Bir sorun oluştu.";
+  static const String errorEmptyText = "E-Posta ve şifre alanları boş geçilemez.";
+  static const String errorInvalidCredential = "Geçersiz e-posta veya şifre";
+  static const String errorFailPassAndMail = "Hatalı e-posta veya şifre";
 
   // WARNING
   static const warningTitle = "Uyarılar";

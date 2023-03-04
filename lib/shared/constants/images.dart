@@ -4,4 +4,5 @@ class ImagesPath {
   static const icGoogle = "assets/images/ic_google.png";
   static const icApple = "assets/images/ic_apple.png";
   static const icBack = "assets/images/ic_back.png";
+  static const forgetPass = "assets/images/img_forgetPassword.png";
 }
