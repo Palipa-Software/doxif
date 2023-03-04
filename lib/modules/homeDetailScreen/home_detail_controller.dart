@@ -15,6 +15,8 @@ class HomeDetailController extends GetxController {
   List<String> temperatures = [];
   RxString day = "".obs;
   RxString year = "".obs;
+  RxString mounth = "".obs;
+  RxString mounthId = "".obs;
   RxString temparature = "".obs;
   RxString humidity = "".obs;
   RxString vpd = "".obs;
@@ -41,6 +43,8 @@ class HomeDetailController extends GetxController {
   var items =
       ["Sıcaklık", "Nem", "Işık", "Yaprak Sıcaklığı", "VPD Değerleri"].obs;
   var items2 = ["Şimdi", "7 günlük"].obs;
+  var isOpen = true.obs;
+  var isList = true.obs;
 
   void onItemSelected(String newValue) {
     selectedItem(newValue);
@@ -92,6 +96,51 @@ class HomeDetailController extends GetxController {
     spraytemp = double.parse(sprays["temperature"]);
   }
 
+  String getMounth(String mounthValue) {
+    switch (mounthValue) {
+      case "1":
+        mounth.value = "Ocak";
+
+        break;
+      case "2":
+        mounth.value = "Şubat";
+        break;
+      case "3":
+        mounth.value = "Mart";
+        break;
+      case "4":
+        mounth.value = "Nisan";
+        break;
+      case "5":
+        mounth.value = "Mayıs";
+        break;
+      case "6":
+        mounth.value = "Haziran";
+        break;
+      case "7":
+        mounth.value = "Temmuz";
+        break;
+      case "8":
+        mounth.value = "Ağustos";
+        break;
+      case "9":
+        mounth.value = "Eylül";
+        break;
+      case "10":
+        mounth.value = "Ekim";
+        break;
+      case "11":
+        mounth.value = "Kasım";
+        break;
+      case "12":
+        mounth.value = "Aralık";
+        break;
+
+      default:
+    }
+    return mounth.value;
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -109,6 +158,17 @@ class HomeDetailController extends GetxController {
       day.value = event.snapshot.value.toString();
     });
     return day.value;
+  }
+
+  String getMounthId(String sensorId) {
+    FirebaseDatabase.instance
+        .ref("SNB/$sensorId")
+        .child('ay')
+        .onValue
+        .listen((event) async {
+      mounthId.value = event.snapshot.value.toString();
+    });
+    return getMounth(mounthId.value);
   }
 
   String getYear(String sensorId) {
@@ -261,7 +321,4 @@ class HomeDetailController extends GetxController {
     }
     return sprayingSuitability!;
   }
-
-  var isOpen = true.obs;
-  var isList = true.obs;
 }

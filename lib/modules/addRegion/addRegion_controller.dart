@@ -47,7 +47,8 @@ class AddRegionController extends GetxController {
   Future<dynamic> addRegion() async {
     var id = await getSensorID();
     Map<String, dynamic> regions = {
-      "regionName": regionName.text,
+      "regionName": regionName.text.substring(0, 1).toUpperCase() +
+          regionName.text.substring(1),
       "plantType": type,
       "plantVariet": variet.value,
       "plantingDate": selectedDate.value,
@@ -73,7 +74,6 @@ class AddRegionController extends GetxController {
     var regions = sensorId.docs;
     for (var element in regions) {
       Map<String, dynamic>? sensorsId = element.data();
-      homeScreenController.temperatures.add(sensorsId["sensorId"]);
     }
   }
 

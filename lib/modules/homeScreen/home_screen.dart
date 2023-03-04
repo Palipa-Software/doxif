@@ -3,11 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
-import 'package:search_page/search_page.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutorai/modules/addRegion/addRegion.dart';
 import 'package:tutorai/modules/addSensor/addSensor.dart';
-import 'package:tutorai/modules/homeDetailScreen/home_detail_screen.dart';
 import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
 import 'package:tutorai/modules/menuScreen/menu_screen_controller.dart';
 import 'package:tutorai/routes/routes.dart';
@@ -15,6 +13,8 @@ import 'package:tutorai/shared/constants/colors.dart';
 import 'package:tutorai/shared/widgets/custom_floating_button.dart';
 import 'package:tutorai/modules/homeScreen/plant_card.dart';
 
+import '../../shared/constants/data_model.dart';
+import '../../shared/constants/firestore_service.dart';
 import '../../shared/widgets/custom_bottom_nav_bar.dart';
 import '../../shared/widgets/custom_choice_container.dart';
 
@@ -26,9 +26,9 @@ class HomeScreen extends GetView<HomeScreenController> {
     AddRegionController addRegionController = AddRegionController();
     final user = FirebaseAuth.instance.currentUser!;
 
-    Get.put(HomeScreenController());
     HomeScreenController controller = Get.put(HomeScreenController());
     MenuScreenController menuScreenController = MenuScreenController();
+    final FirestoreService _firestoreService = FirestoreService();
     final List<String> items = ['Aydın Dağ Çilek', 'Kumluca Cam Domates'];
     final selected = Get.put(0);
     return Scaffold(
@@ -209,77 +209,68 @@ class HomeScreen extends GetView<HomeScreenController> {
                 ),
               ),
             ),
-            const SizedBox(height: 0),
-            StreamBuilder(
-              stream: controller.stream3(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasError) {
-                  return const Text("Somethink went wrong");
-                }
-                if (snapshot.hasData) {
-                  if (controller.temperatures.isEmpty &&
-                      snapshot.data?.docs.length != 0) {
-                    Padding(
-                      padding: EdgeInsets.only(top: 5.h),
-                      child: Center(
+            StreamBuilder<List<Data>>(
+              stream: FirestoreService().getStreamData(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Padding(
+                    padding: EdgeInsets.only(top: 22.h),
+                    child: Center(
                         child: CircularProgressIndicator(
-                          color: Color(0xff2DDA93),
-                        ),
-                      ),
-                    );
-
-                    controller.getSensorIds();
-                    ;
-                  } else {
-                    return Expanded(child: Container(
-                      child: Obx(() {
-                        return controller.results.isEmpty ||
-                                controller.searchText.value == ''
-                            ? ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                itemCount: snapshot.data?.docs.length,
-                                itemBuilder: (context, index) {
-                                  return PlantCard(
-                                    sensorId: controller.temperatures[index],
-                                    imagePath:
-                                        "${snapshot.data?.docs[index]["plantType"].toString().toLowerCase()}.png",
-                                    regionName: snapshot.data?.docs[index]
-                                        ["regionName"],
-                                    plantName: snapshot.data?.docs[index]
-                                        ["plantType"],
-                                  );
-                                },
-                              )
-                            : ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                itemCount: controller.results.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(top: 4.h),
-                                    child: PlantCard(
-                                      sensorId: controller.results[index]
-                                          ["sensorId"],
-                                      imagePath:
-                                          "${controller.results[index]["plantType"].toString().toLowerCase()}.png",
-                                      regionName: controller.results[index]
-                                          ["regionName"],
-                                      plantName: controller.results[index]
-                                          ["plantType"],
-                                    ),
-                                  );
-                                },
-                              );
-                      }),
-                    ));
-                  }
+                      color: Color(0xff2DDA93),
+                    )),
+                  );
                 }
-                return Center(
-                    child: CircularProgressIndicator(
-                  color: Color(0xff2DDA93),
-                ));
+                if (snapshot.hasError) {
+                  return Center(child: Text('Bir hata oluştu.'));
+                }
+                List<Data> data = snapshot.data ?? [];
+
+                return Expanded(
+                  child: Container(child: Obx(() {
+                    return controller.results.isEmpty ||
+                            controller.searchText.value == ''
+                        ? ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: controller.myDataList.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.only(top: 1.h),
+                                child: PlantCard(
+                                    sensorId:
+                                        controller.myDataList[index].sensorId,
+                                    imagePath:
+                                        "${controller.myDataList[index].plantType.toString().toLowerCase()}.png",
+                                    regionName:
+                                        controller.myDataList[index].regionName,
+                                    plantName:
+                                        controller.myDataList[index].plantType),
+                              );
+                            },
+                          )
+                        : ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: controller.results.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.only(top: 4.h),
+                                child: PlantCard(
+                                  sensorId: controller.results[index]
+                                      ["sensorId"],
+                                  imagePath:
+                                      "${controller.results[index]["plantType"].toString().toLowerCase()}.png",
+                                  regionName: controller.results[index]
+                                      ["regionName"],
+                                  plantName: controller.results[index]
+                                      ["plantType"],
+                                ),
+                              );
+                            },
+                          );
+                  })),
+                );
               },
             ),
           ],
@@ -294,6 +285,7 @@ class HomeScreen extends GetView<HomeScreenController> {
             ),
             child: Center(
               child: TextField(
+                textCapitalization: TextCapitalization.words,
                 onChanged: controller.search,
                 decoration: InputDecoration(
                   border: InputBorder.none,

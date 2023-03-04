@@ -399,13 +399,13 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                   FlSpot(17, temperatures[7]),
                                   FlSpot(18, temperatures[3]),
                                   FlSpot(19, temperatures[7]),
-                                  FlSpot(20, temperatures[7]),
-                                  FlSpot(21, temperatures[7]),
-                                  FlSpot(22, temperatures[7]),
-                                  FlSpot(23, temperatures[7]),
+                                  FlSpot(20, temperatures[5]),
+                                  FlSpot(21, temperatures[3]),
+                                  FlSpot(22, temperatures[2]),
+                                  FlSpot(23, temperatures[5]),
                                 ],
                                 isCurved: true,
-                                color: Colors.yellow,
+                                color: Color(0xfffff1d7),
                                 barWidth: 1.w,
                                 isStrokeCapRound: true,
                                 dotData: FlDotData(
@@ -413,7 +413,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                 ),
                                 belowBarData: BarAreaData(
                                   show: true,
-                                  color: Colors.orange,
+                                  color: Color(0xffFFB838),
                                 ),
                               )
                             ],
@@ -654,7 +654,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                   children: [
                                     Obx(() {
                                       return Text(
-                                        "${controller.getDay(args[2])} Şubat ${controller.getYear(args[2])}",
+                                        "${controller.getDay(args[2])} ${controller.getMounthId(args[2])} ${controller.getYear(args[2])}",
                                         style: TextStyle(
                                             fontSize: 15.sp,
                                             fontWeight: FontWeight.w400,

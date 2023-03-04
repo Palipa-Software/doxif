@@ -23,7 +23,6 @@ class MenuScreenController extends GetxController {
     var regions = sensorId.docs;
     for (var element in regions) {
       Map<String, dynamic>? sensorsId = element.data();
-      homeScreenController.temperatures.add(sensorsId["sensorId"]);
     }
   }
 

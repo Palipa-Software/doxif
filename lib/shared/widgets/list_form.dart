@@ -120,7 +120,7 @@ class ListForm extends GetView<HomeDetailController> {
               icoBackgroundColor: Color(0xffdce7d5),
               icoColor: Color(0xff50862B),
               icoPath: "leaf.png",
-              title: "Yaprak Sıcaklığ",
+              title: "Yaprak Sıcaklığı",
               subTitle: "Mevsim normallerinde",
               value: leaf.value,
               valueType: "°C",

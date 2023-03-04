@@ -256,6 +256,7 @@ class AddRegion extends GetView<AddRegionController> {
                   height: 1.5.h,
                 ),
                 TextFormField(
+                  textCapitalization: TextCapitalization.words,
                   decoration: InputDecoration(
                     fillColor: AppColors.white,
                     filled: true,
