@@ -40,18 +40,17 @@ class CustomWarningCard extends StatelessWidget {
             width: 10.5.w,
             height: 10.5.w,
             decoration: BoxDecoration(
-              image: DecorationImage(
-                scale: 20,
-                image: AssetImage(
-                  "assets/images/${controller.warningList[index]["ic_path"]}.png",
-                ),
-              ),
               color: AppColors.appColor.withOpacity(
                 .3,
               ),
               borderRadius: BorderRadius.circular(
                 8.sp,
               ),
+            ),
+            child: Image.asset(
+              "assets/images/${controller.warningList[index]["ic_path"]}.png",
+              color: AppColors.appColor,
+              scale: 20,
             ),
           ),
           SizedBox(

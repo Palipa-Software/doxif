@@ -64,7 +64,7 @@ class WarningController extends GetxController {
           print(humidity.value.toString());
           print(double.tryParse(humidityWarningElement[0]["val"])!);
           warningList.add({
-            "title": regions[i]["regionName"],
+            "title": regions[i]["regionName"] + " " + "İsimli Arazi",
             "subtitle": humidityWarningElement[0]["desc"],
             "ic_path": humidityWarningElement[0]["icon"],
           });
@@ -76,7 +76,7 @@ class WarningController extends GetxController {
 
           print(double.tryParse(humidityWarningElement[1]["val"])!);
           warningList.add({
-            "title": regions[i]["regionName"],
+            "title": regions[i]["regionName"] + " " + "İsimli Arazi",
             "subtitle": humidityWarningElement[1]["desc"],
             "ic_path": humidityWarningElement[1]["icon"],
           });
@@ -96,7 +96,7 @@ class WarningController extends GetxController {
 
           print(double.tryParse(tempWarningElement[tempIndex]["val"])!);
           warningList.add({
-            "title": regions[i]["regionName"],
+            "title": regions[i]["regionName"] + " " + "İsimli Arazi",
             "subtitle": tempWarningElement[0]["desc"],
             "ic_path": tempWarningElement[0]["icon"],
           });
@@ -109,7 +109,7 @@ class WarningController extends GetxController {
 
           print(double.tryParse(tempWarningElement[1]["val"])!);
           warningList.add({
-            "title": regions[i]["regionName"],
+            "title": regions[i]["regionName"] + " " + "İsimli Arazi",
             "subtitle": tempWarningElement[1]["desc"],
             "ic_path": tempWarningElement[1]["icon"],
           });
