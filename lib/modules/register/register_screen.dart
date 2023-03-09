@@ -3,12 +3,14 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tutorai/modules/register/register_controller.dart';
+import 'package:tutorai/modules/register/user_agreement_page.dart';
 import 'package:tutorai/shared/constants/constants.dart';
 import 'package:tutorai/shared/constants/fonsts.dart';
 import 'package:tutorai/shared/constants/images.dart';
 import 'package:tutorai/shared/widgets/main_button.dart';
 
 import '../../shared/widgets/auth_custom_text_field.dart';
+import 'kvkk_page.dart';
 
 class RegisterScreen extends GetView<RegisterController> {
   const RegisterScreen({super.key});
@@ -16,12 +18,12 @@ class RegisterScreen extends GetView<RegisterController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(leading: Bounceable(onTap: () => Get.back(), child: Image.asset(ImagesPath.icBack))),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.w),
-          child: SizedBox(
-            width: 100.w,
-            height: 85.h,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 4.w),
+        child: SizedBox(
+          width: 100.w,
+          height: 85.h,
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -29,83 +31,110 @@ class RegisterScreen extends GetView<RegisterController> {
                   AppStrings.registerTitle,
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
+                SizedBox(
+                  height: 2.h,
+                ),
                 Text(
                   AppStrings.registerSubTitle,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
                 Obx(
                   () => LoginTextField(
                     controller: controller.nameController,
-                    hintText: "İsim",
+                    hintText: AppStrings.name,
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     validate: controller.validateName.value,
-                    validateString: "İsim boş bırakılamaz",
+                    validateString: AppStrings.nameError,
                   ),
+                ),
+                SizedBox(
+                  height: 2.h,
                 ),
                 Obx(
                   () => LoginTextField(
                     controller: controller.surnameController,
-                    hintText: "Soyisim",
+                    hintText: AppStrings.surName,
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     validate: controller.validateSurname.value,
-                    validateString: "Soyisim boş bırakılamaz",
+                    validateString: AppStrings.surnameError,
                   ),
+                ),
+                SizedBox(
+                  height: 2.h,
                 ),
                 Obx(
                   () => TextField(
                       controller: controller.phoneController,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
-                      style: const TextStyle(fontFamily: "Rubik Regular"),
+                      style: const TextStyle(fontFamily: AppFonts.regular),
                       decoration: InputDecoration(
-                          errorText: controller.validatePhone.value ? "Telefon boş bırakılamaz" : null,
-                          label: const Text("+90 555 555 5555"),
+                          errorText: controller.validatePhone.value ? AppStrings.phoneError : null,
+                          label: const Text("${AppStrings.phoneCode} ${AppStrings.phone}"),
                           labelStyle: const TextStyle(fontFamily: AppFonts.regular),
-                          hintStyle: const TextStyle(color: Color(0xFF172B4D), fontFamily: AppFonts.regular),
-                          prefixText: "+90 ",
+                          hintStyle: TextStyle(color: AppColors.addPhoto, fontFamily: AppFonts.regular),
+                          prefixText: AppStrings.phoneCode,
                           prefixIcon: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 3.w),
                             child: Image.asset(
-                              "assets/images/ic_turkey.png",
+                              ImagesPath.phoneCountryCode,
                               width: 8.w,
                               height: 8.w,
                             ),
                           ),
                           border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8.sp))))),
                 ),
+                SizedBox(
+                  height: 2.h,
+                ),
                 Obx(
                   () => LoginTextField(
                     controller: controller.emailController,
-                    hintText: "E-Posta Adresi",
+                    hintText: AppStrings.epostaAddress,
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     validate: controller.validateEmail.value,
-                    validateString: "E-Posta boş bırakılamaz",
+                    validateString: AppStrings.errorEmptyMail,
                   ),
+                ),
+                SizedBox(
+                  height: 2.h,
                 ),
                 Obx(
                   () => LoginTextField(
                     controller: controller.passwordController,
-                    hintText: "Şifre *",
+                    hintText: AppStrings.crypte,
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
                     obscureText: true,
                     validate: controller.validatePassword.value,
-                    validateString: "Şifre boş bırakılamaz",
+                    validateString: AppStrings.errorEmptyPass,
                   ),
+                ),
+                SizedBox(
+                  height: 2.h,
                 ),
                 Obx(
                   () => LoginTextField(
                     controller: controller.rePasswordController,
-                    hintText: "Şifre Tekrar *",
+                    hintText: AppStrings.reCrypte,
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.done,
                     obscureText: true,
                     validate: controller.validateRePassword.value,
-                    validateString: "Şifre tekrar boş bırakılamaz",
+                    validateString: AppStrings.errorReCrypt,
                   ),
+                ),
+                SizedBox(
+                  height: 2.h,
                 ),
                 Obx(
                   () => Row(
@@ -118,30 +147,33 @@ class RegisterScreen extends GetView<RegisterController> {
                           controller.checkBox.value = value!;
                         },
                       ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
                       Bounceable(
                         onTap: () {
-                          customAgreementPage(context, "Kullanıcı Sözleşmesi", controller.userAgreement);
+                          AgreementPage(context, const UserAgreement());
                         },
                         child: Text(
-                          "Kullanıcı sözleşmesi ",
+                          "${AppStrings.userAgreement} ",
                           style: TextStyle(fontSize: 9.sp, fontWeight: FontWeight.bold, color: AppColors.appColor),
                         ),
                       ),
                       Text(
-                        "ve ",
+                        "${AppStrings.and} ",
                         style: TextStyle(fontSize: 9.sp),
                       ),
                       Bounceable(
                         onTap: () {
-                          customAgreementPage(context, "Gizlilik Politikası", controller.privacyPolicy);
+                          AgreementPage(context, const KvkkPage());
                         },
                         child: Text(
-                          "Gizlilik Politikasını ",
+                          "${AppStrings.kvkk} ",
                           style: TextStyle(fontSize: 9.sp, fontWeight: FontWeight.bold, color: AppColors.appColor),
                         ),
                       ),
                       Text(
-                        "Kabul Ediyorum",
+                        AppStrings.confirm,
                         style: TextStyle(fontSize: 9.sp),
                       ),
                     ],
@@ -168,11 +200,11 @@ class RegisterScreen extends GetView<RegisterController> {
                               controller.rePasswordController.text);
                         },
                         child: controller.createUserControl.value
-                            ? const CircularProgressIndicator(
-                                color: Colors.white,
+                            ? CircularProgressIndicator(
+                                color: AppColors.white,
                               )
                             : Text(
-                                "Kayıt Ol",
+                                AppStrings.createAccount,
                                 style: TextStyle(fontFamily: AppFonts.regular, fontSize: 14.sp),
                               ),
                       )),
@@ -185,34 +217,13 @@ class RegisterScreen extends GetView<RegisterController> {
     );
   }
 
-  Future<dynamic> customAgreementPage(BuildContext context, String title, String text) {
+  Future<dynamic> AgreementPage(BuildContext context, Widget page) {
     return showModalBottomSheet(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(topLeft: Radius.circular(16.sp), topRight: Radius.circular(16.sp))),
       context: context,
       builder: (BuildContext context) {
-        return SizedBox(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4.w),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 4.h,
-                ),
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-                SizedBox(height: 2.h),
-                Text(
-                  text,
-                  style: Theme.of(context).textTheme.bodySmall,
-                )
-              ],
-            ),
-          ),
-        );
+        return page;
       },
     );
   }

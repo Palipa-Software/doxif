@@ -5,4 +5,5 @@ class ImagesPath {
   static const icApple = "assets/images/ic_apple.png";
   static const icBack = "assets/images/ic_back.png";
   static const forgetPass = "assets/images/img_forgetPassword.png";
+  static const phoneCountryCode = "assets/images/ic_turkey.png";
 }

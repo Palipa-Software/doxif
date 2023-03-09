@@ -21,6 +21,7 @@ class AppStrings {
   static const String loginTitle = "Tekrar Hoşgeldin";
   static const String loginSubtitle = "Merhaba, devam etmek için oturum açınız";
   static const String eposta = "E-Posta";
+  static const String epostaAddress = "E-Posta Adresi";
   static const String password = "Parola";
   static const String forgetPassword = "Şifremi Unuttum";
   static const String login = "Giriş Yap";
@@ -39,6 +40,11 @@ class AppStrings {
   static const String userAgreement = "Kullanıcı Sözleşmesi";
   static const String kvkk = "KVKK";
   static const String confirm = "Kabul Ediyorum";
+  static const String nameError = "İsim boş bırakılamaz";
+  static const String surnameError = "Soyisim boş bırakılamaz";
+  static const String phoneError = "Telefon boş bırakılamaz";
+  static const String phone = "555 555 5555";
+  static const String phoneCode = "+90";
 
   //Login/Register Error/İnfo
   static const String postForgetPassMail = "E-posta adresine bir link gönderdik. Lütfen kontrol ediniz.";
@@ -51,6 +57,15 @@ class AppStrings {
   static const String errorEmptyText = "E-Posta ve şifre alanları boş geçilemez.";
   static const String errorInvalidCredential = "Geçersiz e-posta veya şifre";
   static const String errorFailPassAndMail = "Hatalı e-posta veya şifre";
+  static const String errorReCrypt = "Şifre tekrar boş bırakılamaz";
+  static const String errorEmail = "Geçersiz E-Posta";
+  static const String successCreateAccount = "Kayıt Başarılı";
+  static const String successCreateAccountSubTitle = "Başarılı bir biçimde kayıt oldunuz. Giriş .Yapınız";
+  static const String errorWeakPassword = "Güçsüz Parola";
+  static const String errorEmailInUse = "E-Mail Kullanılıyor";
+  static const String errorReCrypteWrong = "Şifre uyuşmuyor";
+  static const String errorEmpty = "Hiçbir alan boş bırakılamaz.";
+  static const String errorAgreementCheck = "Lütfen kullanıcı sözleşmesi ve Gizlilik Politikasını Kabul Edin";
 
   // WARNING
   static const warningTitle = "Uyarılar";
