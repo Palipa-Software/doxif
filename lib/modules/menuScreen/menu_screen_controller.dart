@@ -4,6 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:seramcepte/modules/homeScreen/home_screen_controller.dart';
 
 class MenuScreenController extends GetxController {
+  RxInt currentBottomTab = 1.obs;
+  RxBool scanBtn = false.obs;
+
   RxString userName = "".obs;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
@@ -15,7 +18,10 @@ class MenuScreenController extends GetxController {
   }
 
   Future<void> getSensorIds() async {
-    var sensor = FirebaseFirestore.instance.collection("allRegions").doc(user.uid).collection("regions");
+    var sensor = FirebaseFirestore.instance
+        .collection("allRegions")
+        .doc(user.uid)
+        .collection("regions");
     var sensorId = await sensor.get();
     var regions = sensorId.docs;
     for (var element in regions) {

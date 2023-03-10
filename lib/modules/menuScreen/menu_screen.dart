@@ -21,6 +21,9 @@ class MenuScreen extends GetView<MenuScreenController> {
 
   @override
   Widget build(BuildContext context) {
+    AddSensorController().currentBottomTab.value = 1;
+    print(AddSensorController().currentBottomTab.value.toString());
+    print("merhaba ${AddSensorController().currentBottomTab.value}");
     Get.put(MenuScreenController());
     Get.put(MenuScreenController());
     final user = FirebaseAuth.instance.currentUser!;
@@ -50,7 +53,9 @@ class MenuScreen extends GetView<MenuScreenController> {
             children: [
               Container(
                 height: 10.h,
-                decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10.sp)),
+                decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(10.sp)),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -65,12 +70,14 @@ class MenuScreen extends GetView<MenuScreenController> {
                         children: [
                           FutureBuilder<DocumentSnapshot>(
                               future: controller.users.doc(user.uid).get(),
-                              builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<DocumentSnapshot> snapshot) {
                                 if (snapshot.hasError) {
                                   return const Text("Somethink went wrong");
                                 }
                                 if (snapshot.hasData) {
-                                  Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+                                  Map<String, dynamic> data = snapshot.data!
+                                      .data() as Map<String, dynamic>;
                                   controller.userName.value = data["name"];
                                   return Text(
                                     data["name"],
@@ -117,7 +124,9 @@ class MenuScreen extends GetView<MenuScreenController> {
               Container(
                 height: 8.h,
                 width: 150.w,
-                decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10.sp)),
+                decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(10.sp)),
                 child: CustomRowMenu2(
                   text: "Bölgeler",
                   ontop: () {},
@@ -142,7 +151,9 @@ class MenuScreen extends GetView<MenuScreenController> {
               Container(
                 height: 25.h,
                 width: 150.w,
-                decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10.sp)),
+                decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(10.sp)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -231,9 +242,10 @@ class MenuScreen extends GetView<MenuScreenController> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CustomFloatingButton(controller: AddSensorController()),
+      floatingActionButton:
+          CustomFloatingButton(controller: AddSensorController()),
       bottomNavigationBar: CustomBottomNavigationBar(
-        controller: AddSensorController(),
+        controller: controller,
       ),
     );
   }

@@ -15,6 +15,7 @@ class AddSensor extends GetView<AddSensorController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.scanBtn.value = true;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -42,7 +43,8 @@ class AddSensor extends GetView<AddSensorController> {
                             controller.scannedDataStream.listen(
                               (scanData) {
                                 this.controller.result = scanData;
-                                this.controller.scannedId.value = this.controller.result!.code!;
+                                this.controller.scannedId.value =
+                                    this.controller.result!.code!;
                                 this.controller.getSensor();
                                 print(this.controller.result?.code);
                                 print(this.controller.scannedId.value);

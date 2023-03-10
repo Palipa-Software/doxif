@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:seramcepte/modules/addSensor/addSensor.dart';
 import 'package:seramcepte/modules/homeScreen/home_screen.dart';
+import 'package:seramcepte/modules/menuScreen/menu_screen.dart';
 import 'package:seramcepte/routes/routes.dart';
 
 import '../constants/constants.dart';
@@ -22,10 +23,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
         backgroundColor: AppColors.white,
         currentIndex: controller.currentBottomTab.value,
         onTap: (value) {
-          value == 0 ? Get.to(HomeScreen()) : Get.offAllNamed(Routes.MENU);
-          controller.scanBtn.value = false;
           controller.currentBottomTab.value = value;
+          controller.scanBtn.value = false;
           print(controller.currentBottomTab.value);
+
+          value == 0
+              ? Get.to(() => const HomeScreen())
+              : Get.to(() => const MenuScreen());
         },
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
