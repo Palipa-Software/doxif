@@ -1,19 +1,19 @@
 import 'package:get/get.dart';
-import 'package:tutorai/modules/addRegion/addRegion.dart';
-import 'package:tutorai/modules/addSensor/addSensor.dart';
-import 'package:tutorai/modules/homeDetailScreen/home_detail_binding.dart';
-import 'package:tutorai/modules/homeDetailScreen/home_detail_screen.dart';
-import 'package:tutorai/modules/login/login_binding.dart';
-import 'package:tutorai/modules/login/login_screen.dart';
-import 'package:tutorai/modules/warning/warning.dart';
+import 'package:seramcepte/modules/addRegion/addRegion.dart';
+import 'package:seramcepte/modules/addSensor/addSensor.dart';
+import 'package:seramcepte/modules/homeDetailScreen/home_detail_binding.dart';
+import 'package:seramcepte/modules/homeDetailScreen/home_detail_screen.dart';
+import 'package:seramcepte/modules/login/login_binding.dart';
+import 'package:seramcepte/modules/login/login_screen.dart';
+import 'package:seramcepte/modules/warning/warning.dart';
 
 import '../modules/homeScreen/home_screen.dart';
 import '../modules/homeScreen/home_screen_binding.dart';
 
-import 'package:tutorai/modules/main_page/main_page_binding.dart';
-import 'package:tutorai/modules/main_page/main_page_screen.dart';
-import 'package:tutorai/modules/register/register_binding.dart';
-import 'package:tutorai/modules/register/register_screen.dart';
+import 'package:seramcepte/modules/main_page/main_page_binding.dart';
+import 'package:seramcepte/modules/main_page/main_page_screen.dart';
+import 'package:seramcepte/modules/register/register_binding.dart';
+import 'package:seramcepte/modules/register/register_screen.dart';
 
 import '../modules/menuScreen/menu_screen.dart';
 import '../modules/menuScreen/menu_screen_binding.dart';

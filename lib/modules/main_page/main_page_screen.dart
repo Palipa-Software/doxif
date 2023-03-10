@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tutorai/modules/login/login_screen.dart';
+import 'package:seramcepte/modules/login/login_screen.dart';
 
 import '../homeScreen/home_screen.dart';
 import 'main_page_controller.dart';

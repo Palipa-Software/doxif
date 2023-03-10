@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
+import 'package:seramcepte/modules/homeScreen/home_screen_controller.dart';
 
 class MenuScreenController extends GetxController {
   RxString userName = "".obs;
@@ -15,10 +15,7 @@ class MenuScreenController extends GetxController {
   }
 
   Future<void> getSensorIds() async {
-    var sensor = FirebaseFirestore.instance
-        .collection("allRegions")
-        .doc(user.uid)
-        .collection("regions");
+    var sensor = FirebaseFirestore.instance.collection("allRegions").doc(user.uid).collection("regions");
     var sensorId = await sensor.get();
     var regions = sensorId.docs;
     for (var element in regions) {

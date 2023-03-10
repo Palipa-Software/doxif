@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/modules/warning/warning.dart';
-import 'package:tutorai/shared/constants/strings.dart';
+import 'package:seramcepte/modules/warning/warning.dart';
+import 'package:seramcepte/shared/constants/strings.dart';
 
 import '../../shared/widgets/widgets.dart';
 

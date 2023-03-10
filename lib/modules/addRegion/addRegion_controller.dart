@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/modules/addSensor/addSensor.dart';
-import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
-import 'package:tutorai/routes/app_pages.dart';
-import 'package:tutorai/shared/constants/colors.dart';
-import 'package:tutorai/shared/constants/custom_firebase_manager.dart';
-import 'package:tutorai/shared/constants/strings.dart';
-import 'package:tutorai/shared/widgets/custom_add_region_button.dart';
+import 'package:seramcepte/modules/addSensor/addSensor.dart';
+import 'package:seramcepte/modules/homeScreen/home_screen_controller.dart';
+import 'package:seramcepte/routes/app_pages.dart';
+import 'package:seramcepte/shared/constants/colors.dart';
+import 'package:seramcepte/shared/constants/custom_firebase_manager.dart';
+import 'package:seramcepte/shared/constants/strings.dart';
+import 'package:seramcepte/shared/widgets/custom_add_region_button.dart';
 
 class AddRegionController extends GetxController {
   final AddSensorController addSensorController = AddSensorController();
@@ -31,11 +31,9 @@ class AddRegionController extends GetxController {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  CollectionReference plantsVarients =
-      FirebaseFirestore.instance.collection("plantsType");
+  CollectionReference plantsVarients = FirebaseFirestore.instance.collection("plantsType");
 
-  final Stream<QuerySnapshot<Object?>>? stream =
-      CustomFirebaseManager.stream("plantsType");
+  final Stream<QuerySnapshot<Object?>>? stream = CustomFirebaseManager.stream("plantsType");
 
   Future<String?> getSensorID() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -47,29 +45,21 @@ class AddRegionController extends GetxController {
   Future<dynamic> addRegion() async {
     var id = await getSensorID();
     Map<String, dynamic> regions = {
-      "regionName": regionName.text.substring(0, 1).toUpperCase() +
-          regionName.text.substring(1),
+      "regionName": regionName.text.substring(0, 1).toUpperCase() + regionName.text.substring(1),
       "plantType": type,
       "plantVariet": variet.value,
       "plantingDate": selectedDate.value,
       "sensorId": id,
     };
-    CollectionReference addRegion = firestore
-        .collection("allRegions")
-        .doc(_auth.currentUser?.uid)
-        .collection("regions");
+    CollectionReference addRegion =
+        firestore.collection("allRegions").doc(_auth.currentUser?.uid).collection("regions");
 
-    var response = await addRegion
-        .doc("${regionName.text}-${variet.value}-$type")
-        .set(regions);
+    var response = await addRegion.doc("${regionName.text}-${variet.value}-$type").set(regions);
     return response;
   }
 
   Future<void> getSensorIds() async {
-    var sensor = FirebaseFirestore.instance
-        .collection("allRegions")
-        .doc(_auth.currentUser!.uid)
-        .collection("regions");
+    var sensor = FirebaseFirestore.instance.collection("allRegions").doc(_auth.currentUser!.uid).collection("regions");
     var sensorId = await sensor.get();
     var regions = sensorId.docs;
     for (var element in regions) {
@@ -179,10 +169,7 @@ class AddRegionController extends GetxController {
           ),
         ),
       );
-    } else if (regionName.text.isNotEmpty &&
-        selectedDate.isNotEmpty &&
-        variet.value.isNotEmpty &&
-        type.isNotEmpty) {
+    } else if (regionName.text.isNotEmpty && selectedDate.isNotEmpty && variet.value.isNotEmpty && type.isNotEmpty) {
       await addRegion();
       await getSensorID();
       Get.defaultDialog(

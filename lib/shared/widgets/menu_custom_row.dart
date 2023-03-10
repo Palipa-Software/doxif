@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/shared/widgets/custom_text_menu_detail.dart';
+import 'package:seramcepte/shared/widgets/custom_text_menu_detail.dart';
 
 class MenuCustomRow extends StatelessWidget {
   MenuCustomRow({super.key, required this.text, required this.onTap});

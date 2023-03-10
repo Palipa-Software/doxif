@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/modules/homeDetailScreen/home_detail_controller.dart';
-import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
-import 'package:tutorai/shared/constants/colors.dart';
-import 'package:tutorai/shared/widgets/cloudy.dart';
-import 'package:tutorai/shared/widgets/sunny_right.dart';
+import 'package:seramcepte/modules/homeDetailScreen/home_detail_controller.dart';
+import 'package:seramcepte/modules/homeScreen/home_screen_controller.dart';
+import 'package:seramcepte/shared/constants/colors.dart';
+import 'package:seramcepte/shared/widgets/cloudy.dart';
+import 'package:seramcepte/shared/widgets/sunny_right.dart';
 
 import '../../shared/widgets/day_info.dart';
 import '../../shared/widgets/green_house_info.dart';
@@ -29,17 +29,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
     Get.put(HomeDetailController());
     var args = Get.arguments;
     // Sıcaklık verileri
-    final List<double> temperatures = [
-      15.0,
-      16.0,
-      17.0,
-      18.0,
-      19.0,
-      20.0,
-      21.0,
-      100,
-      -10
-    ];
+    final List<double> temperatures = [15.0, 16.0, 17.0, 18.0, 19.0, 20.0, 21.0, 100, -10];
 
     // Saat verileri
     final List<String> hours = [
@@ -82,15 +72,13 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: const Color(0xff49BC78),
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(47.sp),
-                        bottomRight: Radius.circular(47.sp))),
+                    borderRadius:
+                        BorderRadius.only(bottomLeft: Radius.circular(47.sp), bottomRight: Radius.circular(47.sp))),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsets.only(top: 6.5.h, left: 4.w, right: 4.w),
+                      padding: EdgeInsets.only(top: 6.5.h, left: 4.w, right: 4.w),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -102,12 +90,10 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                               height: 5.h,
                               width: 11.w,
                               decoration: BoxDecoration(
-                                  color: const Color(0xff6cc691),
-                                  borderRadius: BorderRadius.circular(17.sp)),
+                                  color: const Color(0xff6cc691), borderRadius: BorderRadius.circular(17.sp)),
                               child: Center(
                                 child: ImageIcon(
-                                  const AssetImage(
-                                      "assets/images/shapeback.png"),
+                                  const AssetImage("assets/images/shapeback.png"),
                                   color: AppColors.white,
                                 ),
                               ),
@@ -119,12 +105,10 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                               height: 5.h,
                               width: 11.w,
                               decoration: BoxDecoration(
-                                  color: const Color(0xff6cc691),
-                                  borderRadius: BorderRadius.circular(17.sp)),
+                                  color: const Color(0xff6cc691), borderRadius: BorderRadius.circular(17.sp)),
                               child: Center(
                                 child: ImageIcon(
-                                  const AssetImage(
-                                      "assets/images/morehorizontal.png"),
+                                  const AssetImage("assets/images/morehorizontal.png"),
                                   color: AppColors.white,
                                 ),
                               ),
@@ -221,8 +205,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                       decoration: BoxDecoration(
                           color: AppColors.white,
                           borderRadius: BorderRadius.circular(5.sp),
-                          border: Border.all(
-                              color: const Color(0xffD1D4D6), width: 0.5.w)),
+                          border: Border.all(color: const Color(0xffD1D4D6), width: 0.5.w)),
                       child: Padding(
                         padding: EdgeInsets.only(left: 3.w),
                         child: Row(
@@ -238,9 +221,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                               width: 2.w,
                             ),
                             Text(
-                              controller.isList.value == true
-                                  ? "Liste"
-                                  : "Izgara",
+                              controller.isList.value == true ? "Liste" : "Izgara",
                               style: TextStyle(
                                   fontSize: 12.33.sp,
                                   fontWeight: FontWeight.w400,
@@ -292,14 +273,11 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                           height: 4.h,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.sp),
-                              border: Border.all(
-                                  color: const Color(0xffD1D4D6),
-                                  width: 0.5.w)),
+                              border: Border.all(color: const Color(0xffD1D4D6), width: 0.5.w)),
                           child: DropdownButton(
                             isExpanded: true,
                             value: controller.selectedItem.value,
-                            items: controller.items
-                                .map<DropdownMenuItem<String>>((String value) {
+                            items: controller.items.map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(
@@ -328,14 +306,11 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                           height: 4.h,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.sp),
-                              border: Border.all(
-                                  color: const Color(0xffD1D4D6),
-                                  width: 0.5.w)),
+                              border: Border.all(color: const Color(0xffD1D4D6), width: 0.5.w)),
                           child: DropdownButton(
                             isExpanded: true,
                             value: controller.selectedItem2.value,
-                            items: controller.items2
-                                .map<DropdownMenuItem<String>>((String value) {
+                            items: controller.items2.map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(
@@ -370,12 +345,8 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                         height: 30.h,
                         child: LineChart(
                           LineChartData(
-                            minY: temperatures.reduce((value, element) =>
-                                    value < element ? value : element) -
-                                0.0,
-                            maxY: temperatures.reduce((value, element) =>
-                                    value > element ? value : element) +
-                                2.0,
+                            minY: temperatures.reduce((value, element) => value < element ? value : element) - 0.0,
+                            maxY: temperatures.reduce((value, element) => value > element ? value : element) + 2.0,
                             lineBarsData: [
                               LineChartBarData(
                                 spots: [
@@ -456,10 +427,8 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                     },
                                   ),
                                 ),
-                                rightTitles: AxisTitles(
-                                    sideTitles: SideTitles(showTitles: false)),
-                                topTitles: AxisTitles(
-                                    sideTitles: SideTitles(showTitles: false))),
+                                rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                                topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false))),
                           ),
                         ),
                       ),
@@ -478,24 +447,20 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                             decoration: BoxDecoration(
                                 color: AppColors.white,
                                 borderRadius: BorderRadius.circular(5.sp),
-                                border: Border.all(
-                                    color: const Color(0xffD1D4D6),
-                                    width: 0.5.w)),
+                                border: Border.all(color: const Color(0xffD1D4D6), width: 0.5.w)),
                             child: Column(
                               children: [
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding:
-                                          EdgeInsets.only(top: 3.h, left: 8.w),
+                                      padding: EdgeInsets.only(top: 3.h, left: 8.w),
                                       child: Container(
                                         height: 11.h,
                                         width: 24.w,
                                         decoration: const BoxDecoration(
                                             image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/sun2.png"),
+                                          image: AssetImage("assets/images/sun2.png"),
                                         )),
                                       ),
                                     ),
@@ -505,8 +470,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                     Padding(
                                       padding: EdgeInsets.only(top: 4.h),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             "Sera Sıcaklığı",
@@ -551,8 +515,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                           controller.isOpen.value = false;
                                         },
                                         child: const ImageIcon(
-                                          AssetImage(
-                                              "assets/images/Vector.png"),
+                                          AssetImage("assets/images/Vector.png"),
                                           color: Color(0xff49BC78),
                                         ),
                                       ),
@@ -636,12 +599,10 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                     decoration: BoxDecoration(
                       color: AppColors.white,
                       borderRadius: BorderRadius.circular(6.sp),
-                      border: Border.all(
-                          color: const Color(0xffD1D4D6), width: 0.5.w),
+                      border: Border.all(color: const Color(0xffD1D4D6), width: 0.5.w),
                     ),
                     child: Padding(
-                      padding:
-                          EdgeInsets.only(left: 7.w, top: 3.5.h, right: 7.w),
+                      padding: EdgeInsets.only(left: 7.w, top: 3.5.h, right: 7.w),
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -680,9 +641,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                       height: 4.h,
                                       width: 27.w,
                                       decoration: BoxDecoration(
-                                          color: const Color(0xfffff1d7),
-                                          borderRadius:
-                                              BorderRadius.circular(17.sp)),
+                                          color: const Color(0xfffff1d7), borderRadius: BorderRadius.circular(17.sp)),
                                       child: Center(
                                         child: Text(
                                           "Güneşli",
@@ -700,9 +659,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                                   height: 14.h,
                                   width: 32.w,
                                   decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/Ellipse2933.png"))),
+                                      image: DecorationImage(image: AssetImage("assets/images/Ellipse2933.png"))),
                                 ),
                               ],
                             ),

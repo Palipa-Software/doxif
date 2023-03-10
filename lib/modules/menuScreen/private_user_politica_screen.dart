@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/shared/constants/private_user_string.dart';
+import 'package:seramcepte/shared/constants/private_user_string.dart';
 
 class PrivateUserPolitica extends StatelessWidget {
   const PrivateUserPolitica({super.key});

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/modules/homeDetailScreen/home_detail_screen.dart';
+import 'package:seramcepte/modules/homeDetailScreen/home_detail_screen.dart';
 
 import '../../shared/constants/colors.dart';
 
@@ -25,18 +25,10 @@ class PlantCard extends StatelessWidget {
   RxString humidity = "".obs;
   @override
   Widget build(BuildContext context) {
-    FirebaseDatabase.instance
-        .ref("SNB/$sensorId")
-        .child('sicaklik')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/$sensorId").child('sicaklik').onValue.listen((event) async {
       tempature.value = event.snapshot.value.toString();
     });
-    FirebaseDatabase.instance
-        .ref("SNB/$sensorId")
-        .child('nem')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/$sensorId").child('nem').onValue.listen((event) async {
       humidity.value = event.snapshot.value.toString();
     });
 
@@ -68,8 +60,7 @@ class PlantCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            regionName.replaceRange(
-                                0, 1, regionName[0].toUpperCase()),
+                            regionName.replaceRange(0, 1, regionName[0].toUpperCase()),
                             style: TextStyle(
                                 fontSize: 14.sp,
                                 fontFamily: "Rubik Bold",
@@ -90,9 +81,7 @@ class PlantCard extends StatelessWidget {
                     Expanded(
                       child: Container(
                         width: 100.w,
-                        decoration: BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: BorderRadius.circular(3.sp)),
+                        decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(3.sp)),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -104,8 +93,7 @@ class PlantCard extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       const ImageIcon(
@@ -151,28 +139,22 @@ class PlantCard extends StatelessWidget {
                                     height: 0.5.h,
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 0.4.h),
+                                              padding: EdgeInsets.only(top: 0.4.h),
                                               child: Text(
                                                 "Dün \nEn Yüksek",
                                                 style: TextStyle(
                                                     fontSize: 5.sp,
                                                     fontWeight: FontWeight.w700,
-                                                    color:
-                                                        const Color(0xff6A6F7D),
+                                                    color: const Color(0xff6A6F7D),
                                                     fontFamily: "Rubik Bold"),
                                                 textAlign: TextAlign.start,
                                               ),
@@ -185,23 +167,20 @@ class PlantCard extends StatelessWidget {
                                               style: TextStyle(
                                                   fontSize: 11.sp,
                                                   fontWeight: FontWeight.w400,
-                                                  color:
-                                                      const Color(0xffFFB838),
+                                                  color: const Color(0xffFFB838),
                                                   fontFamily: "Rubik Bold"),
                                             ),
                                             SizedBox(
                                               height: 0.5.h,
                                             ),
                                             Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 1.w),
+                                              padding: EdgeInsets.only(left: 1.w),
                                               child: Text(
                                                 "",
                                                 style: TextStyle(
                                                     fontSize: 5.sp,
                                                     fontWeight: FontWeight.w700,
-                                                    color:
-                                                        const Color(0xff6A6F7D),
+                                                    color: const Color(0xff6A6F7D),
                                                     fontFamily: "Rubik Bold"),
                                               ),
                                             )
@@ -211,29 +190,24 @@ class PlantCard extends StatelessWidget {
                                       SizedBox(
                                         height: 6.5.h,
                                         child: const ImageIcon(
-                                          AssetImage(
-                                              "assets/images/solidIco.png"),
+                                          AssetImage("assets/images/solidIco.png"),
                                           color: Color(0xffE5E5E5),
                                         ),
                                       ),
                                       Container(
                                         color: AppColors.white,
                                         child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 0.4.h),
+                                              padding: EdgeInsets.only(top: 0.4.h),
                                               child: Text(
                                                 "Dün \nEn Düşük",
                                                 style: TextStyle(
                                                     fontSize: 5.sp,
                                                     fontWeight: FontWeight.w700,
-                                                    color:
-                                                        const Color(0xff6A6F7D),
+                                                    color: const Color(0xff6A6F7D),
                                                     fontFamily: "Rubik Bold"),
                                                 textAlign: TextAlign.start,
                                               ),
@@ -246,23 +220,20 @@ class PlantCard extends StatelessWidget {
                                               style: TextStyle(
                                                   fontSize: 11.sp,
                                                   fontWeight: FontWeight.w400,
-                                                  color:
-                                                      const Color(0xff878787),
+                                                  color: const Color(0xff878787),
                                                   fontFamily: "Rubik Bold"),
                                             ),
                                             SizedBox(
                                               height: 0.5.h,
                                             ),
                                             Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 1.w),
+                                              padding: EdgeInsets.only(left: 1.w),
                                               child: Text(
                                                 "",
                                                 style: TextStyle(
                                                     fontSize: 5.sp,
                                                     fontWeight: FontWeight.w700,
-                                                    color:
-                                                        const Color(0xff6A6F7D),
+                                                    color: const Color(0xff6A6F7D),
                                                     fontFamily: "Rubik Bold"),
                                               ),
                                             )
@@ -284,13 +255,11 @@ class PlantCard extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       const ImageIcon(
-                                        AssetImage(
-                                            "assets/images/waterIco.png"),
+                                        AssetImage("assets/images/waterIco.png"),
                                         color: Color(0xff459ED5),
                                       ),
                                       // Container(
@@ -332,29 +301,23 @@ class PlantCard extends StatelessWidget {
                                     height: 0.5.h,
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         color: Colors.white,
                                         child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 0.4.h),
+                                              padding: EdgeInsets.only(top: 0.4.h),
                                               child: Text(
                                                 "Dün \nEn Yüksek",
                                                 style: TextStyle(
                                                     fontSize: 5.sp,
                                                     fontWeight: FontWeight.w700,
-                                                    color:
-                                                        const Color(0xff6A6F7D),
+                                                    color: const Color(0xff6A6F7D),
                                                     fontFamily: "Rubik Bold"),
                                                 textAlign: TextAlign.start,
                                               ),
@@ -367,23 +330,20 @@ class PlantCard extends StatelessWidget {
                                               style: TextStyle(
                                                   fontSize: 11.sp,
                                                   fontWeight: FontWeight.w400,
-                                                  color:
-                                                      const Color(0xff459ED5),
+                                                  color: const Color(0xff459ED5),
                                                   fontFamily: "Rubik Bold"),
                                             ),
                                             SizedBox(
                                               height: 0.5.h,
                                             ),
                                             Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 1.w),
+                                              padding: EdgeInsets.only(left: 1.w),
                                               child: Text(
                                                 "",
                                                 style: TextStyle(
                                                     fontSize: 5.sp,
                                                     fontWeight: FontWeight.w700,
-                                                    color:
-                                                        const Color(0xff6A6F7D),
+                                                    color: const Color(0xff6A6F7D),
                                                     fontFamily: "Rubik Bold"),
                                               ),
                                             )
@@ -393,29 +353,24 @@ class PlantCard extends StatelessWidget {
                                       SizedBox(
                                         height: 6.5.h,
                                         child: const ImageIcon(
-                                          AssetImage(
-                                              "assets/images/solidIco.png"),
+                                          AssetImage("assets/images/solidIco.png"),
                                           color: Color(0xffE5E5E5),
                                         ),
                                       ),
                                       Container(
                                         color: Colors.white,
                                         child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 0.4.h),
+                                              padding: EdgeInsets.only(top: 0.4.h),
                                               child: Text(
                                                 "Dün \nEn Düşük",
                                                 style: TextStyle(
                                                     fontSize: 5.sp,
                                                     fontWeight: FontWeight.w700,
-                                                    color:
-                                                        const Color(0xff6A6F7D),
+                                                    color: const Color(0xff6A6F7D),
                                                     fontFamily: "Rubik Bold"),
                                                 textAlign: TextAlign.start,
                                               ),
@@ -428,23 +383,20 @@ class PlantCard extends StatelessWidget {
                                               style: TextStyle(
                                                   fontSize: 11.sp,
                                                   fontWeight: FontWeight.w400,
-                                                  color:
-                                                      const Color(0xff878787),
+                                                  color: const Color(0xff878787),
                                                   fontFamily: "Rubik Bold"),
                                             ),
                                             SizedBox(
                                               height: 0.5.h,
                                             ),
                                             Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 1.w),
+                                              padding: EdgeInsets.only(left: 1.w),
                                               child: Text(
                                                 "",
                                                 style: TextStyle(
                                                     fontSize: 5.sp,
                                                     fontWeight: FontWeight.w700,
-                                                    color:
-                                                        const Color(0xff6A6F7D),
+                                                    color: const Color(0xff6A6F7D),
                                                     fontFamily: "Rubik Bold"),
                                               ),
                                             )
@@ -469,9 +421,7 @@ class PlantCard extends StatelessWidget {
                 child: Container(
                   height: 12.5.h,
                   width: 28.w,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/$imagePath"))),
+                  decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/$imagePath"))),
                 ),
               )
             ],

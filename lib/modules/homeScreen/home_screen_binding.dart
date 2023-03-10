@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
+import 'package:seramcepte/modules/homeScreen/home_screen_controller.dart';
 
 class HomeScreenBinding extends Bindings {
   @override

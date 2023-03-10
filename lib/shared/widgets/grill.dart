@@ -2,8 +2,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/modules/homeDetailScreen/home_detail_controller.dart';
-import 'package:tutorai/shared/widgets/grill_card.dart';
+import 'package:seramcepte/modules/homeDetailScreen/home_detail_controller.dart';
+import 'package:seramcepte/shared/widgets/grill_card.dart';
 
 class Grill extends GetView<HomeDetailController> {
   Grill({
@@ -22,61 +22,29 @@ class Grill extends GetView<HomeDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseDatabase.instance
-        .ref("SNB/${args[2].toString()}")
-        .child('sicaklik')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/${args[2].toString()}").child('sicaklik').onValue.listen((event) async {
       tempature.value = event.snapshot.value.toString();
     });
-    FirebaseDatabase.instance
-        .ref("SNB/${args[2].toString()}")
-        .child('nem')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/${args[2].toString()}").child('nem').onValue.listen((event) async {
       humidity.value = event.snapshot.value.toString();
     });
-    FirebaseDatabase.instance
-        .ref("SNB/${args[2].toString()}")
-        .child('yapSic')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/${args[2].toString()}").child('yapSic').onValue.listen((event) async {
       leaf.value = event.snapshot.value.toString();
     });
-    FirebaseDatabase.instance
-        .ref("SNB/${args[2].toString()}")
-        .child('isik')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/${args[2].toString()}").child('isik').onValue.listen((event) async {
       light.value = event.snapshot.value.toString();
     });
-    FirebaseDatabase.instance
-        .ref("SNB/${args[2].toString()}")
-        .child('toprakNem')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/${args[2].toString()}").child('toprakNem').onValue.listen((event) async {
       soilMoisture.value = event.snapshot.value.toString();
     });
-    FirebaseDatabase.instance
-        .ref("SNB/${args[2].toString()}")
-        .child('toprakSic')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/${args[2].toString()}").child('toprakSic').onValue.listen((event) async {
       soilTemp.value = event.snapshot.value.toString();
     });
 
-    FirebaseDatabase.instance
-        .ref("SNB/${args[2].toString()}")
-        .child('cigNoktasi')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/${args[2].toString()}").child('cigNoktasi').onValue.listen((event) async {
       dewPoint.value = event.snapshot.value.toString();
     });
-    FirebaseDatabase.instance
-        .ref("SNB/${args[2].toString()}")
-        .child('vpd')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/${args[2].toString()}").child('vpd').onValue.listen((event) async {
       vpd.value = event.snapshot.value.toString();
     });
     return Padding(

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/modules/register/register_controller.dart';
-import 'package:tutorai/modules/register/user_agreement_page.dart';
-import 'package:tutorai/shared/constants/constants.dart';
-import 'package:tutorai/shared/constants/fonsts.dart';
-import 'package:tutorai/shared/constants/images.dart';
-import 'package:tutorai/shared/widgets/main_button.dart';
+import 'package:seramcepte/modules/register/register_controller.dart';
+import 'package:seramcepte/modules/register/user_agreement_page.dart';
+import 'package:seramcepte/shared/constants/constants.dart';
+import 'package:seramcepte/shared/constants/fonsts.dart';
+import 'package:seramcepte/shared/constants/images.dart';
+import 'package:seramcepte/shared/widgets/main_button.dart';
 
 import '../../shared/widgets/auth_custom_text_field.dart';
 import 'kvkk_page.dart';

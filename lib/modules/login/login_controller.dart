@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:tutorai/routes/routes.dart';
-import 'package:tutorai/shared/constants/constants.dart';
+import 'package:seramcepte/routes/routes.dart';
+import 'package:seramcepte/shared/constants/constants.dart';
 
 class LoginController extends GetxController {
   //Textfieldların controllerları

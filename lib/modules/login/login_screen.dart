@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/modules/login/login_controller.dart';
+import 'package:seramcepte/modules/login/login_controller.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:tutorai/routes/routes.dart';
-import 'package:tutorai/shared/constants/constants.dart';
-import 'package:tutorai/shared/constants/fonsts.dart';
-import 'package:tutorai/shared/constants/images.dart';
+import 'package:seramcepte/routes/routes.dart';
+import 'package:seramcepte/shared/constants/constants.dart';
+import 'package:seramcepte/shared/constants/fonsts.dart';
+import 'package:seramcepte/shared/constants/images.dart';
 
 import '../../shared/widgets/auth_custom_text_field.dart';
 import '../../shared/widgets/main_button.dart';

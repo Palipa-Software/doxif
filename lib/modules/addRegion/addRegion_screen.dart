@@ -8,10 +8,10 @@ import 'package:intl/intl.dart';
 import 'package:search_page/search_page.dart';
 import 'package:sizer/sizer.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import 'package:tutorai/main.dart';
-import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
-import 'package:tutorai/shared/constants/colors.dart';
-import 'package:tutorai/shared/constants/strings.dart';
+import 'package:seramcepte/main.dart';
+import 'package:seramcepte/modules/homeScreen/home_screen_controller.dart';
+import 'package:seramcepte/shared/constants/colors.dart';
+import 'package:seramcepte/shared/constants/strings.dart';
 
 import '../../shared/widgets/widgets.dart';
 import 'addRegion_controller.dart';
@@ -51,8 +51,7 @@ class AddRegion extends GetView<AddRegionController> {
                           height: 30.h,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage(
-                                  "assets/images/${controller.plantImage}.png"),
+                              image: AssetImage("assets/images/${controller.plantImage}.png"),
                             ),
                           ),
                         )
@@ -73,15 +72,13 @@ class AddRegion extends GetView<AddRegionController> {
 
                 StreamBuilder<QuerySnapshot>(
                   stream: controller.stream,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
                       print("Error");
                     }
 
                     if (snapshot.hasData) {
-                      controller.searchVariets =
-                          snapshot.data?.docs[0]["plantsVariet"];
+                      controller.searchVariets = snapshot.data?.docs[0]["plantsVariet"];
                       return Container(
                         width: 100.w,
                         height: 6.h,
@@ -93,27 +90,16 @@ class AddRegion extends GetView<AddRegionController> {
                               () => Bounceable(
                                 onTap: () {
                                   controller.variet.value = "Bitki Çeşidi";
-                                  controller.type =
-                                      snapshot.data?.docs[index]["name"];
+                                  controller.type = snapshot.data?.docs[index]["name"];
                                   print("Type:${controller.type}");
                                   controller.variets.clear();
                                   controller.index.value = index;
-                                  controller.searchVariets = snapshot
-                                          .data?.docs[controller.index.value]
-                                      ["plantsVariet"];
-                                  print(
-                                      "searchVariets:${controller.searchVariets}");
+                                  controller.searchVariets =
+                                      snapshot.data?.docs[controller.index.value]["plantsVariet"];
+                                  print("searchVariets:${controller.searchVariets}");
 
-                                  print(snapshot
-                                      .data
-                                      ?.docs[controller.index.value]
-                                          ["plantsVariet"]
-                                      .toString());
-                                  snapshot
-                                      .data
-                                      ?.docs[controller.index.value]
-                                          ["plantsVariet"]
-                                      .map((variet) {
+                                  print(snapshot.data?.docs[controller.index.value]["plantsVariet"].toString());
+                                  snapshot.data?.docs[controller.index.value]["plantsVariet"].map((variet) {
                                     controller.variets.add(variet);
                                   });
                                   controller.getImage();
@@ -129,9 +115,7 @@ class AddRegion extends GetView<AddRegionController> {
                                     right: 2.w,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: index == controller.index.value
-                                        ? AppColors.appColor
-                                        : AppColors.white,
+                                    color: index == controller.index.value ? AppColors.appColor : AppColors.white,
                                     border: Border.all(
                                       color: AppColors.coldMorning,
                                     ),
@@ -142,9 +126,7 @@ class AddRegion extends GetView<AddRegionController> {
                                   child: AutoSizeText(
                                     snapshot.data?.docs[index]["name"],
                                     style: TextStyle(
-                                      color: index == controller.index.value
-                                          ? AppColors.white
-                                          : AppColors.black,
+                                      color: index == controller.index.value ? AppColors.white : AppColors.black,
                                     ),
                                   ),
                                 ),
@@ -177,8 +159,7 @@ class AddRegion extends GetView<AddRegionController> {
                           itemBuilder: (context, index) {
                             return ListTile(
                               onTap: () {
-                                controller.variet.value =
-                                    controller.searchVariets[index];
+                                controller.variet.value = controller.searchVariets[index];
                                 Get.back();
                               },
                               title: Text(controller.searchVariets[index]),
@@ -353,10 +334,8 @@ class AddRegion extends GetView<AddRegionController> {
                                   fontFamily: "Rubik Bold",
                                   fontSize: 12.sp,
                                 )),
-                                monthViewSettings:
-                                    DateRangePickerMonthViewSettings(
-                                  viewHeaderStyle:
-                                      DateRangePickerViewHeaderStyle(
+                                monthViewSettings: DateRangePickerMonthViewSettings(
+                                  viewHeaderStyle: DateRangePickerViewHeaderStyle(
                                     textStyle: TextStyle(
                                       color: AppColors.addPhoto,
                                       fontFamily: "Rubik Bold",
@@ -364,16 +343,11 @@ class AddRegion extends GetView<AddRegionController> {
                                   ),
                                   dayFormat: "EEE",
                                 ),
-                                onSelectionChanged:
-                                    (dateRangePickerSelectionChangedArgs) {
-                                  if (dateRangePickerSelectionChangedArgs.value
-                                      is DateTime) {
+                                onSelectionChanged: (dateRangePickerSelectionChangedArgs) {
+                                  if (dateRangePickerSelectionChangedArgs.value is DateTime) {
                                     controller.selectedDate.value =
-                                        DateFormat('dd/MM/yyyy').format(
-                                            dateRangePickerSelectionChangedArgs
-                                                .value);
-                                    print(
-                                        "selectedDate:${controller.selectedDate.value}");
+                                        DateFormat('dd/MM/yyyy').format(dateRangePickerSelectionChangedArgs.value);
+                                    print("selectedDate:${controller.selectedDate.value}");
                                   }
                                 },
                                 monthCellStyle: DateRangePickerMonthCellStyle(

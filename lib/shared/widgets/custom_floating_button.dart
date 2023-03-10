@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/routes/app_pages.dart';
+import 'package:seramcepte/routes/app_pages.dart';
 
 import '../../modules/addSensor/addSensor.dart';
 import '../constants/constants.dart';
@@ -41,9 +41,7 @@ class CustomFloatingButton extends StatelessWidget {
             },
             child: SvgPicture.asset(
               "assets/images/scan.svg",
-              color: controller.scanBtn.value == true
-                  ? AppColors.appColor
-                  : AppColors.inActiveIcColor,
+              color: controller.scanBtn.value == true ? AppColors.appColor : AppColors.inActiveIcColor,
             ),
             backgroundColor: AppColors.white,
           ),

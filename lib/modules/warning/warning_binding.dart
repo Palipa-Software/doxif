@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:tutorai/modules/warning/warning.dart';
+import 'package:seramcepte/modules/warning/warning.dart';
 
 class WarningBinding implements Bindings {
   @override

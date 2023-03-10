@@ -6,8 +6,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/shared/widgets/ideal.dart';
-import 'package:tutorai/shared/widgets/not_ideal.dart';
+import 'package:seramcepte/shared/widgets/ideal.dart';
+import 'package:seramcepte/shared/widgets/not_ideal.dart';
 
 class HomeDetailController extends GetxController {
   var selectedItem = "Sıcaklık".obs;
@@ -40,8 +40,7 @@ class HomeDetailController extends GetxController {
   var firebaseAuth = FirebaseAuth.instance;
   final databaseRef = FirebaseDatabase.instance.ref("SNB/1222104");
 
-  var items =
-      ["Sıcaklık", "Nem", "Işık", "Yaprak Sıcaklığı", "VPD Değerleri"].obs;
+  var items = ["Sıcaklık", "Nem", "Işık", "Yaprak Sıcaklığı", "VPD Değerleri"].obs;
   var items2 = ["Şimdi", "7 günlük"].obs;
   var isOpen = true.obs;
   var isList = true.obs;
@@ -70,8 +69,7 @@ class HomeDetailController extends GetxController {
   }
 
   Future<void> getFerti() async {
-    var ferti =
-        FirebaseFirestore.instance.collection("condition").doc("gubreleme");
+    var ferti = FirebaseFirestore.instance.collection("condition").doc("gubreleme");
 
     var ferties = await ferti.get();
     for (var i = 1; i < 3; i++) {
@@ -85,8 +83,7 @@ class HomeDetailController extends GetxController {
   }
 
   Future<void> getSpraying() async {
-    var spray =
-        FirebaseFirestore.instance.collection("condition").doc("ilaclama");
+    var spray = FirebaseFirestore.instance.collection("condition").doc("ilaclama");
 
     var sprays = await spray.get();
     for (var i = 1; i < 5; i++) {
@@ -150,99 +147,63 @@ class HomeDetailController extends GetxController {
   }
 
   String getDay(String sensorId) {
-    FirebaseDatabase.instance
-        .ref("SNB/$sensorId")
-        .child('gun')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/$sensorId").child('gun').onValue.listen((event) async {
       day.value = event.snapshot.value.toString();
     });
     return day.value;
   }
 
   String getMounthId(String sensorId) {
-    FirebaseDatabase.instance
-        .ref("SNB/$sensorId")
-        .child('ay')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/$sensorId").child('ay').onValue.listen((event) async {
       mounthId.value = event.snapshot.value.toString();
     });
     return getMounth(mounthId.value);
   }
 
   String getYear(String sensorId) {
-    FirebaseDatabase.instance
-        .ref("SNB/$sensorId")
-        .child('yil')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/$sensorId").child('yil').onValue.listen((event) async {
       year.value = event.snapshot.value.toString();
     });
     return year.value;
   }
 
   String getTemp(String sensorId) {
-    FirebaseDatabase.instance
-        .ref("SNB/$sensorId")
-        .child('sicaklik')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/$sensorId").child('sicaklik').onValue.listen((event) async {
       temparature.value = event.snapshot.value.toString();
     });
     return temparature.value;
   }
 
   String getHumidity(String sensorId) {
-    FirebaseDatabase.instance
-        .ref("SNB/$sensorId")
-        .child('nem')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/$sensorId").child('nem').onValue.listen((event) async {
       humidity.value = event.snapshot.value.toString();
     });
     return humidity.value;
   }
 
   String getLight(String sensorId) {
-    FirebaseDatabase.instance
-        .ref("SNB/$sensorId")
-        .child('isik')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/$sensorId").child('isik').onValue.listen((event) async {
       light.value = event.snapshot.value.toString();
     });
     return light.value;
   }
 
   String getSoilMoisture(String sensorId) {
-    FirebaseDatabase.instance
-        .ref("SNB/$sensorId")
-        .child('toprakNem')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/$sensorId").child('toprakNem').onValue.listen((event) async {
       soilMoisture.value = event.snapshot.value.toString();
     });
     return soilMoisture.value;
   }
 
   String getVpd(String sensorId) {
-    FirebaseDatabase.instance
-        .ref("SNB/$sensorId")
-        .child('vpd')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/$sensorId").child('vpd').onValue.listen((event) async {
       vpd.value = event.snapshot.value.toString();
     });
     return vpd.value;
   }
 
   String getDeltaT(String sensorId) {
-    FirebaseDatabase.instance
-        .ref("SNB/$sensorId")
-        .child('deltaT')
-        .onValue
-        .listen((event) async {
+    FirebaseDatabase.instance.ref("SNB/$sensorId").child('deltaT').onValue.listen((event) async {
       deltaT.value = event.snapshot.value.toString();
     });
     return deltaT.value;
@@ -276,14 +237,12 @@ class HomeDetailController extends GetxController {
     return suitibality!;
   }
 
-  Widget fertilizationSuitabilities(
-      String soilMoisture, String light, String vpd) {
+  Widget fertilizationSuitabilities(String soilMoisture, String light, String vpd) {
     double soilMoistureValue = double.parse(soilMoisture);
     double lightValue = double.parse(light);
     double vpdValue = double.parse(vpd);
 
-    if (soilMoistureValue > fertisoilmo[0] &&
-        soilMoistureValue < fertisoilmo[1]) {
+    if (soilMoistureValue > fertisoilmo[0] && soilMoistureValue < fertisoilmo[1]) {
       fertilizationSuitability = NotIdeal(text: "Riskli");
     } else if (soilMoistureValue > fertisoilmo[1]) {
       fertilizationSuitability = NotIdeal(text: "Gübreleme Yapmayınız");
@@ -301,8 +260,7 @@ class HomeDetailController extends GetxController {
     return fertilizationSuitability!;
   }
 
-  Widget sprayingSuitabilities(
-      String temparature, String light, String deltaT) {
+  Widget sprayingSuitabilities(String temparature, String light, String deltaT) {
     double temparatureValue = double.parse(temparature);
     double lightValue = double.parse(light);
     double deltaTValue = double.parse(deltaT);

@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/shared/constants/kvkkString.dart';
+import 'package:seramcepte/shared/constants/kvkkString.dart';
 
 class KvkkScreen extends StatelessWidget {
   const KvkkScreen({super.key});

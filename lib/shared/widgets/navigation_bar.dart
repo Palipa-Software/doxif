@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/modules/homeScreen/home_screen.dart';
+import 'package:seramcepte/modules/homeScreen/home_screen.dart';
 
 import '../../modules/menuScreen/menu_screen_controller.dart';
 

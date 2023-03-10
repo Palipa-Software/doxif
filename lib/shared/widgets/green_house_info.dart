@@ -2,7 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/modules/homeDetailScreen/home_detail_controller.dart';
+import 'package:seramcepte/modules/homeDetailScreen/home_detail_controller.dart';
 
 import '../constants/colors.dart';
 
@@ -59,9 +59,7 @@ class GreenhouseInfo extends StatelessWidget {
         Container(
           height: 21.5.h,
           width: 28.5.w,
-          decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(7.sp)),
+          decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(7.sp)),
           child: Column(
             children: [
               Padding(
@@ -69,10 +67,8 @@ class GreenhouseInfo extends StatelessWidget {
                 child: Container(
                   height: 8.h,
                   width: 18.w,
-                  decoration: BoxDecoration(
-                      color: color, borderRadius: BorderRadius.circular(7.sp)),
-                  child: Center(
-                      child: ImageIcon(AssetImage("assets/images/${icoPath}"))),
+                  decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(7.sp)),
+                  child: Center(child: ImageIcon(AssetImage("assets/images/${icoPath}"))),
                 ),
               ),
               SizedBox(
@@ -81,10 +77,7 @@ class GreenhouseInfo extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: "Rubik Bold",
-                    color: Color(0xff41443C)),
+                    fontSize: 13.sp, fontWeight: FontWeight.w500, fontFamily: "Rubik Bold", color: Color(0xff41443C)),
               ),
               SizedBox(
                 height: 1.5.h,
@@ -106,9 +99,7 @@ class GreenhouseInfo extends StatelessWidget {
         Container(
           height: 21.5.h,
           width: 28.5.w,
-          decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(7.sp)),
+          decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(7.sp)),
           child: Column(
             children: [
               Padding(
@@ -116,10 +107,8 @@ class GreenhouseInfo extends StatelessWidget {
                 child: Container(
                   height: 8.h,
                   width: 18.w,
-                  decoration: BoxDecoration(
-                      color: color, borderRadius: BorderRadius.circular(7.sp)),
-                  child: Center(
-                      child: ImageIcon(AssetImage("assets/images/${icoPath}"))),
+                  decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(7.sp)),
+                  child: Center(child: ImageIcon(AssetImage("assets/images/${icoPath}"))),
                 ),
               ),
               SizedBox(
@@ -128,10 +117,7 @@ class GreenhouseInfo extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: "Rubik Bold",
-                    color: Color(0xff41443C)),
+                    fontSize: 13.sp, fontWeight: FontWeight.w500, fontFamily: "Rubik Bold", color: Color(0xff41443C)),
               ),
               SizedBox(
                 height: 1.5.h,
@@ -153,9 +139,7 @@ class GreenhouseInfo extends StatelessWidget {
         Container(
           height: 21.5.h,
           width: 28.5.w,
-          decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(7.sp)),
+          decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(7.sp)),
           child: Column(
             children: [
               Padding(
@@ -163,10 +147,8 @@ class GreenhouseInfo extends StatelessWidget {
                 child: Container(
                   height: 8.h,
                   width: 18.w,
-                  decoration: BoxDecoration(
-                      color: color, borderRadius: BorderRadius.circular(7.sp)),
-                  child: Center(
-                      child: ImageIcon(AssetImage("assets/images/${icoPath}"))),
+                  decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(7.sp)),
+                  child: Center(child: ImageIcon(AssetImage("assets/images/${icoPath}"))),
                 ),
               ),
               SizedBox(
@@ -175,10 +157,7 @@ class GreenhouseInfo extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: "Rubik Bold",
-                    color: Color(0xff41443C)),
+                    fontSize: 13.sp, fontWeight: FontWeight.w500, fontFamily: "Rubik Bold", color: Color(0xff41443C)),
               ),
               SizedBox(
                 height: 1.5.h,

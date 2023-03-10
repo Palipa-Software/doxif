@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/modules/addSensor/addSensor.dart';
-import 'package:tutorai/modules/homeScreen/home_screen_controller.dart';
-import 'package:tutorai/modules/menuScreen/kvkk_screen.dart';
-import 'package:tutorai/modules/menuScreen/menu_screen_controller.dart';
-import 'package:tutorai/modules/menuScreen/private_user_politica_screen.dart';
-import 'package:tutorai/routes/routes.dart';
-import 'package:tutorai/shared/constants/colors.dart';
-import 'package:tutorai/shared/widgets/custom_floating_button.dart';
+import 'package:seramcepte/modules/addSensor/addSensor.dart';
+import 'package:seramcepte/modules/homeScreen/home_screen_controller.dart';
+import 'package:seramcepte/modules/menuScreen/kvkk_screen.dart';
+import 'package:seramcepte/modules/menuScreen/menu_screen_controller.dart';
+import 'package:seramcepte/modules/menuScreen/private_user_politica_screen.dart';
+import 'package:seramcepte/routes/routes.dart';
+import 'package:seramcepte/shared/constants/colors.dart';
+import 'package:seramcepte/shared/widgets/custom_floating_button.dart';
 
 import '../../shared/widgets/custom_bottom_nav_bar.dart';
 import '../../shared/widgets/custom_row_menu2.dart';
@@ -50,9 +50,7 @@ class MenuScreen extends GetView<MenuScreenController> {
             children: [
               Container(
                 height: 10.h,
-                decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(10.sp)),
+                decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10.sp)),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -67,14 +65,12 @@ class MenuScreen extends GetView<MenuScreenController> {
                         children: [
                           FutureBuilder<DocumentSnapshot>(
                               future: controller.users.doc(user.uid).get(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                              builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                                 if (snapshot.hasError) {
                                   return const Text("Somethink went wrong");
                                 }
                                 if (snapshot.hasData) {
-                                  Map<String, dynamic> data = snapshot.data!
-                                      .data() as Map<String, dynamic>;
+                                  Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
                                   controller.userName.value = data["name"];
                                   return Text(
                                     data["name"],
@@ -121,9 +117,7 @@ class MenuScreen extends GetView<MenuScreenController> {
               Container(
                 height: 8.h,
                 width: 150.w,
-                decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(10.sp)),
+                decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10.sp)),
                 child: CustomRowMenu2(
                   text: "Bölgeler",
                   ontop: () {},
@@ -148,9 +142,7 @@ class MenuScreen extends GetView<MenuScreenController> {
               Container(
                 height: 25.h,
                 width: 150.w,
-                decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(10.sp)),
+                decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10.sp)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -239,8 +231,7 @@ class MenuScreen extends GetView<MenuScreenController> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton:
-          CustomFloatingButton(controller: AddSensorController()),
+      floatingActionButton: CustomFloatingButton(controller: AddSensorController()),
       bottomNavigationBar: CustomBottomNavigationBar(
         controller: AddSensorController(),
       ),

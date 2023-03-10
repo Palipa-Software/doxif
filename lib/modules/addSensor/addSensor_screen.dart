@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/modules/addSensor/addSensor_controller.dart';
-import 'package:tutorai/shared/constants/colors.dart';
-import 'package:tutorai/shared/constants/strings.dart';
+import 'package:seramcepte/modules/addSensor/addSensor_controller.dart';
+import 'package:seramcepte/shared/constants/colors.dart';
+import 'package:seramcepte/shared/constants/strings.dart';
 
 import '../../routes/routes.dart';
 import '../../shared/widgets/widgets.dart';
@@ -42,8 +42,7 @@ class AddSensor extends GetView<AddSensorController> {
                             controller.scannedDataStream.listen(
                               (scanData) {
                                 this.controller.result = scanData;
-                                this.controller.scannedId.value =
-                                    this.controller.result!.code!;
+                                this.controller.scannedId.value = this.controller.result!.code!;
                                 this.controller.getSensor();
                                 print(this.controller.result?.code);
                                 print(this.controller.scannedId.value);

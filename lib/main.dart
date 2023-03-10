@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tutorai/firebase_options.dart';
-import 'package:tutorai/routes/routes.dart';
-import 'package:tutorai/shared/constants/colors.dart';
+import 'package:seramcepte/firebase_options.dart';
+import 'package:seramcepte/routes/routes.dart';
+import 'package:seramcepte/shared/constants/colors.dart';
 
 final FlutterLocalization localization = FlutterLocalization.instance;
 

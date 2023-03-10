@@ -1,4 +1,4 @@
-package com.example.tutorai
+package com.example.seramcepte
 
 import io.flutter.embedding.android.FlutterActivity
 
