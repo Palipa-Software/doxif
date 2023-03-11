@@ -65,18 +65,6 @@ class AddRegionController extends GetxController {
     return response;
   }
 
-  Future<void> getSensorIds() async {
-    var sensor = FirebaseFirestore.instance
-        .collection("allRegions")
-        .doc(_auth.currentUser!.uid)
-        .collection("regions");
-    var sensorId = await sensor.get();
-    var regions = sensorId.docs;
-    for (var element in regions) {
-      Map<String, dynamic>? sensorsId = element.data();
-    }
-  }
-
   @override
   void onInit() {
     // TODO: implement onInit
@@ -277,8 +265,10 @@ class AddRegionController extends GetxController {
     }
   }
 
-  Future getRealtimeData() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("SNB/1222104");
-    DatabaseEvent event = await ref.once();
+  @override
+  void onClose() {
+    super.onClose();
+
+    print("Ben çalıştım");
   }
 }

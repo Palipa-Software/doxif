@@ -78,7 +78,9 @@ class HomeScreen extends GetView<HomeScreenController> {
                       height: 4.h,
                       width: 8.5.w,
                       decoration: const BoxDecoration(
-                          image: DecorationImage(image: AssetImage("assets/images/ellipse3.png"), fit: BoxFit.fill)),
+                          image: DecorationImage(
+                              image: AssetImage("assets/images/ellipse3.png"),
+                              fit: BoxFit.fill)),
                       child: Center(
                           child: ImageIcon(
                         const AssetImage("assets/images/notificationIco.png"),
@@ -108,13 +110,17 @@ class HomeScreen extends GetView<HomeScreenController> {
                               width: 3.sp,
                             ),
                             FutureBuilder<DocumentSnapshot>(
-                                future: menuScreenController.users.doc(user.uid).get(),
-                                builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                future: menuScreenController.users
+                                    .doc(user.uid)
+                                    .get(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<DocumentSnapshot> snapshot) {
                                   if (snapshot.hasError) {
                                     return const Text("Somethink went wrong");
                                   }
                                   if (snapshot.hasData) {
-                                    Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+                                    Map<String, dynamic> data = snapshot.data!
+                                        .data() as Map<String, dynamic>;
                                     return Text(
                                       data["name"],
                                       style: TextStyle(
@@ -186,7 +192,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                       icoPath: "regionIco.png",
                       textColor: const Color(0xff6A6F7D),
                       onTop: () {
-                        Get.to(AddRegion());
+                        Get.toNamed(Routes.ADDREGION);
                       },
                     ),
                     CustomChoiceContainer(
@@ -224,7 +230,8 @@ class HomeScreen extends GetView<HomeScreenController> {
 
                 return Expanded(
                   child: Container(child: Obx(() {
-                    return controller.results.isEmpty || controller.searchText.value == ''
+                    return controller.results.isEmpty ||
+                            controller.searchText.value == ''
                         ? ListView.builder(
                             scrollDirection: Axis.vertical,
                             shrinkWrap: true,
@@ -233,10 +240,14 @@ class HomeScreen extends GetView<HomeScreenController> {
                               return Padding(
                                 padding: EdgeInsets.only(top: 1.h),
                                 child: PlantCard(
-                                    sensorId: controller.myDataList[index].sensorId,
-                                    imagePath: "${controller.myDataList[index].plantType.toString().toLowerCase()}.png",
-                                    regionName: controller.myDataList[index].regionName,
-                                    plantName: controller.myDataList[index].plantType),
+                                    sensorId:
+                                        controller.myDataList[index].sensorId,
+                                    imagePath:
+                                        "${controller.myDataList[index].plantType.toString().toLowerCase()}.png",
+                                    regionName:
+                                        controller.myDataList[index].regionName,
+                                    plantName:
+                                        controller.myDataList[index].plantType),
                               );
                             },
                           )
@@ -248,10 +259,14 @@ class HomeScreen extends GetView<HomeScreenController> {
                               return Padding(
                                 padding: EdgeInsets.only(top: 4.h),
                                 child: PlantCard(
-                                  sensorId: controller.results[index]["sensorId"],
-                                  imagePath: "${controller.results[index]["plantType"].toString().toLowerCase()}.png",
-                                  regionName: controller.results[index]["regionName"],
-                                  plantName: controller.results[index]["plantType"],
+                                  sensorId: controller.results[index]
+                                      ["sensorId"],
+                                  imagePath:
+                                      "${controller.results[index]["plantType"].toString().toLowerCase()}.png",
+                                  regionName: controller.results[index]
+                                      ["regionName"],
+                                  plantName: controller.results[index]
+                                      ["plantType"],
                                 ),
                               );
                             },

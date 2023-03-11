@@ -51,7 +51,8 @@ class AddRegion extends GetView<AddRegionController> {
                           height: 30.h,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/images/${controller.plantImage}.png"),
+                              image: AssetImage(
+                                  "assets/images/${controller.plantImage}.png"),
                             ),
                           ),
                         )
@@ -72,13 +73,15 @@ class AddRegion extends GetView<AddRegionController> {
 
                 StreamBuilder<QuerySnapshot>(
                   stream: controller.stream,
-                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
                       print("Error");
                     }
 
                     if (snapshot.hasData) {
-                      controller.searchVariets = snapshot.data?.docs[0]["plantsVariet"];
+                      controller.searchVariets =
+                          snapshot.data?.docs[0]["plantsVariet"];
                       return Container(
                         width: 100.w,
                         height: 6.h,
@@ -90,16 +93,27 @@ class AddRegion extends GetView<AddRegionController> {
                               () => Bounceable(
                                 onTap: () {
                                   controller.variet.value = "Bitki Çeşidi";
-                                  controller.type = snapshot.data?.docs[index]["name"];
+                                  controller.type =
+                                      snapshot.data?.docs[index]["name"];
                                   print("Type:${controller.type}");
                                   controller.variets.clear();
                                   controller.index.value = index;
-                                  controller.searchVariets =
-                                      snapshot.data?.docs[controller.index.value]["plantsVariet"];
-                                  print("searchVariets:${controller.searchVariets}");
+                                  controller.searchVariets = snapshot
+                                          .data?.docs[controller.index.value]
+                                      ["plantsVariet"];
+                                  print(
+                                      "searchVariets:${controller.searchVariets}");
 
-                                  print(snapshot.data?.docs[controller.index.value]["plantsVariet"].toString());
-                                  snapshot.data?.docs[controller.index.value]["plantsVariet"].map((variet) {
+                                  print(snapshot
+                                      .data
+                                      ?.docs[controller.index.value]
+                                          ["plantsVariet"]
+                                      .toString());
+                                  snapshot
+                                      .data
+                                      ?.docs[controller.index.value]
+                                          ["plantsVariet"]
+                                      .map((variet) {
                                     controller.variets.add(variet);
                                   });
                                   controller.getImage();
@@ -115,7 +129,9 @@ class AddRegion extends GetView<AddRegionController> {
                                     right: 2.w,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: index == controller.index.value ? AppColors.appColor : AppColors.white,
+                                    color: index == controller.index.value
+                                        ? AppColors.appColor
+                                        : AppColors.white,
                                     border: Border.all(
                                       color: AppColors.coldMorning,
                                     ),
@@ -126,7 +142,9 @@ class AddRegion extends GetView<AddRegionController> {
                                   child: AutoSizeText(
                                     snapshot.data?.docs[index]["name"],
                                     style: TextStyle(
-                                      color: index == controller.index.value ? AppColors.white : AppColors.black,
+                                      color: index == controller.index.value
+                                          ? AppColors.white
+                                          : AppColors.black,
                                     ),
                                   ),
                                 ),
@@ -159,7 +177,8 @@ class AddRegion extends GetView<AddRegionController> {
                           itemBuilder: (context, index) {
                             return ListTile(
                               onTap: () {
-                                controller.variet.value = controller.searchVariets[index];
+                                controller.variet.value =
+                                    controller.searchVariets[index];
                                 Get.back();
                               },
                               title: Text(controller.searchVariets[index]),
@@ -274,97 +293,103 @@ class AddRegion extends GetView<AddRegionController> {
                   height: 1.5.h,
                 ),
 
-                Container(
-                  width: 100.w,
-                  height: 6.5.h,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 3.w,
-                    vertical: .5.h,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    border: Border.all(
-                      color: AppColors.coldMorning,
-                    ),
-                    borderRadius: BorderRadius.circular(
-                      12.sp,
-                    ),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppStrings.plantingDate,
-                        style: TextStyle(
-                          color: AppColors.addPhoto,
-                          fontFamily: "Rubik Regular",
-                          fontSize: 11.sp,
+                Bounceable(
+                  onTap: () {
+                    localization.translate(
+                      "tr",
+                      countryCode: "TR",
+                    );
+                    Get.defaultDialog(
+                      title: AppStrings.plantingDate,
+                      titleStyle: TextStyle(
+                        fontFamily: "Rubik Bold",
+                        color: AppColors.addPhoto,
+                      ),
+                      content: SizedBox(
+                        width: 80.w,
+                        height: 30.h,
+                        child: SfDateRangePicker(
+                          headerStyle: DateRangePickerHeaderStyle(
+                              textStyle: TextStyle(
+                            color: AppColors.addPhoto,
+                            fontFamily: "Rubik Bold",
+                            fontSize: 12.sp,
+                          )),
+                          monthViewSettings: DateRangePickerMonthViewSettings(
+                            viewHeaderStyle: DateRangePickerViewHeaderStyle(
+                              textStyle: TextStyle(
+                                color: AppColors.addPhoto,
+                                fontFamily: "Rubik Bold",
+                              ),
+                            ),
+                            dayFormat: "EEE",
+                          ),
+                          onSelectionChanged:
+                              (dateRangePickerSelectionChangedArgs) {
+                            if (dateRangePickerSelectionChangedArgs.value
+                                is DateTime) {
+                              controller.selectedDate.value =
+                                  DateFormat('dd/MM/yyyy').format(
+                                      dateRangePickerSelectionChangedArgs
+                                          .value);
+                              print(
+                                  "selectedDate:${controller.selectedDate.value}");
+                              Get.back();
+                            }
+                          },
+                          monthCellStyle: DateRangePickerMonthCellStyle(
+                            todayTextStyle: TextStyle(
+                              color: AppColors.appColor,
+                              fontFamily: "Rubik Regular",
+                            ),
+                          ),
+                          todayHighlightColor: AppColors.appColor,
+                          selectionColor: AppColors.appColor,
                         ),
                       ),
-                      Obx(
-                        () => Text(
-                          controller.selectedDate.value,
+                    );
+                  },
+                  child: Container(
+                    width: 100.w,
+                    height: 6.5.h,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 3.w,
+                      vertical: .5.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      border: Border.all(
+                        color: AppColors.coldMorning,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        12.sp,
+                      ),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          AppStrings.plantingDate,
                           style: TextStyle(
                             color: AppColors.addPhoto,
                             fontFamily: "Rubik Regular",
                             fontSize: 11.sp,
                           ),
                         ),
-                      ),
-                      Bounceable(
-                        onTap: () {
-                          localization.translate(
-                            "tr",
-                            countryCode: "TR",
-                          );
-                          Get.defaultDialog(
-                            title: AppStrings.plantingDate,
-                            titleStyle: TextStyle(
-                              fontFamily: "Rubik Bold",
+                        Obx(
+                          () => Text(
+                            controller.selectedDate.value,
+                            style: TextStyle(
                               color: AppColors.addPhoto,
+                              fontFamily: "Rubik Regular",
+                              fontSize: 11.sp,
                             ),
-                            content: SizedBox(
-                              width: 80.w,
-                              height: 30.h,
-                              child: SfDateRangePicker(
-                                headerStyle: DateRangePickerHeaderStyle(
-                                    textStyle: TextStyle(
-                                  color: AppColors.addPhoto,
-                                  fontFamily: "Rubik Bold",
-                                  fontSize: 12.sp,
-                                )),
-                                monthViewSettings: DateRangePickerMonthViewSettings(
-                                  viewHeaderStyle: DateRangePickerViewHeaderStyle(
-                                    textStyle: TextStyle(
-                                      color: AppColors.addPhoto,
-                                      fontFamily: "Rubik Bold",
-                                    ),
-                                  ),
-                                  dayFormat: "EEE",
-                                ),
-                                onSelectionChanged: (dateRangePickerSelectionChangedArgs) {
-                                  if (dateRangePickerSelectionChangedArgs.value is DateTime) {
-                                    controller.selectedDate.value =
-                                        DateFormat('dd/MM/yyyy').format(dateRangePickerSelectionChangedArgs.value);
-                                    print("selectedDate:${controller.selectedDate.value}");
-                                  }
-                                },
-                                monthCellStyle: DateRangePickerMonthCellStyle(
-                                  todayTextStyle: TextStyle(
-                                    color: AppColors.appColor,
-                                    fontFamily: "Rubik Regular",
-                                  ),
-                                ),
-                                todayHighlightColor: AppColors.appColor,
-                                selectionColor: AppColors.appColor,
-                              ),
-                            ),
-                          );
-                        },
-                        child: SvgPicture.asset("assets/images/calendar.svg"),
-                      ),
-                    ],
+                          ),
+                        ),
+                        SvgPicture.asset("assets/images/calendar.svg"),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(
