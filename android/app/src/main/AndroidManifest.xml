@@ -1,6 +1,6 @@
 <manifest android:targetSandboxVersion="1"
  xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.seramcepte">
+    package="com.palipasoftware.seramcepte">
     
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />

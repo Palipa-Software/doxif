@@ -8,22 +8,22 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:165191797199:android:124e4ee89b64ea5f08aaba",
+        "mobilesdk_app_id": "1:165191797199:android:99711db8fdaa270708aaba",
         "android_client_info": {
-          "package_name": "com.example.seramcepte"
+          "package_name": "com.palipasoftware.seramcepte"
         }
       },
       "oauth_client": [
         {
-          "client_id": "165191797199-npu2dlcmhcapq1669fvg6tska371t6u1.apps.googleusercontent.com",
+          "client_id": "165191797199-jcogrtenvcd74jlmc4g6rebafo68520j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.seramcepte",
+            "package_name": "com.palipasoftware.seramcepte",
             "certificate_hash": "652a9ed332ab57540f0cf26dc91865744bc0199b"
           }
         },
         {
-          "client_id": "165191797199-8r05brr3e83ng9d1vo9lpr0oqfvv77sp.apps.googleusercontent.com",
+          "client_id": "165191797199-eg48mhsidopru33mh8phiffl5a7ulbsj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -40,10 +40,10 @@
               "client_type": 3
             },
             {
-              "client_id": "165191797199-uo3o60bmiv2snbk2lh0e5q1o9leqammr.apps.googleusercontent.com",
+              "client_id": "165191797199-62128nqvkpniadf4cqubu388mn8ca0o6.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.seramcepte"
+                "bundle_id": "com.palipasoftware.seramcepte"
               }
             }
           ]

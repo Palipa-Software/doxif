@@ -1,4 +1,4 @@
-package com.example.seramcepte
+package com.palipasoftware.seramcepte
 
 import io.flutter.embedding.android.FlutterActivity
 
