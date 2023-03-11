@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:seramcepte/modules/addSensor/addSensor.dart';
 import 'package:seramcepte/modules/homeScreen/home_screen.dart';
 import 'package:seramcepte/modules/menuScreen/menu_screen.dart';
-import 'package:seramcepte/routes/routes.dart';
 
 import '../constants/constants.dart';
 
