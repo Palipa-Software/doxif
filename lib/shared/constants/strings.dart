@@ -43,8 +43,8 @@ class AppStrings {
   static const String nameError = "İsim boş bırakılamaz";
   static const String surnameError = "Soyisim boş bırakılamaz";
   static const String phoneError = "Telefon boş bırakılamaz";
-  static const String phone = "555 555 5555";
-  static const String phoneCode = "+90";
+  static const String phone = "55) 555 5555";
+  static const String phoneCode = "(05";
 
   //Login/Register Error/İnfo
   static const String postForgetPassMail = "E-posta adresine bir link gönderdik. Lütfen kontrol ediniz.";

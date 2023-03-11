@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:seramcepte/modules/register/register_controller.dart';
@@ -52,6 +53,7 @@ class RegisterScreen extends GetView<RegisterController> {
                     textInputAction: TextInputAction.next,
                     validate: controller.validateName.value,
                     validateString: AppStrings.nameError,
+                    textCapitalization: TextCapitalization.sentences,
                   ),
                 ),
                 SizedBox(
@@ -65,6 +67,7 @@ class RegisterScreen extends GetView<RegisterController> {
                     textInputAction: TextInputAction.next,
                     validate: controller.validateSurname.value,
                     validateString: AppStrings.surnameError,
+                    textCapitalization: TextCapitalization.sentences,
                   ),
                 ),
                 SizedBox(
@@ -75,13 +78,14 @@ class RegisterScreen extends GetView<RegisterController> {
                       controller: controller.phoneController,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
+                      inputFormatters: [MaskedInputFormatter('##) ### ####')],
                       style: const TextStyle(fontFamily: AppFonts.regular),
                       decoration: InputDecoration(
                           errorText: controller.validatePhone.value ? AppStrings.phoneError : null,
-                          label: const Text("${AppStrings.phoneCode} ${AppStrings.phone}"),
+                          label: const Text("${AppStrings.phoneCode}${AppStrings.phone}"),
                           labelStyle: const TextStyle(fontFamily: AppFonts.regular),
                           hintStyle: TextStyle(color: AppColors.addPhoto, fontFamily: AppFonts.regular),
-                          prefixText: AppStrings.phoneCode,
+                          prefixText: "(05",
                           prefixIcon: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 3.w),
                             child: Image.asset(
@@ -103,6 +107,7 @@ class RegisterScreen extends GetView<RegisterController> {
                     textInputAction: TextInputAction.next,
                     validate: controller.validateEmail.value,
                     validateString: AppStrings.errorEmptyMail,
+                    textCapitalization: TextCapitalization.none,
                   ),
                 ),
                 SizedBox(
@@ -117,6 +122,7 @@ class RegisterScreen extends GetView<RegisterController> {
                     obscureText: true,
                     validate: controller.validatePassword.value,
                     validateString: AppStrings.errorEmptyPass,
+                    textCapitalization: TextCapitalization.none,
                   ),
                 ),
                 SizedBox(
@@ -131,6 +137,7 @@ class RegisterScreen extends GetView<RegisterController> {
                     obscureText: true,
                     validate: controller.validateRePassword.value,
                     validateString: AppStrings.errorReCrypt,
+                    textCapitalization: TextCapitalization.none,
                   ),
                 ),
                 SizedBox(

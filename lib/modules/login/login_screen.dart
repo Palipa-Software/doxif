@@ -36,6 +36,7 @@ class LoginScreen extends GetView<LoginController> {
                 ),
                 Obx(
                   () => LoginTextField(
+                      textCapitalization: TextCapitalization.none,
                       controller: controller.emailController,
                       hintText: AppStrings.eposta,
                       keyboardType: TextInputType.emailAddress,
@@ -46,6 +47,7 @@ class LoginScreen extends GetView<LoginController> {
                 ),
                 SizedBox(height: 1.h),
                 Obx(() => LoginTextField(
+                    textCapitalization: TextCapitalization.none,
                     controller: controller.passwordController,
                     hintText: AppStrings.password,
                     keyboardType: TextInputType.visiblePassword,
@@ -140,6 +142,7 @@ class LoginScreen extends GetView<LoginController> {
                     ),
                     Obx(
                       () => LoginTextField(
+                        textCapitalization: TextCapitalization.none,
                         controller: controller.forgetPasswordController,
                         hintText: AppStrings.eposta,
                         keyboardType: TextInputType.emailAddress,

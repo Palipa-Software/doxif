@@ -11,7 +11,8 @@ class LoginTextField extends StatelessWidget {
       this.obscureText,
       this.color,
       required this.validate,
-      required this.validateString});
+      required this.validateString,
+      required this.textCapitalization});
 
   final TextEditingController controller;
   final String hintText;
@@ -21,10 +22,12 @@ class LoginTextField extends StatelessWidget {
   final Color? color;
   final bool validate;
   final String validateString;
+  final TextCapitalization textCapitalization;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      textCapitalization: textCapitalization,
       obscureText: obscureText ?? false,
       textInputAction: textInputAction,
       controller: controller,
