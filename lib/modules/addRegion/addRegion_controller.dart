@@ -241,7 +241,7 @@ class AddRegionController extends GetxController {
                   prefs.remove("sensorID");
                   regionName.clear();
                   selectedDate.value = "";
-                  Get.offAllNamed(Routes.HOME);
+                  Get.offAllNamed(Routes.MAINPAGE);
                 },
                 title: "Tamam",
                 controller: this,
