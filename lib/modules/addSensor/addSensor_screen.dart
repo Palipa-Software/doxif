@@ -1,10 +1,8 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:sizer/sizer.dart';
 import 'package:seramcepte/modules/addSensor/addSensor_controller.dart';
-import 'package:seramcepte/shared/constants/colors.dart';
 import 'package:seramcepte/shared/constants/strings.dart';
 
 import '../../routes/routes.dart';
@@ -15,6 +13,7 @@ class AddSensor extends GetView<AddSensorController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(AddSensorController());
     controller.scanBtn.value = true;
     return Scaffold(
       appBar: AppBar(
@@ -53,7 +52,7 @@ class AddSensor extends GetView<AddSensorController> {
                           }),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: 100.w,
                     height: 10.h,
                     child: ListView.builder(
@@ -99,13 +98,13 @@ class AddSensor extends GetView<AddSensorController> {
           ),
         ],
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        controller: controller,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CustomFloatingButton(
-        controller: controller,
-      ),
+      // bottomNavigationBar: CustomBottomNavigationBar(
+      //   controller: controller,
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: CustomFloatingButton(
+      //   controller: controller,
+      // ),
     );
   }
 }

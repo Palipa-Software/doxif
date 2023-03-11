@@ -11,39 +11,40 @@ class CustomFloatingButton extends StatelessWidget {
   CustomFloatingButton({
     super.key,
     required this.controller,
+    required this.func,
   });
 
   dynamic controller;
+  void Function() func;
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Container(
-        padding: EdgeInsets.all(2.sp),
+    return Container(
+      padding: EdgeInsets.all(2.sp),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: AppColors.white,
+      ),
+      child: Container(
+        padding: EdgeInsets.all(
+          2.sp,
+        ),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: AppColors.white,
+          color: AppColors.bgColor,
         ),
-        child: Container(
-          padding: EdgeInsets.all(
-            2.sp,
-          ),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: AppColors.bgColor,
-          ),
-          child: FloatingActionButton(
-            elevation: 0,
-            onPressed: () {
-              Get.toNamed(Routes.ADDSENSOR);
-              controller.scanBtn.value = true;
-              print(controller.scanBtn.value);
-            },
-            child: SvgPicture.asset(
-              "assets/images/scan.svg",
-              color: controller.scanBtn.value == true ? AppColors.appColor : AppColors.inActiveIcColor,
-            ),
-            backgroundColor: AppColors.white,
+        child: FloatingActionButton(
+          elevation: 0,
+          onPressed: () {
+            func();
+            // Get.toNamed(Routes.ADDSENSOR);
+            // controller.scanBtn.value = true;
+            // print(controller.scanBtn.value);
+          },
+          backgroundColor: AppColors.white,
+          child: SvgPicture.asset(
+            "assets/images/scan.svg",
+            color: AppColors.inActiveIcColor,
           ),
         ),
       ),

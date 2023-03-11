@@ -241,12 +241,12 @@ class MenuScreen extends GetView<MenuScreenController> {
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton:
-          CustomFloatingButton(controller: AddSensorController()),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        controller: controller,
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton:
+      //     CustomFloatingButton(controller: AddSensorController()),
+      // bottomNavigationBar: CustomBottomNavigationBar(
+      //   controller: controller,
+      // ),
     );
   }
 }
