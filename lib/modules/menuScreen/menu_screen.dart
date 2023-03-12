@@ -72,27 +72,22 @@ class MenuScreen extends GetView<MenuScreenController> {
                                 if (snapshot.hasData) {
                                   Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
                                   controller.userName.value = data["name"];
-                                  return Text(
-                                    data["name"],
-                                    style: TextStyle(
-                                      fontSize: 13.5.sp,
-                                      fontFamily: "Rubik Bold",
-                                      fontWeight: FontWeight.w700,
+                                  return Padding(
+                                    padding:  EdgeInsets.only(top: 1.h),
+                                    child: Text(
+                                      data["name"],
+                                      style: TextStyle(
+                                        fontSize: 13.5.sp,
+                                        fontFamily: "Rubik Bold",
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   );
                                 }
                                 return const SizedBox();
                               }),
                           SizedBox(height: 0.5.h),
-                          Text(
-                            "Profil Bilgileri",
-                            style: TextStyle(
-                              color: const Color(0xff6A6F7D),
-                              fontSize: 10.sp,
-                              fontFamily: "Rubik Regular ",
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
+                          
                         ],
                       ),
                     ),
@@ -120,7 +115,7 @@ class MenuScreen extends GetView<MenuScreenController> {
                 decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10.sp)),
                 child: CustomRowMenu2(
                   text: "Bölgeler",
-                  ontop: () {},
+                  ontop: () {Get.toNamed(Routes.HOME);},
                   pathImage: "assets/images/regionIco.png",
                 ),
               ),

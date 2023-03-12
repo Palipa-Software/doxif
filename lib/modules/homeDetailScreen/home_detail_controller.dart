@@ -214,7 +214,7 @@ class HomeDetailController extends GetxController {
     double lightValue = double.parse(light);
     double humidityValue = double.parse(humidity);
     if (lightValue < purelights[0] || lightValue > purelights[1]) {
-      suitibality = NotIdeal(text: "Budama Yapmayınız");
+      suitibality = NotIdeal(text: "Yapmayınız");
     } else if (lightValue > purelights[0] && lightValue < purelights[2]) {
       suitibality = NotIdeal(text: "Riskli");
     } else if (lightValue > purelights[3] && lightValue < purelights[1]) {
@@ -223,14 +223,14 @@ class HomeDetailController extends GetxController {
       if (temparatureValue > puretemp[0] && temparatureValue < puretemp[1]) {
         suitibality = NotIdeal(text: "Uygun Değil");
       } else if (temparatureValue > puretemp[1]) {
-        suitibality = NotIdeal(text: "Budama Yapmayınız");
+        suitibality = NotIdeal(text: "Yapmayınız");
       } else {
         if (humidityValue > purehumi[0] && humidityValue < purehumi[1]) {
           suitibality = Ideal(text: "İdeal");
         } else if (humidityValue > purehumi[2] && humidityValue < purehumi[3]) {
           suitibality = NotIdeal(text: "Uygun Değil");
         } else if (humidityValue < purehumi[2] || humidityValue > purehumi[4]) {
-          suitibality = NotIdeal(text: "Budama Yapmayınız");
+          suitibality = NotIdeal(text: "Yapmayınız");
         }
       }
     }
@@ -245,13 +245,13 @@ class HomeDetailController extends GetxController {
     if (soilMoistureValue > fertisoilmo[0] && soilMoistureValue < fertisoilmo[1]) {
       fertilizationSuitability = NotIdeal(text: "Riskli");
     } else if (soilMoistureValue > fertisoilmo[1]) {
-      fertilizationSuitability = NotIdeal(text: "Gübreleme Yapmayınız");
+      fertilizationSuitability = NotIdeal(text: "Yapmayınız");
     } else if (soilMoistureValue < fertisoilmo[0]) {
       if (lightValue < fertilights[0] || lightValue > fertilights[1]) {
-        fertilizationSuitability = NotIdeal(text: "Gübreleme Yapmayınız");
+        fertilizationSuitability = NotIdeal(text: "Yapmayınız");
       } else {
         if (vpdValue > fertiVpd) {
-          fertilizationSuitability = NotIdeal(text: "Gübreleme Yapmayınız");
+          fertilizationSuitability = NotIdeal(text: "Yapmayınız");
         } else {
           fertilizationSuitability = Ideal(text: "Uygun");
         }
@@ -265,11 +265,11 @@ class HomeDetailController extends GetxController {
     double lightValue = double.parse(light);
     double deltaTValue = double.parse(deltaT);
     if (temparatureValue > spraytemp || lightValue < spraylight) {
-      sprayingSuitability = NotIdeal(text: "Uygulama Yapmayınız");
+      sprayingSuitability = NotIdeal(text: "Yapmayınız");
     } else if (temparatureValue < spraytemp && deltaTValue > spreydelta[0]) {
-      sprayingSuitability = NotIdeal(text: "Uygulama Yapmayınız");
+      sprayingSuitability = NotIdeal(text: "Yapmayınız");
     } else if (temparatureValue < spraytemp && deltaTValue < 1) {
-      sprayingSuitability = NotIdeal(text: "Uygulama Yapmayınız");
+      sprayingSuitability = NotIdeal(text: "Yapmayınız");
     } else if (deltaTValue > spreydelta[1] && deltaTValue < spreydelta[2]) {
       sprayingSuitability = NotIdeal(text: "Riskli");
     } else if (deltaTValue > spreydelta[3] && deltaTValue < spreydelta[0]) {

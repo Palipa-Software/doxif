@@ -38,17 +38,20 @@ class PlantDetailCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Container(
-                    height: 8.h,
-                    width: 18.w,
-                    decoration: BoxDecoration(
-                        color: icoBackgroundColor,
-                        borderRadius: BorderRadius.circular(7.sp)),
-                    child: Center(
-                        child: ImageIcon(
-                      AssetImage("assets/images/${icoPath}"),
-                      color: icoColor,
-                    )),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 1.5.h),
+                    child: Container(
+                      height: 8.h,
+                      width: 18.w,
+                      decoration: BoxDecoration(
+                          color: icoBackgroundColor,
+                          borderRadius: BorderRadius.circular(7.sp)),
+                      child: Center(
+                          child: ImageIcon(
+                        AssetImage("assets/images/${icoPath}"),
+                        color: icoColor,
+                      )),
+                    ),
                   ),
                   SizedBox(
                     width: 4.w,
