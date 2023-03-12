@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
+import 'package:seramcepte/modules/navigation/navigationPage.dart';
+import 'package:seramcepte/modules/navigation/navigation_controller.dart';
 import 'package:sizer/sizer.dart';
 import 'package:seramcepte/modules/addSensor/addSensor.dart';
 import 'package:seramcepte/modules/menuScreen/kvkk_screen.dart';
@@ -50,7 +52,9 @@ class MenuScreen extends GetView<MenuScreenController> {
             children: [
               Container(
                 height: 10.h,
-                decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10.sp)),
+                decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(10.sp)),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -65,15 +69,17 @@ class MenuScreen extends GetView<MenuScreenController> {
                         children: [
                           FutureBuilder<DocumentSnapshot>(
                               future: controller.users.doc(user.uid).get(),
-                              builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<DocumentSnapshot> snapshot) {
                                 if (snapshot.hasError) {
                                   return const Text("Somethink went wrong");
                                 }
                                 if (snapshot.hasData) {
-                                  Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+                                  Map<String, dynamic> data = snapshot.data!
+                                      .data() as Map<String, dynamic>;
                                   controller.userName.value = data["name"];
                                   return Padding(
-                                    padding:  EdgeInsets.only(top: 1.h),
+                                    padding: EdgeInsets.only(top: 1.h),
                                     child: Text(
                                       data["name"],
                                       style: TextStyle(
@@ -87,7 +93,6 @@ class MenuScreen extends GetView<MenuScreenController> {
                                 return const SizedBox();
                               }),
                           SizedBox(height: 0.5.h),
-                          
                         ],
                       ),
                     ),
@@ -112,10 +117,17 @@ class MenuScreen extends GetView<MenuScreenController> {
               Container(
                 height: 8.h,
                 width: 150.w,
-                decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10.sp)),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(
+                    10.sp,
+                  ),
+                ),
                 child: CustomRowMenu2(
                   text: "Bölgeler",
-                  ontop: () {Get.toNamed(Routes.HOME);},
+                  ontop: () {
+                    Get.offAll(() => NavigationPage());
+                  },
                   pathImage: "assets/images/regionIco.png",
                 ),
               ),
@@ -137,7 +149,9 @@ class MenuScreen extends GetView<MenuScreenController> {
               Container(
                 height: 25.h,
                 width: 150.w,
-                decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10.sp)),
+                decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(10.sp)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,

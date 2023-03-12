@@ -53,14 +53,18 @@ class NavigationPage extends StatelessWidget {
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(
                   "assets/images/home.svg",
-                  color: controller.selectedIndex.value == 0 ? AppColors.appColor : AppColors.inActiveIcColor,
+                  color: controller.selectedIndex.value == 0
+                      ? AppColors.appColor
+                      : AppColors.inActiveIcColor,
                 ),
                 label: "",
               ),
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(
                   "assets/images/menu.svg",
-                  color: controller.selectedIndex.value == 1 ? AppColors.appColor : AppColors.inActiveIcColor,
+                  color: controller.selectedIndex.value == 1
+                      ? AppColors.appColor
+                      : AppColors.inActiveIcColor,
                 ),
                 label: "",
               ),
