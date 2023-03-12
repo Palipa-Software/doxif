@@ -120,32 +120,7 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                     SizedBox(
                       height: 4.h,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 12.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AutoSizeText(
-                            args[0].toString(),
-                            maxLines: 2,
-                            style: TextStyle(
-                                fontSize: 30.sp,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "Rubik Bold",
-                                color: AppColors.white),
-                          ),
-                          AutoSizeText(
-                            "${args[1]} Serası",
-                            maxLines: 1,
-                            style: TextStyle(
-                                fontSize: 30.sp,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "Rubik Bold",
-                                color: AppColors.white),
-                          ),
-                        ],
-                      ),
-                    ),
+                  
                   ],
                 ),
               ),
@@ -171,7 +146,33 @@ class HomeDetailScreen extends GetView<HomeDetailController> {
                   ),
                   size: 123.sp,
                 ),
-              )
+              ),
+                Padding(
+                      padding: EdgeInsets.only(left: 12.w ,top: 19.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AutoSizeText(
+                            args[0].toString(),
+                            maxLines: 2,
+                            style: TextStyle(
+                                fontSize: 30.sp,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: "Rubik Bold",
+                                color: AppColors.white),
+                          ),
+                          AutoSizeText(
+                            "${args[1]} Serası",
+                            maxLines: 1,
+                            style: TextStyle(
+                                fontSize: 30.sp,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: "Rubik Bold",
+                                color: AppColors.white),
+                          ),
+                        ],
+                      ),
+                    ),
             ],
           ),
           SizedBox(

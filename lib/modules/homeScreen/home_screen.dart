@@ -186,7 +186,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                       icoPath: "regionIco.png",
                       textColor: const Color(0xff6A6F7D),
                       onTop: () {
-                        Get.to(AddRegion());
+                        Get.toNamed(Routes.ADDREGION);
                       },
                     ),
                     CustomChoiceContainer(
