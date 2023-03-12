@@ -448,8 +448,10 @@ class PlantCard extends StatelessWidget {
                   height: 12.5.h,
                   width: 28.w,
                   decoration: BoxDecoration(
+
                       image: DecorationImage(
-                          image: AssetImage("assets/images/$imagePath"))),
+                        
+                          image: AssetImage("assets/images/$imagePath",),fit:BoxFit.fill)),
                 ),
               )
             ],
