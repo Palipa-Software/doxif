@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
+import 'package:seramcepte/modules/homeDetailScreen/home_detail_controller.dart';
 import 'package:seramcepte/routes/routes.dart';
 import 'package:sizer/sizer.dart';
 import 'package:seramcepte/modules/homeDetailScreen/home_detail_screen.dart';
@@ -15,12 +17,22 @@ class PlantCard extends StatelessWidget {
     required this.regionName,
     required this.plantName,
     required this.sensorId,
+    required this.onTap,
+    required this.highHumidity,
+    required this.highTemp,
+    required this.lowHumidity,
+    required this.lowTemp,
   });
 
   final String imagePath;
   final String regionName;
   final String plantName;
   final String sensorId;
+  final String lowTemp;
+  final String highTemp;
+  final String lowHumidity;
+  final String highHumidity;
+  final void Function() onTap;
 
   RxString tempature = "".obs;
   RxString humidity = "".obs;
@@ -47,11 +59,7 @@ class PlantCard extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 18.56),
         child: Bounceable(
           onTap: () {
-            Get.toNamed(Routes.HOMEDETAIL, arguments: [
-              regionName,
-              plantName,
-              sensorId,
-            ]);
+            onTap();
           },
           child: Stack(
             children: [
@@ -104,7 +112,10 @@ class PlantCard extends StatelessWidget {
                                         width: 1.3.w,
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(top: 0.5.h),
+                                        padding: EdgeInsets.only(
+                                          top: 0.5.h,
+                                          bottom: 1.h,
+                                        ),
                                         child: Text(
                                           "Sıcaklık",
                                           style: TextStyle(
@@ -120,7 +131,7 @@ class PlantCard extends StatelessWidget {
                                     () => Text(
                                       "${tempature.value}°C",
                                       style: TextStyle(
-                                          fontSize: 20.sp,
+                                          fontSize: 15.sp,
                                           fontWeight: FontWeight.w400,
                                           color: const Color(0xffFFB838),
                                           fontFamily: "Rubik Bold"),
@@ -160,7 +171,7 @@ class PlantCard extends StatelessWidget {
                                               height: 0.5.h,
                                             ),
                                             Text(
-                                              "°C",
+                                              "$highTemp °C",
                                               style: TextStyle(
                                                   fontSize: 11.sp,
                                                   fontWeight: FontWeight.w400,
@@ -221,7 +232,7 @@ class PlantCard extends StatelessWidget {
                                               height: 0.5.h,
                                             ),
                                             Text(
-                                              "°C",
+                                              "$lowTemp °C",
                                               style: TextStyle(
                                                   fontSize: 11.sp,
                                                   fontWeight: FontWeight.w400,
@@ -285,7 +296,10 @@ class PlantCard extends StatelessWidget {
                                         width: 1.3.w,
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(top: 0.5.h),
+                                        padding: EdgeInsets.only(
+                                          top: 0.5.h,
+                                          bottom: 1.h,
+                                        ),
                                         child: Text(
                                           "Nem",
                                           style: TextStyle(
@@ -301,7 +315,7 @@ class PlantCard extends StatelessWidget {
                                     () => Text(
                                       "%${humidity.value}",
                                       style: TextStyle(
-                                          fontSize: 20.sp,
+                                          fontSize: 15.sp,
                                           fontWeight: FontWeight.w400,
                                           color: const Color(0xff459ED5),
                                           fontFamily: "Rubik Bold"),
@@ -342,7 +356,7 @@ class PlantCard extends StatelessWidget {
                                               height: 0.5.h,
                                             ),
                                             Text(
-                                              "%",
+                                              "$highHumidity %",
                                               style: TextStyle(
                                                   fontSize: 11.sp,
                                                   fontWeight: FontWeight.w400,
@@ -403,7 +417,7 @@ class PlantCard extends StatelessWidget {
                                               height: 0.5.h,
                                             ),
                                             Text(
-                                              "%",
+                                              "$lowHumidity %",
                                               style: TextStyle(
                                                   fontSize: 11.sp,
                                                   fontWeight: FontWeight.w400,
@@ -448,10 +462,11 @@ class PlantCard extends StatelessWidget {
                   height: 12.5.h,
                   width: 28.w,
                   decoration: BoxDecoration(
-
                       image: DecorationImage(
-                        
-                          image: AssetImage("assets/images/$imagePath",),fit:BoxFit.fill)),
+                          image: AssetImage(
+                            "assets/images/$imagePath",
+                          ),
+                          fit: BoxFit.fill)),
                 ),
               )
             ],

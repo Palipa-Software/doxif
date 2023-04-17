@@ -1,17 +1,31 @@
+import 'dart:convert';
 import 'dart:math';
-
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
+import 'package:intl/intl.dart';
+import 'package:seramcepte/shared/constants/colors.dart';
 import 'package:seramcepte/shared/widgets/ideal.dart';
+import 'package:http/http.dart' as http;
 import 'package:seramcepte/shared/widgets/not_ideal.dart';
+import 'package:sizer/sizer.dart';
+
+import 'home_detail_screen.dart';
+
+var args = Get.arguments;
 
 class HomeDetailController extends GetxController {
+  RxString chartDay = "".obs;
   var selectedItem = "Sıcaklık".obs;
-  var selectedItem2 = "Şimdi".obs;
+  String chartsType = "Sıcaklık";
+  RxString chartsTypeFieldName = "".obs;
+  Color lineColor = AppColors.softBoiled;
+  Map<String, dynamic> minMaxDatasWeekly = {};
+
+  var selectedItem2 = "Günlük".obs;
   List<String> temperatures = [];
   RxString day = "".obs;
   RxString year = "".obs;
@@ -40,10 +54,53 @@ class HomeDetailController extends GetxController {
   var firebaseAuth = FirebaseAuth.instance;
   final databaseRef = FirebaseDatabase.instance.ref("SNB/1222104");
 
-  var items = ["Sıcaklık", "Nem", "Işık", "Yaprak Sıcaklığı", "VPD Değerleri"].obs;
-  var items2 = ["Şimdi", "7 günlük"].obs;
+  var items = [
+    "Sıcaklık",
+    "Nem",
+    "Yaprak Sıcaklığı",
+    "Toprak Nemi",
+    "Toprak Sıcaklığı",
+    "Çiğ Noktası"
+  ].obs;
+  var items2 = ["Günlük", "Haftalık", "15 Günlük", "Aylık"].obs;
   var isOpen = true.obs;
   var isList = true.obs;
+
+  void getFieldName() {
+    switch (chartsType) {
+      case "Sıcaklık":
+        chartsTypeFieldName.value = "sicaklik";
+        lineColor = AppColors.softBoiled;
+        print("Sıcaklık Grafiği");
+        break;
+      case "Nem":
+        chartsTypeFieldName.value = "nem";
+        lineColor = AppColors.peacefulRiver;
+        print("Nem Grafiği");
+        break;
+      case "Yaprak Sıcaklığı":
+        chartsTypeFieldName.value = "yapSic";
+        lineColor = AppColors.freshOnion;
+        print("Yaprak Sıcaklığı Grafiği");
+        break;
+      case "Toprak Nemi":
+        chartsTypeFieldName.value = "toprakNem";
+        lineColor = AppColors.emperador;
+        print("Toprak Nemi Grafiği");
+        break;
+      case "Toprak Sıcaklığı":
+        chartsTypeFieldName.value = "toprakSic";
+        lineColor = AppColors.alizarin;
+        print("Topark Sıcaklığı Grafiği");
+        break;
+      case "Çiğ Noktası":
+        chartsTypeFieldName.value = "cigNoktasi";
+        lineColor = AppColors.mintJelly;
+        print("Çiğ Noktası Grafiği");
+        break;
+      default:
+    }
+  }
 
   void onItemSelected(String newValue) {
     selectedItem(newValue);
@@ -69,7 +126,8 @@ class HomeDetailController extends GetxController {
   }
 
   Future<void> getFerti() async {
-    var ferti = FirebaseFirestore.instance.collection("condition").doc("gubreleme");
+    var ferti =
+        FirebaseFirestore.instance.collection("condition").doc("gubreleme");
 
     var ferties = await ferti.get();
     for (var i = 1; i < 3; i++) {
@@ -83,7 +141,8 @@ class HomeDetailController extends GetxController {
   }
 
   Future<void> getSpraying() async {
-    var spray = FirebaseFirestore.instance.collection("condition").doc("ilaclama");
+    var spray =
+        FirebaseFirestore.instance.collection("condition").doc("ilaclama");
 
     var sprays = await spray.get();
     for (var i = 1; i < 5; i++) {
@@ -139,71 +198,207 @@ class HomeDetailController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onClose() {
+    super.onClose();
+    salesDataLists.clear();
+  }
+
+  @override
+  void onInit() async {
     super.onInit();
     getPure();
     getFerti();
     getSpraying();
+    getFieldName();
+    await addSalesDataLists();
+  }
+
+  Future<void> addSalesDataLists() async {
+    for (var i = 0; i < args[3].values.length; i++) {
+      salesDataLists.add(SalesData(
+        args[3].keys.elementAt(i).toString().split("-")[0].toString(),
+        double.parse(
+          args[3]
+              .values
+              .elementAt(i)[chartsTypeFieldName]["average"]
+              .toStringAsFixed(1),
+        ),
+      ));
+    }
+  }
+
+  Future<void> getWeekDays(
+      {required RxList<SalesData> list, required int length}) async {
+    weeklyAverages.clear();
+    for15DaysAverages.clear();
+    monthlyAverages.clear();
+    for (var i = 1; i < length; i++) {
+      chartDay.value = DateFormat("yyyy-MM-dd").format(
+        DateTime.now().subtract(
+          Duration(
+            days: i,
+          ),
+        ),
+      );
+      var data = await fetchDataWeekly(sensorID: args[2]);
+      handleDataWeekly(data, i, list);
+
+      if (data["data"]["daily"]["data"].isEmpty) {
+        Get.back();
+        return print("Gerisi Boş");
+      }
+      if (i < length) {
+        var data = await fetchDataWeekly(sensorID: args[2]);
+        handleDataWeekly(data, i, list);
+        // var for15Data = await fetchDataWeekly(sensorID: args[2]);
+        // handleDataWeekly(for15Data, i, for15DaysAverages);
+        // var monthlyData = await fetchDataWeekly(sensorID: args[2]);
+        // handleDataWeekly(monthlyData, i, monthlyAverages);
+      }
+      // } else if (i < 16) {
+      //   print("15 Günlük Kısım");
+      //   var data = await fetchDataWeekly(sensorID: args[2]);
+      //   handleDataWeekly(data, i, for15DaysAverages);
+      //   // var monthlyData = await fetchDataWeekly(sensorID: args[2]);
+      //   // handleDataWeekly(monthlyData, i, monthlyAverages);
+      // } else if (i < 31) {
+      //   print("Aylık Kısım");
+      //   var data = await fetchDataWeekly(sensorID: args[2]);
+      //   handleDataWeekly(data, i, monthlyAverages);
+      // }
+
+      print(chartDay.value);
+      print("Veri Sayısı:$i");
+    }
+  }
+
+  Future<dynamic> fetchDataWeekly({required String sensorID}) async {
+    var url = Uri.https(
+        "us-central1-doxif-2a9f5.cloudfunctions.net", "/get_snb_stats");
+    var response = await http.post(url, body: {
+      "sensorID": sensorID,
+      "date": chartDay.value,
+    });
+    var data = json.decode(response.body);
+    return data;
+  }
+
+  void handleDataWeekly(data, index, RxList<SalesData> list) async {
+    if (data == null) {
+      print("data ve resp");
+      return;
+    }
+    if (data["status"] == 200 && data["data"]["daily"]["data"].isNotEmpty) {
+      // weeklyAverages.add(data["data"]["daily"]["data"]
+      //         [chartsTypeFieldName.value]["average"]
+      //     .toString());
+      list.add(SalesData(
+        "$index.Gün",
+        double.parse(
+          data["data"]["daily"]["data"][chartsTypeFieldName.value]["average"]
+              .toStringAsFixed(1),
+        ),
+      ));
+    } else {
+      Get.back();
+      print("Veri yok");
+    }
   }
 
   String getDay(String sensorId) {
-    FirebaseDatabase.instance.ref("SNB/$sensorId").child('gun').onValue.listen((event) async {
+    FirebaseDatabase.instance
+        .ref("SNB/$sensorId")
+        .child('gun')
+        .onValue
+        .listen((event) async {
       day.value = event.snapshot.value.toString();
     });
     return day.value;
   }
 
   String getMounthId(String sensorId) {
-    FirebaseDatabase.instance.ref("SNB/$sensorId").child('ay').onValue.listen((event) async {
+    FirebaseDatabase.instance
+        .ref("SNB/$sensorId")
+        .child('ay')
+        .onValue
+        .listen((event) async {
       mounthId.value = event.snapshot.value.toString();
     });
     return getMounth(mounthId.value);
   }
 
   String getYear(String sensorId) {
-    FirebaseDatabase.instance.ref("SNB/$sensorId").child('yil').onValue.listen((event) async {
+    FirebaseDatabase.instance
+        .ref("SNB/$sensorId")
+        .child('yil')
+        .onValue
+        .listen((event) async {
       year.value = event.snapshot.value.toString();
     });
     return year.value;
   }
 
   String getTemp(String sensorId) {
-    FirebaseDatabase.instance.ref("SNB/$sensorId").child('sicaklik').onValue.listen((event) async {
+    FirebaseDatabase.instance
+        .ref("SNB/$sensorId")
+        .child('sicaklik')
+        .onValue
+        .listen((event) async {
       temparature.value = event.snapshot.value.toString();
     });
     return temparature.value;
   }
 
   String getHumidity(String sensorId) {
-    FirebaseDatabase.instance.ref("SNB/$sensorId").child('nem').onValue.listen((event) async {
+    FirebaseDatabase.instance
+        .ref("SNB/$sensorId")
+        .child('nem')
+        .onValue
+        .listen((event) async {
       humidity.value = event.snapshot.value.toString();
     });
     return humidity.value;
   }
 
   String getLight(String sensorId) {
-    FirebaseDatabase.instance.ref("SNB/$sensorId").child('isik').onValue.listen((event) async {
+    FirebaseDatabase.instance
+        .ref("SNB/$sensorId")
+        .child('isik')
+        .onValue
+        .listen((event) async {
       light.value = event.snapshot.value.toString();
     });
     return light.value;
   }
 
   String getSoilMoisture(String sensorId) {
-    FirebaseDatabase.instance.ref("SNB/$sensorId").child('toprakNem').onValue.listen((event) async {
+    FirebaseDatabase.instance
+        .ref("SNB/$sensorId")
+        .child('toprakNem')
+        .onValue
+        .listen((event) async {
       soilMoisture.value = event.snapshot.value.toString();
     });
     return soilMoisture.value;
   }
 
   String getVpd(String sensorId) {
-    FirebaseDatabase.instance.ref("SNB/$sensorId").child('vpd').onValue.listen((event) async {
+    FirebaseDatabase.instance
+        .ref("SNB/$sensorId")
+        .child('vpd')
+        .onValue
+        .listen((event) async {
       vpd.value = event.snapshot.value.toString();
     });
     return vpd.value;
   }
 
   String getDeltaT(String sensorId) {
-    FirebaseDatabase.instance.ref("SNB/$sensorId").child('deltaT').onValue.listen((event) async {
+    FirebaseDatabase.instance
+        .ref("SNB/$sensorId")
+        .child('deltaT')
+        .onValue
+        .listen((event) async {
       deltaT.value = event.snapshot.value.toString();
     });
     return deltaT.value;
@@ -237,12 +432,14 @@ class HomeDetailController extends GetxController {
     return suitibality!;
   }
 
-  Widget fertilizationSuitabilities(String soilMoisture, String light, String vpd) {
+  Widget fertilizationSuitabilities(
+      String soilMoisture, String light, String vpd) {
     double soilMoistureValue = double.parse(soilMoisture);
     double lightValue = double.parse(light);
     double vpdValue = double.parse(vpd);
 
-    if (soilMoistureValue > fertisoilmo[0] && soilMoistureValue < fertisoilmo[1]) {
+    if (soilMoistureValue > fertisoilmo[0] &&
+        soilMoistureValue < fertisoilmo[1]) {
       fertilizationSuitability = NotIdeal(text: "Riskli");
     } else if (soilMoistureValue > fertisoilmo[1]) {
       fertilizationSuitability = NotIdeal(text: "Yapmayınız");
@@ -260,7 +457,8 @@ class HomeDetailController extends GetxController {
     return fertilizationSuitability!;
   }
 
-  Widget sprayingSuitabilities(String temparature, String light, String deltaT) {
+  Widget sprayingSuitabilities(
+      String temparature, String light, String deltaT) {
     double temparatureValue = double.parse(temparature);
     double lightValue = double.parse(light);
     double deltaTValue = double.parse(deltaT);
