@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
+import 'package:seramcepte/modules/homeDetailScreen/home_detail_controller.dart';
 import 'package:sizer/sizer.dart';
 import 'package:seramcepte/modules/addRegion/addRegion.dart';
 import 'package:seramcepte/modules/addSensor/addSensor.dart';
@@ -214,64 +217,141 @@ class HomeScreen extends GetView<HomeScreenController> {
             StreamBuilder<List<Data>>(
               stream: FirestoreService().getStreamData(),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Padding(
-                    padding: EdgeInsets.only(top: 22.h),
-                    child: const Center(
-                        child: CircularProgressIndicator(
-                      color: Color(0xff2DDA93),
-                    )),
-                  );
-                }
                 if (snapshot.hasError) {
                   return const Center(child: Text('Bir hata oluştu.'));
                 }
-                List<Data> data = snapshot.data ?? [];
 
-                return Expanded(
-                  child: Container(child: Obx(() {
-                    return controller.results.isEmpty ||
-                            controller.searchText.value == ''
-                        ? ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: controller.myDataList.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: EdgeInsets.only(top: 1.h),
-                                child: PlantCard(
-                                    sensorId:
-                                        controller.myDataList[index].sensorId,
-                                    imagePath:
-                                        "${controller.myDataList[index].plantType.toString().toLowerCase()}.png",
-                                    regionName:
-                                        controller.myDataList[index].regionName,
-                                    plantName:
-                                        controller.myDataList[index].plantType),
-                              );
-                            },
-                          )
-                        : ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: controller.results.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: EdgeInsets.only(top: 4.h),
-                                child: PlantCard(
-                                  sensorId: controller.results[index]
-                                      ["sensorId"],
-                                  imagePath:
-                                      "${controller.results[index]["plantType"].toString().toLowerCase()}.png",
-                                  regionName: controller.results[index]
-                                      ["regionName"],
-                                  plantName: controller.results[index]
-                                      ["plantType"],
-                                ),
-                              );
-                            },
-                          );
-                  })),
+                if (snapshot.hasData) {
+                  List<Data> data = snapshot.data ?? [];
+
+                  return Expanded(
+                    child: Obx(() {
+                      return controller.results.isEmpty ||
+                              controller.searchText.value == ''
+                          ? ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: controller.myDataList.length,
+                              itemBuilder: (context, index) {
+                                print(
+                                    "FIREBASE NEM DURUMU:${controller.myDataList[index].maxNem}");
+                                return Padding(
+                                  padding: EdgeInsets.only(top: 1.h),
+                                  child: Obx(
+                                    () => PlantCard(
+                                        highHumidity:
+                                            controller.myDataList[index].maxNem,
+                                        highTemp:
+                                            controller.myDataList[index].maxSic,
+                                        lowHumidity:
+                                            controller.myDataList[index].minNem,
+                                        lowTemp:
+                                            controller.myDataList[index].minSic,
+                                        onTap: () async {
+                                          showDialog(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (context) {
+                                              return Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                color: AppColors.appColor,
+                                              ));
+                                            },
+                                          );
+                                          try {
+                                            await controller.fetchData(
+                                                sensorID: controller
+                                                    .myDataList[index]
+                                                    .sensorId);
+                                          } catch (e) {
+                                            print("HATALI BİR DURUM VAR");
+                                          }
+
+                                          Get.toNamed(Routes.HOMEDETAIL,
+                                              arguments: [
+                                                controller.myDataList[index]
+                                                    .regionName,
+                                                controller.myDataList[index]
+                                                    .plantType,
+                                                controller
+                                                    .myDataList[index].sensorId,
+                                                controller.hoursData,
+                                                controller.weeklyData,
+                                              ]);
+                                        },
+                                        sensorId: controller
+                                            .myDataList[index].sensorId,
+                                        imagePath:
+                                            "${controller.myDataList[index].plantType.toString().toLowerCase()}.png",
+                                        regionName: controller
+                                            .myDataList[index].regionName,
+                                        plantName: controller
+                                            .myDataList[index].plantType),
+                                  ),
+                                );
+                              },
+                            )
+                          : ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: controller.results.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(top: 4.h),
+                                  child: Obx(
+                                    () => PlantCard(
+                                      highHumidity:
+                                          controller.myDataList[index].maxNem,
+                                      highTemp:
+                                          controller.myDataList[index].maxSic,
+                                      lowHumidity:
+                                          controller.myDataList[index].minNem,
+                                      lowTemp:
+                                          controller.myDataList[index].minSic,
+                                      onTap: () async {
+                                        try {
+                                          await controller.fetchData(
+                                              sensorID: controller
+                                                  .myDataList[index].sensorId);
+                                        } catch (e) {
+                                          print("HATALI BİR DURUM VAR");
+                                        }
+
+                                        Get.toNamed(Routes.HOMEDETAIL,
+                                            arguments: [
+                                              controller.results[index]
+                                                  ["regionName"],
+                                              controller.results[index]
+                                                  ["plantType"],
+                                              controller.results[index]
+                                                  ["sensorId"],
+                                            ]);
+                                      },
+                                      sensorId: controller.results[index]
+                                          ["sensorId"],
+                                      imagePath:
+                                          "${controller.results[index]["plantType"].toString().toLowerCase()}.png",
+                                      regionName: controller.results[index]
+                                          ["regionName"],
+                                      plantName: controller.results[index]
+                                          ["plantType"],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                    }),
+                  );
+                }
+                return Container(
+                  height: 10.h,
+                  width: 10.h,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.appColor,
+                    ),
+                  ),
                 );
               },
             ),
