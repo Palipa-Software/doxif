@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:seramcepte/modules/addRegion/addRegion.dart';
 import 'package:seramcepte/modules/addSensor/addSensor.dart';
+import 'package:seramcepte/modules/editRegion/editRegion.dart';
 import 'package:seramcepte/modules/homeDetailScreen/home_detail_binding.dart';
 import 'package:seramcepte/modules/homeDetailScreen/home_detail_screen.dart';
 import 'package:seramcepte/modules/login/login_binding.dart';
@@ -60,6 +61,17 @@ class AppPages {
       name: Routes.ADDREGION,
       page: () => AddRegion(),
       binding: AddRegionBinding(),
+    ),
+    GetPage(
+      name: Routes.EDITREGION,
+      page: () => EditRegion(
+        name: "",
+        type: "",
+        varietValue: "",
+        date: "",
+        sID: "",
+      ),
+      binding: EditRegionBinding(),
     ),
     GetPage(
       name: Routes.WARNING,

@@ -37,9 +37,6 @@ class CustomFloatingButton extends StatelessWidget {
           elevation: 0,
           onPressed: () {
             func();
-            // Get.toNamed(Routes.ADDSENSOR);
-            // controller.scanBtn.value = true;
-            // print(controller.scanBtn.value);
           },
           backgroundColor: AppColors.white,
           child: SvgPicture.asset(

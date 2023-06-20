@@ -19,16 +19,22 @@ class WarningController extends GetxController {
     var tempWarnings = FirebaseFirestore.instance.collection("tempWarnings");
     var tempWarning = await tempWarnings.get();
     var tempWarningElement = tempWarning.docs;
-    var humidityWarnings = FirebaseFirestore.instance.collection("humidityWarnings");
+    var humidityWarnings =
+        FirebaseFirestore.instance.collection("humidityWarnings");
     var humidityWarning = await humidityWarnings.get();
     var humidityWarningElement = humidityWarning.docs;
 
-    var sensor = FirebaseFirestore.instance.collection("allRegions").doc(auth.currentUser!.uid).collection("regions");
+    var sensor = FirebaseFirestore.instance
+        .collection("allRegions")
+        .doc(auth.currentUser!.uid)
+        .collection("regions");
     var sensorId = await sensor.get();
     var regions = sensorId.docs;
 
     for (var i = 0; i < regions.length; i++) {
-      final databaseRef = FirebaseDatabase.instance.ref("SNB").child("${regions[i]["sensorId"]}");
+      final databaseRef = FirebaseDatabase.instance
+          .ref("SNB")
+          .child("${regions[i]["sensorId"]}");
 
       var temp = await databaseRef.child("sicaklik").get();
       var humidity = await databaseRef.child("nem").get();
@@ -79,7 +85,9 @@ class WarningController extends GetxController {
           break;
         }
       }
-      for (var tempIndex = 0; tempIndex < tempWarningElement.length; tempIndex++) {
+      for (var tempIndex = 0;
+          tempIndex < tempWarningElement.length;
+          tempIndex++) {
         if (temp.value == null || humidity.value == null) {
           break;
         } else if (double.tryParse(temp.value.toString())!.toDouble() >
@@ -110,8 +118,6 @@ class WarningController extends GetxController {
           break;
         }
       }
-
-      // realTimeDatas(databaseRef);
     }
   }
 

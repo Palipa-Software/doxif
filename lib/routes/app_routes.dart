@@ -10,6 +10,7 @@ abstract class Routes {
   static const REGISTER = '/register';
   static const ADDSENSOR = '/addSensor';
   static const ADDREGION = '/addRegion';
+  static const EDITREGION = '/editRegion';
   static const WARNING = '/warning';
   static const HOMEDETAIL = '/homeDetailScreen';
 }
