@@ -216,14 +216,14 @@ class HomeDetailController extends GetxController {
   Future<void> addSalesDataLists() async {
     for (var i = 0; i < args[3].values.length; i++) {
       salesDataLists.add(SalesData(
-        args[3].keys.elementAt(i).toString().split("-")[0].toString(),
-        double.parse(
-          args[3]
-              .values
-              .elementAt(i)[chartsTypeFieldName]["average"]
-              .toStringAsFixed(1),
-        ),
-      ));
+          args[3].keys.elementAt(i).toString().split("-")[0].toString(),
+          double.parse(
+            args[3]
+                .values
+                .elementAt(i)[chartsTypeFieldName]["average"]
+                .toStringAsFixed(1),
+          ),
+          chartDay.value));
     }
   }
 
@@ -240,45 +240,23 @@ class HomeDetailController extends GetxController {
           ),
         ),
       );
-      var data = await fetchDataWeekly(sensorID: args[2]);
-      handleDataWeekly(data, i, list);
-
-      if (data["data"]["daily"]["data"].isEmpty) {
-        Get.back();
-        return print("Gerisi Boş");
-      }
       if (i < length) {
-        var data = await fetchDataWeekly(sensorID: args[2]);
+        var data =
+            await fetchDataWeekly(sensorID: args[2], date: chartDay.value);
         handleDataWeekly(data, i, list);
-        // var for15Data = await fetchDataWeekly(sensorID: args[2]);
-        // handleDataWeekly(for15Data, i, for15DaysAverages);
-        // var monthlyData = await fetchDataWeekly(sensorID: args[2]);
-        // handleDataWeekly(monthlyData, i, monthlyAverages);
       }
-      // } else if (i < 16) {
-      //   print("15 Günlük Kısım");
-      //   var data = await fetchDataWeekly(sensorID: args[2]);
-      //   handleDataWeekly(data, i, for15DaysAverages);
-      //   // var monthlyData = await fetchDataWeekly(sensorID: args[2]);
-      //   // handleDataWeekly(monthlyData, i, monthlyAverages);
-      // } else if (i < 31) {
-      //   print("Aylık Kısım");
-      //   var data = await fetchDataWeekly(sensorID: args[2]);
-      //   handleDataWeekly(data, i, monthlyAverages);
-      // }
 
       print(chartDay.value);
       print("Veri Sayısı:$i");
     }
   }
 
-  Future<dynamic> fetchDataWeekly({required String sensorID}) async {
+  Future<dynamic> fetchDataWeekly(
+      {required String sensorID, required String date}) async {
     var url = Uri.https(
         "us-central1-doxif-2a9f5.cloudfunctions.net", "/get_snb_stats");
-    var response = await http.post(url, body: {
-      "sensorID": sensorID,
-      "date": chartDay.value,
-    });
+    var response =
+        await http.post(url, body: {"sensorID": sensorID, "date": date});
     var data = json.decode(response.body);
     return data;
   }
@@ -289,18 +267,14 @@ class HomeDetailController extends GetxController {
       return;
     }
     if (data["status"] == 200 && data["data"]["daily"]["data"].isNotEmpty) {
-      // weeklyAverages.add(data["data"]["daily"]["data"]
-      //         [chartsTypeFieldName.value]["average"]
-      //     .toString());
       list.add(SalesData(
-        "$index.Gün",
-        double.parse(
-          data["data"]["daily"]["data"][chartsTypeFieldName.value]["average"]
-              .toStringAsFixed(1),
-        ),
-      ));
+          "$index.Gün",
+          double.parse(
+            data["data"]["daily"]["data"][chartsTypeFieldName.value]["average"]
+                .toStringAsFixed(1),
+          ),
+          chartDay.value));
     } else {
-      Get.back();
       print("Veri yok");
     }
   }

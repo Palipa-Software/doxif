@@ -32,16 +32,20 @@ class LoginController extends GetxController {
           backgroundColor: AppColors.appColor.withOpacity(0.8));
     } on FirebaseAuthException catch (e) {
       if (e.code == "unknown") {
-        Get.snackbar(AppStrings.error, AppStrings.errorEmptyMail, backgroundColor: AppColors.appColor.withOpacity(0.8));
+        Get.snackbar(AppStrings.error, AppStrings.errorEmptyMail,
+            backgroundColor: AppColors.appColor.withOpacity(0.8));
       } else if (e.code == "invalid-email") {
         Get.snackbar(AppStrings.error, AppStrings.errorBadlyFormat,
             backgroundColor: AppColors.appColor.withOpacity(0.8));
       } else if (e.code == "user-not-found") {
-        Get.snackbar(AppStrings.error, AppStrings.errorEmptyUser, backgroundColor: AppColors.appColor.withOpacity(0.8));
+        Get.snackbar(AppStrings.error, AppStrings.errorEmptyUser,
+            backgroundColor: AppColors.appColor.withOpacity(0.8));
       } else if (e.code == "network-request-failed") {
-        Get.snackbar(AppStrings.error, AppStrings.errorConnetion, backgroundColor: AppColors.appColor.withOpacity(0.8));
+        Get.snackbar(AppStrings.error, AppStrings.errorConnetion,
+            backgroundColor: AppColors.appColor.withOpacity(0.8));
       } else {
-        Get.snackbar(AppStrings.error, e.message.toString(), backgroundColor: AppColors.appColor.withOpacity(0.8));
+        Get.snackbar(AppStrings.error, e.message.toString(),
+            backgroundColor: AppColors.appColor.withOpacity(0.8));
       }
     }
   }
@@ -52,7 +56,8 @@ class LoginController extends GetxController {
       // Trigger the authentication flow
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -78,17 +83,23 @@ class LoginController extends GetxController {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => Center(
+      builder: (context) => WillPopScope(
+        onWillPop: () async => false,
+        child: Center(
           child: CircularProgressIndicator(
-        color: AppColors.appColor,
-      )),
+            color: AppColors.appColor,
+          ),
+        ),
+      ),
     );
     try {
-      await _auth.signInWithEmailAndPassword(email: email.trim(), password: password.trim());
+      await _auth.signInWithEmailAndPassword(
+          email: email.trim(), password: password.trim());
       Get.offAllNamed(Routes.MAINPAGE);
     } on FirebaseAuthException catch (e) {
       if (e.code == "unknown") {
-        Get.snackbar(AppStrings.error, AppStrings.errorEmptyText, backgroundColor: AppColors.appColor.withOpacity(0.8));
+        Get.snackbar(AppStrings.error, AppStrings.errorEmptyText,
+            backgroundColor: AppColors.appColor.withOpacity(0.8));
       } else if (e.code == "invalid-email") {
         Get.snackbar(AppStrings.error, AppStrings.errorBadlyFormat,
             backgroundColor: AppColors.appColor.withOpacity(0.8));
@@ -99,7 +110,8 @@ class LoginController extends GetxController {
         Get.snackbar(AppStrings.error, AppStrings.errorFailPassAndMail,
             backgroundColor: AppColors.appColor.withOpacity(0.8));
       } else {
-        Get.snackbar(AppStrings.error, e.message.toString(), backgroundColor: AppColors.appColor.withOpacity(0.8));
+        Get.snackbar(AppStrings.error, e.message.toString(),
+            backgroundColor: AppColors.appColor.withOpacity(0.8));
       }
     }
     // ignore: use_build_context_synchronously

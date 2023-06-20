@@ -16,19 +16,32 @@ import 'package:seramcepte/shared/constants/colors.dart';
 import 'package:seramcepte/shared/constants/strings.dart';
 
 import '../../shared/widgets/widgets.dart';
-import 'addRegion_controller.dart';
+import 'editRegion_controller.dart';
 
-class AddRegion extends GetView<AddRegionController> {
-  final controller = Get.put(AddRegionController());
-  AddRegion({super.key});
+class EditRegion extends GetView<EditRegionController> {
+  final controller = Get.put(EditRegionController());
+  EditRegion({
+    super.key,
+    required this.name,
+    required this.type,
+    required this.varietValue,
+    required this.date,
+    required this.sID,
+  });
+  String name = "";
+  String varietValue = "";
+  String type = "";
+  String date = "";
+  String sID = "";
 
   @override
   Widget build(BuildContext context) {
-    HomeScreenController homeScreenController = HomeScreenController();
+    controller.plantImagePath.value = type;
+    controller.plantImage = type.toLowerCase();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          AppStrings.addRegionTitle,
+          AppStrings.editRegionTitle,
         ),
       ),
       body: SingleChildScrollView(
@@ -82,9 +95,11 @@ class AddRegion extends GetView<AddRegionController> {
                     }
 
                     if (snapshot.hasData) {
-                      controller.searchVariets =
-                          snapshot.data?.docs[0]["plantsVariet"];
-                      return Container(
+                      controller.type = type;
+                      controller.getVarietList(controller.type);
+                      controller.searchVariets = snapshot.data
+                          ?.docs[controller.varietListIndex]["plantsVariet"];
+                      return SizedBox(
                         width: 100.w,
                         height: 6.h,
                         child: ListView.builder(
@@ -131,9 +146,12 @@ class AddRegion extends GetView<AddRegionController> {
                                     right: 2.w,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: index == controller.index.value
-                                        ? AppColors.appColor
-                                        : AppColors.white,
+                                    color: snapshot.data?.docs[index]["name"] ==
+                                            type
+                                        ? AppColors.inActiveIcColor
+                                        : index == controller.index.value
+                                            ? AppColors.appColor
+                                            : AppColors.white,
                                     border: Border.all(
                                       color: AppColors.coldMorning,
                                     ),
@@ -146,7 +164,11 @@ class AddRegion extends GetView<AddRegionController> {
                                     style: TextStyle(
                                       color: index == controller.index.value
                                           ? AppColors.white
-                                          : AppColors.black,
+                                          : snapshot.data?.docs[index]
+                                                      ["name"] ==
+                                                  type
+                                              ? AppColors.white
+                                              : AppColors.black,
                                     ),
                                   ),
                                 ),
@@ -400,6 +422,9 @@ class AddRegion extends GetView<AddRegionController> {
                 CustomButton(
                   controller: controller,
                   func: () async {
+                    // controller.regionName.text.isEmpty
+                    //     ? controller.regionName.text = " "
+                    //     : controller.regionName.text;
                     showDialog(
                       context: context,
                       builder: (context) {
@@ -414,8 +439,12 @@ class AddRegion extends GetView<AddRegionController> {
                       },
                     );
                     try {
-                      await controller.handleAddRegion();
-                      await controller.getSensorID();
+                      await controller.handleAddRegion(
+                          sID: sID,
+                          name: name,
+                          varietValue: varietValue,
+                          type: type,
+                          date: date);
                     } catch (e) {
                       print(e);
                     }

@@ -1,8 +1,9 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localization/flutter_localization.dart';
-// import 'package:flutter_localization/flutter_localization.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:sizer/sizer.dart';
 import 'package:seramcepte/firebase_options.dart';
@@ -22,7 +23,6 @@ Future<void> main() async {
     ],
     initLanguageCode: 'tr',
   );
-  // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   runApp(const MyApp());
 }
 

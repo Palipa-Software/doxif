@@ -8,8 +8,11 @@ class AppStrings {
   static const regionName = "Bölge İsmi";
   static const plantingDate = "Dikim Tarihi";
   static const successDialogTitle = "Bölge Başarıyla Eklendi";
+  static const successDialogEditTitle = "Bölge Başarıyla Düzenlendi";
   static const successDialogSubtitle =
       "Sensör ve bölge başarıyla eklendi.\nBitkinizi anlık olarak takip edebilirsiniz.";
+  static const successDialogEditSubtitle =
+      "Bölge başarıyla düzenlendi.\nBitkinizi anlık olarak takip edebilirsiniz.";
   static const errorTitle = "Uyarı !";
   static const errorSubtitle = "Boş Bırakılan Yerleri Doldurunuz.";
   static const searchVarietText = "Çeşitleri Ara";
@@ -28,7 +31,8 @@ class AppStrings {
   static const String or = "Ya da";
   static const String notAccount = "Hesabın Yok Mu ?";
   static const String createAccount = "Kayıt Ol";
-  static const String postingEmailForgetPass = "E-posta adresine bir link göndereceğiz.";
+  static const String postingEmailForgetPass =
+      "E-posta adresine bir link göndereceğiz.";
   static const String newPass = "Şifre Yenile";
   static const String registerTitle = "Yeni Hesap Oluştur";
   static const String registerSubTitle = "Hesap oluştur ve devam et!";
@@ -47,28 +51,37 @@ class AppStrings {
   static const String phoneCode = "(05";
 
   //Login/Register Error/İnfo
-  static const String postForgetPassMail = "E-posta adresine bir link gönderdik. Lütfen kontrol ediniz.";
+  static const String postForgetPassMail =
+      "E-posta adresine bir link gönderdik. Lütfen kontrol ediniz.";
   static const String error = "Hata";
   static const String errorEmptyMail = "E-posta boş bırakılmaz";
   static const String errorEmptyPass = "Parola boş bırakılamaz.";
   static const String errorBadlyFormat = "Yanlış e-posta formatı";
-  static const String errorEmptyUser = "Böyle bir kullanıcı yok lütfen e-posta adresini kontrol ediniz.";
-  static const String errorConnetion = "İnternet bağlantınızı kontrol ediniz. Bir sorun oluştu.";
-  static const String errorEmptyText = "E-Posta ve şifre alanları boş geçilemez.";
+  static const String errorEmptyUser =
+      "Böyle bir kullanıcı yok lütfen e-posta adresini kontrol ediniz.";
+  static const String errorConnetion =
+      "İnternet bağlantınızı kontrol ediniz. Bir sorun oluştu.";
+  static const String errorEmptyText =
+      "E-Posta ve şifre alanları boş geçilemez.";
   static const String errorInvalidCredential = "Geçersiz e-posta veya şifre";
   static const String errorFailPassAndMail = "Hatalı e-posta veya şifre";
   static const String errorReCrypt = "Şifre tekrar boş bırakılamaz";
   static const String errorEmail = "Geçersiz E-Posta";
   static const String successCreateAccount = "Kayıt Başarılı";
-  static const String successCreateAccountSubTitle = "Başarılı bir biçimde kayıt oldunuz. Giriş .Yapınız";
+  static const String successCreateAccountSubTitle =
+      "Başarılı bir biçimde kayıt oldunuz. Giriş .Yapınız";
   static const String errorWeakPassword = "Güçsüz Parola";
   static const String errorEmailInUse = "E-Mail Kullanılıyor";
   static const String errorReCrypteWrong = "Şifre uyuşmuyor";
   static const String errorEmpty = "Hiçbir alan boş bırakılamaz.";
-  static const String errorAgreementCheck = "Lütfen kullanıcı sözleşmesi ve Gizlilik Politikasını Kabul Edin";
+  static const String errorAgreementCheck =
+      "Lütfen kullanıcı sözleşmesi ve Gizlilik Politikasını Kabul Edin";
 
   // WARNING
   static const warningTitle = "Uyarılar";
   static const swipeActionTitle = "Sil";
   static const defectiveSensor = "Seradaki sensör arızalı.";
+
+  // EDIT REGION
+  static const editRegionTitle = "Bölge Düzenle";
 }

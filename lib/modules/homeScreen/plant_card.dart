@@ -1,12 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
-import 'package:seramcepte/modules/homeDetailScreen/home_detail_controller.dart';
-import 'package:seramcepte/routes/routes.dart';
 import 'package:sizer/sizer.dart';
-import 'package:seramcepte/modules/homeDetailScreen/home_detail_screen.dart';
 
 import '../../shared/constants/colors.dart';
 
@@ -22,6 +18,7 @@ class PlantCard extends StatelessWidget {
     required this.highTemp,
     required this.lowHumidity,
     required this.lowTemp,
+    required this.editOnTap,
   });
 
   final String imagePath;
@@ -33,6 +30,7 @@ class PlantCard extends StatelessWidget {
   final String lowHumidity;
   final String highHumidity;
   final void Function() onTap;
+  final void Function(String sensor) editOnTap;
 
   RxString tempature = "".obs;
   RxString humidity = "".obs;
@@ -65,7 +63,7 @@ class PlantCard extends StatelessWidget {
             children: [
               Container(
                 color: const Color(0xffF8F8F8),
-                height: 24.h,
+                height: 25.h,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -84,6 +82,7 @@ class PlantCard extends StatelessWidget {
                       ),
                     ),
                     Expanded(
+                      flex: 3,
                       child: Container(
                         width: 100.w,
                         decoration: BoxDecoration(
@@ -146,57 +145,53 @@ class PlantCard extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 0.4.h),
-                                              child: Text(
-                                                "Dün \nEn Yüksek",
-                                                style: TextStyle(
-                                                    fontSize: 5.sp,
-                                                    fontWeight: FontWeight.w700,
-                                                    color:
-                                                        const Color(0xff6A6F7D),
-                                                    fontFamily: "Rubik Bold"),
-                                                textAlign: TextAlign.start,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 0.5.h,
-                                            ),
-                                            Text(
-                                              "$highTemp °C",
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsets.only(top: 0.4.h),
+                                            child: Text(
+                                              "Dün \nEn Yüksek",
                                               style: TextStyle(
-                                                  fontSize: 11.sp,
-                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 5.sp,
+                                                  fontWeight: FontWeight.w700,
                                                   color:
-                                                      const Color(0xffFFB838),
+                                                      const Color(0xff6A6F7D),
+                                                  fontFamily: "Rubik Bold"),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 0.5.h,
+                                          ),
+                                          Text(
+                                            "$highTemp °C",
+                                            style: TextStyle(
+                                                fontSize: 11.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: const Color(0xffFFB838),
+                                                fontFamily: "Rubik Bold"),
+                                          ),
+                                          SizedBox(
+                                            height: 0.5.h,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 1.w),
+                                            child: Text(
+                                              "",
+                                              style: TextStyle(
+                                                  fontSize: 5.sp,
+                                                  fontWeight: FontWeight.w700,
+                                                  color:
+                                                      const Color(0xff6A6F7D),
                                                   fontFamily: "Rubik Bold"),
                                             ),
-                                            SizedBox(
-                                              height: 0.5.h,
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 1.w),
-                                              child: Text(
-                                                "",
-                                                style: TextStyle(
-                                                    fontSize: 5.sp,
-                                                    fontWeight: FontWeight.w700,
-                                                    color:
-                                                        const Color(0xff6A6F7D),
-                                                    fontFamily: "Rubik Bold"),
-                                              ),
-                                            )
-                                          ],
-                                        ),
+                                          )
+                                        ],
                                       ),
                                       SizedBox(
                                         height: 6.5.h,
@@ -283,15 +278,6 @@ class PlantCard extends StatelessWidget {
                                             "assets/images/waterIco.png"),
                                         color: Color(0xff459ED5),
                                       ),
-                                      // Container(
-                                      //   height: 2.7.h,
-                                      //   width: 5.w,
-                                      //   decoration: BoxDecoration(
-                                      //       image: DecorationImage(
-                                      //           image: AssetImage(
-                                      //               "assets/images/waterIco.png"),
-                                      //           fit: BoxFit.cover)),
-                                      // ),
                                       SizedBox(
                                         width: 1.3.w,
                                       ),
@@ -453,6 +439,24 @@ class PlantCard extends StatelessWidget {
                         ),
                       ),
                     ),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.only(
+                          right: 3.w,
+                        ),
+                        alignment: Alignment.centerRight,
+                        color: AppColors.white,
+                        child: Bounceable(
+                          onTap: () {
+                            editOnTap(sensorId);
+                          },
+                          child: Icon(
+                            Icons.edit,
+                            color: AppColors.addPhoto,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -460,13 +464,14 @@ class PlantCard extends StatelessWidget {
                 right: 0,
                 child: Container(
                   height: 12.5.h,
-                  width: 28.w,
+                  width: 37.w,
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(
-                            "assets/images/$imagePath",
-                          ),
-                          fit: BoxFit.fill)),
+                    image: DecorationImage(
+                      image: AssetImage(
+                        "assets/images/$imagePath",
+                      ),
+                    ),
+                  ),
                 ),
               )
             ],

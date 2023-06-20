@@ -91,7 +91,7 @@ class HomeScreenController extends GetxController {
       handleData(data);
       Map<String, dynamic> regions = {
         "plantType": data2[i]["plantType"],
-        "plantVariet": data2[i]["plantVariet"],
+        "plantVariet": data2[i]["plantVariet"].trim(),
         "plantingDate": data2[i]["plantingDate"],
         "regionName": data2[i]["regionName"],
         "sensorId": data2[i]["sensorId"],
@@ -113,7 +113,7 @@ class HomeScreenController extends GetxController {
 
       var response = await addRegion
           .doc(
-              "${data2[i]["regionName"]} - ${data2[i]["plantVariet"]}-${data2[i]["plantType"]}")
+              "${data2[i]["regionName"]} - ${data2[i]["plantVariet"].trim()}-${data2[i]["plantType"]}")
           .set(regions);
     }
     super.onInit();

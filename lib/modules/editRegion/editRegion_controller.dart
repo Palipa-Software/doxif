@@ -14,14 +14,15 @@ import 'package:seramcepte/shared/constants/custom_firebase_manager.dart';
 import 'package:seramcepte/shared/constants/strings.dart';
 import 'package:seramcepte/shared/widgets/custom_add_region_button.dart';
 
-class AddRegionController extends GetxController {
+class EditRegionController extends GetxController {
   final AddSensorController addSensorController = AddSensorController();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final TextEditingController regionName = TextEditingController();
   RxString variet = "".obs;
+  int varietListIndex = 0;
 
   RxString selectedDate = "".obs;
-  RxInt index = 0.obs;
+  RxInt index = 10.obs;
   RxList variets = [].obs;
   List<dynamic> searchVariets = [];
   String type = "Biber";
@@ -38,37 +39,88 @@ class AddRegionController extends GetxController {
   final Stream<QuerySnapshot<Object?>>? stream =
       CustomFirebaseManager.stream("plantsType");
 
-  Future<String?> getSensorID() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var id = prefs.getString("sensorID");
-    return id;
-  }
-
-  Future<dynamic> addRegion() async {
-    var id = await getSensorID();
+  Future<dynamic> addRegion(
+      {required String sID,
+      required String name,
+      required String varietValue,
+      required String date,
+      required String type}) async {
+    // this.type = "";
+    // varietValue = variet.value.trim();
     Map<String, dynamic> regions = {
-      "regionName": regionName.text.substring(0, 1).toUpperCase() +
-          regionName.text.substring(1),
-      "plantType": type,
-      "plantVariet": variet.value,
-      "plantingDate": selectedDate.value,
-      "sensorId": id,
+      "regionName": regionName.text == " "
+          ? name
+          : regionName.text.substring(0, 1) + regionName.text.substring(1),
+      "plantType": this.type.isNotEmpty ? this.type : type,
+      "plantVariet": variet.value.trim() == "Bitki Çeşidi"
+          ? varietValue.trim()
+          : variet.value.trim(),
+      "plantingDate": selectedDate.value.isEmpty ? date : selectedDate.value,
+      "maxNem": "",
+      "maxSic": "",
+      "minNem": "",
+      "minSic": "",
+      "sensorId": sID,
     };
     CollectionReference addRegion = firestore
         .collection("allRegions")
         .doc(_auth.currentUser?.uid)
         .collection("regions");
+    print("İlk isim:${regionName.text}");
+    // await addRegion
+    //     .doc(
+    //         "$name - ${variet.value.trim() != "Bitki Çeşidi" ? varietValue.trim() : variet.value.trim()}-${this.type.isNotEmpty ? this.type : type}")
+    //     .delete();
+    await addRegion.doc("$name - ${varietValue.trim()}-$type").delete();
 
     var response = await addRegion
-        .doc("${regionName.text} - ${variet.value}-$type")
+        .doc(
+            "${regionName.text == " " ? name : regionName.text.substring(0, 1) + regionName.text.substring(1)} - ${variet.value.trim() == "Bitki Çeşidi" || variet.value.trim().isEmpty ? varietValue.trim() : variet.value.trim()}-${this.type.isNotEmpty ? this.type : type}")
         .set(regions);
+
     return response;
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     getImage();
+  }
+
+  void getVarietList(String type) {
+    switch (type) {
+      case "Biber":
+        {
+          varietListIndex = 0;
+        }
+        break;
+      case "Domates":
+        {
+          varietListIndex = 1;
+        }
+        break;
+      case "Hıyar":
+        {
+          varietListIndex = 2;
+        }
+        break;
+      case "Kabak":
+        {
+          varietListIndex = 3;
+        }
+        break;
+      case "Kavun":
+        {
+          varietListIndex = 4;
+        }
+        break;
+      case "Patlıcan":
+        {
+          varietListIndex = 5;
+        }
+        break;
+      default:
+    }
   }
 
   void getImage() {
@@ -131,9 +183,13 @@ class AddRegionController extends GetxController {
     }
   }
 
-  Future<void> handleAddRegion() async {
-    var id = await getSensorID();
-    if (id == null) {
+  Future<void> handleAddRegion(
+      {required String sID,
+      required String name,
+      required String varietValue,
+      required String date,
+      required String type}) async {
+    if (sID.isEmpty) {
       Get.back();
       Get.snackbar(
         "Title",
@@ -148,7 +204,7 @@ class AddRegionController extends GetxController {
           ),
         ),
         messageText: Text(
-          AppStrings.notFoundSensor,
+          "Sensör Bulunamadı",
           style: TextStyle(
             fontSize: 10.sp,
             fontFamily: "Rubik Regular",
@@ -157,11 +213,14 @@ class AddRegionController extends GetxController {
         ),
       );
     } else if (regionName.text.isNotEmpty &&
-        selectedDate.isNotEmpty &&
         variet.value.isNotEmpty &&
-        type.isNotEmpty) {
-      await addRegion();
-      await getSensorID();
+        variet.value != "Bitki Çeşidi") {
+      await addRegion(
+          sID: sID,
+          name: name,
+          varietValue: varietValue,
+          type: type,
+          date: selectedDate.value.isEmpty ? date : selectedDate.value);
       Get.defaultDialog(
         barrierDismissible: false,
         titlePadding: EdgeInsets.zero,
@@ -189,7 +248,7 @@ class AddRegionController extends GetxController {
               height: 1.h,
             ),
             Text(
-              AppStrings.successDialogTitle,
+              AppStrings.successDialogEditTitle,
               style: TextStyle(
                 fontFamily: "Rubik Bold",
                 fontSize: 12.sp,
@@ -199,7 +258,7 @@ class AddRegionController extends GetxController {
               height: 2.h,
             ),
             Text(
-              AppStrings.successDialogSubtitle,
+              AppStrings.successDialogEditSubtitle,
               style: TextStyle(
                 fontFamily: "Rubik Regular",
                 fontSize: 11.sp,
@@ -228,6 +287,7 @@ class AddRegionController extends GetxController {
         ),
       );
     } else {
+      print("Bura giriyormu");
       Get.back();
 
       Get.snackbar(
